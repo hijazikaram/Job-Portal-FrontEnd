@@ -1,0 +1,346 @@
+/* My Resume */
+
+.job-job-profile .favorites-user small {
+	text-transform: uppercase;
+	font-weight: 500;
+}
+
+.job-profile .user-pro-section .form-control {
+	width: 85%;
+}
+
+.job-profile .user-pro-section label {
+	width: 15%;
+	margin-top: 10px;
+}
+
+.job-profile .preferences-settings label {
+	width: 100%;
+}
+
+.preferences-settings .checkbox {
+	margin-bottom: 40px;
+}
+
+.preferences-settings .buttons {
+	float: none;
+}
+
+.preferences-settings a.btn {
+	margin-bottom: 0;
+}
+
+.profile-logo {
+	float: left;
+	margin-right: 35px;
+}
+
+.resume-content .profile.section {
+	padding: 25px;
+}
+
+.resume-content {
+	font-size: 14px;
+	line-height: 22px;
+	color: #2d3038;
+}
+
+.resume-content .profile-info h1 {
+	font-size: 30px;
+	color: #2a2a2a;
+}
+
+.resume-content .profile-info address,
+.resume-content .profile-info address a {
+	color: #2d3038;
+	font-size: 16px;
+	line-height: 28px;
+}
+
+.resume-content .icons {
+	color: #00a651;
+	font-size: 30px;
+	float: left;
+	margin-right: 30px;
+}
+
+.resume-content .career-info,
+.resume-content .declaration-info,
+.resume-content .work-info,
+.resume-content .educational-info,
+.resume-content .qualification,
+.resume-content .personal-info,
+.educational-info ul,
+.proficiency {
+	overflow: hidden;
+}
+
+.resume-content h3 {
+	margin-top: 5px;
+	margin-bottom: 35px;
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.resume-content .career-info span,
+.resume-content .declaration-info span {
+	margin-bottom: 25px;
+	display: block;
+}
+
+.work-history h4 {
+	font-size: 14px;
+	color: #2d3038;
+	font-weight: 700;
+	margin-bottom: 20px;
+}
+
+.work-history h4 span {
+	display: block;
+	font-weight: 400;
+	margin-top: 5px;
+	line-height: 22px;
+}
+
+.work-history ul li,
+.educational-info ul li {
+	margin-bottom: 55px;
+	position: relative;
+}
+
+.work-history ul li:last-child {
+	margin-bottom: 0;
+}
+
+.work-history ul li:after,
+.educational-info ul li:after {
+	position: absolute;
+	content: "";
+	bottom: -25px;
+	left: 0;
+	width: 85%;
+	height: 1px;
+	background-color: #f1f1f1;
+}
+
+.work-history ul li:last-child:after {
+	display: none;
+}
+
+.work-history ul li:last-child.history,
+.educational-info ul li:last-child {
+	margin-bottom: 0;
+}
+
+.educational-info h4 {
+	font-size: 14px;
+	font-weight: 700;
+	color: #2d3038;
+	margin-bottom: 5px;
+}
+
+.educational-info li ul {
+	margin-bottom: 20px;
+}
+
+.educational-info ul li {
+	position: relative;
+}
+
+.educational-info li ul li:after {
+	display: none;
+}
+
+.educational-info li ul li {
+	float: left;
+	font-weight: 500;
+	color: #2d3038;
+	margin-bottom: 0;
+}
+
+.educational-info li ul li span {
+	font-weight: 400;
+}
+
+.educational-info li ul li+li {
+	margin-left: 40px;
+}
+
+.qualification li {
+	font-size: 14px;
+	margin-bottom: 15px;
+}
+
+.qualification li span {
+	font-weight: 700;
+}
+
+.qualification li:last-child {
+	margin-bottom: 0;
+}
+
+.language-proficiency h5 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+
+.language-proficiency ul>li+li {
+    margin-left: 20px;
+    padding-left: 30px;
+    border-left: 1px solid #f1f1f1;
+}
+
+.language-proficiency ul li ul li {
+    float: left;
+    color: #bbb;
+}
+
+.language-proficiency ul li ul li+li {
+    margin-left: 5px;
+    border-left: 0;
+    padding-left: 0;
+}
+
+.personal-info .address li {
+    overflow: hidden;
+    line-height: 30px;
+    color: #2d3038;
+    font-size: 14px;
+}
+
+.personal-info .address li h5 {
+    float: left;
+    margin-top: 5px;
+    min-width: 180px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.personal-info .address li span {
+    margin-right: 30px;
+}
+
+.declaration {
+	margin-bottom: 45px;
+}
+
+.buttons {
+	float: left;
+}
+
+.download-button {
+	float: right;
+}
+
+.buttons a.btn {
+	margin-top: 0;
+}
+
+.job-postdetails .category-dropdown {
+	border: 1px solid #e3e3e3;
+	border-radius: 5px;
+}
+
+.job-postdetails .category-dropdown a {
+	display: block;
+}
+
+.job-postdetails .category-dropdown .pull-right {
+	margin-top: 15px;
+}
+
+.job-postdetails .dropdown-menu {
+	width: 100%;
+	padding: 10px 0;
+}
+
+.job-postdetails .location .category-dropdown {
+	width: 48%;
+}
+
+.job-postdetails .select-price input[type="text"] {
+	width: 25%;
+}
+
+.job-postdetails .characters {
+	margin-bottom: 30px;
+}
+
+.job-postdetails .agreement.checkbox label:before {
+	top: 0;
+}
+
+.job-user-account {
+	overflow: hidden;
+}
+
+.user-account .nav-tabs {
+	margin-bottom: 70px;
+	position: relative;
+	display: block;
+	border-bottom: 1px solid #e3e3e3;
+}
+
+.user-account .nav-tabs:after,
+.user-account .nav-tabs:before {
+	position: absolute;
+	content: "";
+	bottom: -1px;
+	width: 100%;
+	height: 1px;
+	background-color: #e3e3e3;
+}
+
+.user-account .nav-tabs:after {
+	left: -100%;
+}
+
+.user-account .nav-tabs:before {
+	right: -100%;
+}
+
+.user-account .nav-tabs>li {
+	display: inline-block;
+	float: none;
+}
+
+.user-account .nav-tabs>li a {
+	padding: 10px 35px;
+	color: #0a0a0a;
+	text-transform: uppercase;
+	font-weight: 500;
+	margin-right: 0;
+	border-radius: 0;
+	border-bottom: 1px solid #e3e3e3;
+	background-color: #f7f7f7;
+}
+
+.user-account .nav-tabs>li+li{
+	margin-left: -4px;
+}
+
+.user-account .nav-tabs>li.active>a,
+.user-account .nav-tabs>li.active>a:focus,
+.user-account .nav-tabs>li a:hover {
+	border: 1px solid #e3e3e3;
+	border-bottom: 1px solid #fff;
+	background-color: transparent;
+}
+
+.form-control::-webkit-input-placeholder {
+   color: #a0a0a0;
+}
+
+.form-control:-moz-placeholder { /* Firefox 18- */
+   color: #a0a0a0;
+}
+
+.form-control::-moz-placeholder {  /* Firefox 19+ */
+   color: #a0a0a0;
+}
+
+.form-control:-ms-input-placeholder {
+   color: #a0a0a0;
+}
