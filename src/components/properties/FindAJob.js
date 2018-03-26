@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import '../../css/SignUp.css';
@@ -25,6 +26,9 @@ class FindAJob extends Component {
       
       registerErrMsg: '',
       registerSuccess : false,
+      redirect : false,
+
+      user_id : ''
 		};
 
     this.no_errors = true;
@@ -55,12 +59,14 @@ class FindAJob extends Component {
   }
   onRegisterUser(e){
     e.preventDefault();
-
+    
     axios.post('http://localhost:5000/api/users', {name : this.state.name, email: this.state.email, password: this.state.password, phoneNumber: this.state.phoneNumber})
         .then(res => {
-          console.log(res);
           if(res.data.success){
             this.setState({ registerErrMsg : "Registered Successfully.", registerSuccess : true});
+
+            this.setState({ redirect: true , user_id : res.data.user._id});
+
           } else {
             this.setState({ registerErrMsg : res.data.error, registerSuccess : false});
           }
@@ -132,6 +138,11 @@ class FindAJob extends Component {
   }
 
   render() {
+
+    if(this.state.redirect) {
+      return <Redirect to={`/UserProfile?id=${this.state.user_id}`}/>
+    }
+
     var userNameChange = this.onUserNameChange.bind(this);
     var emailChange = this.onEmailChange.bind(this);
     var passwordChange = this.onPasswordChange.bind(this);
@@ -197,5 +208,6 @@ class FindAJob extends Component {
     );
   }
 }
+
 
 export default FindAJob;

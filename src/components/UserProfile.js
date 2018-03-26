@@ -17,7 +17,8 @@ class UserProfile extends Component {
       <div>
           <section className=" job-bg page  ad-profile-page">
             <div className="container">
-              <UserPageNavBar/>
+              <Route exact path={this.props.match.path} component={UserPageNavBar}/>
+              
               <Switch>
                 <Route exact path={this.props.match.path} component={Home}/>
                 <Route path={this.props.match.path + "/ViewResume"} component={ViewResume} />
