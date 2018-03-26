@@ -344,3 +344,35 @@
 .form-control:-ms-input-placeholder {
    color: #a0a0a0;
 }
+
+#find-job .panel.panel-default {
+	border-color: #fff;
+}
+
+#find-job .panel.panel-default .formErrors.has-errors {
+	border: 1px solid #a94442;
+	color: #a94442;
+}
+
+#find-job .panel.panel-default .formErrors p {
+	margin-bottom: 0;
+	padding: 8px 0;
+}
+
+#find-job .panel.panel-default .formErrors.has-errors .error {
+	padding: 8px 0;
+}
+
+#find-job .notification {
+	padding: 8px 0;
+}
+
+#find-job .notification.error {
+	border: 1px solid #a94442;
+    color: #a94442;
+}
+
+#find-job .notification.success {
+	border: 1px solid #00a651;
+    color: #00a651;
+}

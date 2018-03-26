@@ -15,14 +15,14 @@ class NavBar extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <a className="navbar-brand" href="index.html"><img className="img-responsive" src={logo} alt="Logo"/></a>
+              <a className="navbar-brand" href="/"><img className="img-responsive" src={logo} alt="Logo"/></a>
             </div>
 
             <div className="navbar-left">
               <div className="collapse navbar-collapse" id="navbar-collapse">
                 <ul className="nav navbar-nav">
                   <li className="active">
-                    <a href="index.html">Home</a>
+                    <a href="/">Home</a>
                   </li>
                   <li>
                     <a href="job-list.html">Job list</a>
