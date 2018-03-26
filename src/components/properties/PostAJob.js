@@ -35,7 +35,7 @@ class PostAJob extends Component {
     var passwordChange = this.onPasswordChange.bind(this);
     var confirmPasswordChange = this.onConfirmPasswordChange.bind(this);
     var institutionPhoneNumberChange = this.onInstitutionPhoneNumberChange.bind(this);
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div>
         <div role="tabpanel" className="tab-pane" id="post-job">
