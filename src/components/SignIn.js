@@ -71,7 +71,7 @@ class SignIn extends Component {
 
                 <form action="#">
                   <div className="form-group">
-                    <input type="text" className="form-control" placeholder="Email" onChange={emailInput}/>
+                    <input type="email" className="form-control" placeholder="Email" onChange={emailInput}/>
                   </div>
                   <div className="form-group">
                     <input type="password" className="form-control" placeholder="Password" onChange={passwordInput}/>
