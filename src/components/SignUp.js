@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import '../css/SignUp.css';
+
 import FindAJob from './properties/FindAJob';
 import PostAJob from './properties/PostAJob';
 import {Tabs, Tab} from 'react-bootstrap';
 
-
+import '../css/SignUp.css';
 
 class SignUp extends Component {
   constructor(props) {
 		super(props);
 		this.state = {
-
 		};
 	}
 
