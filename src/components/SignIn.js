@@ -1,24 +1,82 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+import FormErrors from './properties/FormErrors';
 import '../css/SignIn.css';
 
 class SignIn extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      notificationMsg : '',
+      loginValid: false,
+    };
+  }
+  componentWillMount() {
+    var id = localStorage.getItem('user_id');
+    if(id) {
+      window.location.href = '/UserProfile';
+    }
+  }
+  onLogin(e){
+    e.preventDefault();
+    var self = this;
+
+    axios.post('http://localhost:5000/api/user', this.state).then(function (response) {
+
+      if(response.data.success) {
+        // Correct credentials
+        self.setState({ notificationMsg : 'Login Successfully', loginValid : true });
+        setTimeout(function () {
+          localStorage.setItem('user_id', response.data.user._id);
+          window.location.href = '/UserProfile';
+        },1000);
+      } else {
+        self.setState({ notificationMsg : response.data.error, loginValid : false });
+      }
+    }, function (error) {
+      console.log(error);
+    })
+  }
+
+  onEmailInput(e) {
+    this.setState({ email : e.target.value });
+  }
+
+  onPasswordInput(e) {
+    this.setState({ password : e.target.value });
+  }
+
   render() {
+    var login = this.onLogin.bind(this);
+    var emailInput = this.onEmailInput.bind(this);
+    var passwordInput = this.onPasswordInput.bind(this);
+
+    var loginNotification = this.state.notificationMsg ? (
+      <div className='panel panel-default'>
+        <div className={`notification ${!this.state.loginValid ? 'error' : 'success'}`}>{ this.state.notificationMsg }
+        </div>
+      </div>) : (<div></div>);
+
     return (
       <div>
       <section className="clearfix job-bg user-page">
         <div className="container">
           <div className="row text-center">
-            <div className="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+            <div className="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3" id="login-page">
               <div className="user-account">
                 <h2>User Login</h2>
+
+                {loginNotification}
+
                 <form action="#">
                   <div className="form-group">
-                    <input type="text" className="form-control" placeholder="Username" />
+                    <input type="email" className="form-control" placeholder="Email" onChange={emailInput}/>
                   </div>
                   <div className="form-group">
-                    <input type="password" className="form-control" placeholder="Password" />
+                    <input type="password" className="form-control" placeholder="Password" onChange={passwordInput}/>
                   </div>
-                  <button type="submit" href="#" className="btn">Login</button>
+                  <button type="submit" className="btn" onClick={login}>Login</button>
                 </form>
 
 
@@ -31,7 +89,7 @@ class SignIn extends Component {
                   </div>
                 </div>
               </div>
-              <a href="#" className="btn-primary">Create a New Account</a>
+              <a href="/SignUp" className="btn-primary">Create a New Account</a>
             </div>
           </div>
         </div>

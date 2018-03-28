@@ -25,10 +25,7 @@ class FindAJob extends Component {
       checkedValid : false,
       
       registerErrMsg: '',
-      registerSuccess : false,
-      redirect : false,
-
-      user_id : ''
+      registerSuccess : false
 		};
 
     this.no_errors = true;
@@ -65,8 +62,11 @@ class FindAJob extends Component {
           if(res.data.success){
             this.setState({ registerErrMsg : "Registered Successfully.", registerSuccess : true});
 
-            this.setState({ redirect: true , user_id : res.data.user._id});
-
+            setTimeout(function () {
+              localStorage.setItem('user_id', res.data.user._id);
+              window.location.href = '/UserProfile';  
+            },1000);
+            
           } else {
             this.setState({ registerErrMsg : res.data.error, registerSuccess : false});
           }
@@ -138,10 +138,6 @@ class FindAJob extends Component {
   }
 
   render() {
-
-    if(this.state.redirect) {
-      return <Redirect to={`/UserProfile?id=${this.state.user_id}`}/>
-    }
 
     var userNameChange = this.onUserNameChange.bind(this);
     var emailChange = this.onEmailChange.bind(this);

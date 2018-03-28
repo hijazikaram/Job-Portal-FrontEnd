@@ -13,12 +13,21 @@ class UserHomePage extends Component {
       phoneNumber: ''
     };
 
-    this.id = this.props.location.search.split("?id=")[1];
+    this.id = localStorage.getItem('user_id');
+
     axios.get('http://localhost:5000/api/user/' + this.id).then(res => {
       var user = res.data.user;
       this.setState({ name : user.name, email : user.email, password : user.password ,phoneNumber : user.phoneNumber });
     });
   }
+
+  componentWillMount() {
+    var id = localStorage.getItem('user_id');
+    if(!id) {
+      window.location.href = '/SignIn';
+    }
+  }
+
   render() {
     
     return (
