@@ -78,10 +78,10 @@ class NavBar extends Component {
                   <i className="fa fa-user"></i>
                 </li>
                 <li>
-                  <a href="SignIn">Sign In</a>
+                  <a href="/SignIn">Sign In</a>
                 </li>
                 <li>
-                  <a href="SignUp">Register</a>
+                  <a href="/SignUp">Register</a>
                 </li>
               </ul>
 

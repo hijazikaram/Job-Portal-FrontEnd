@@ -3229,3 +3229,17 @@ input, select, a, .transition,
 .style-chooser-inner ul li.preset4 a {
   background: #662d91;
 }
+
+.notification {
+  padding: 8px;
+}
+
+.notification.error {
+  border: 1px solid #a94442;
+    color: #a94442;
+}
+
+.notification.success {
+  border: 1px solid #00a651;
+    color: #00a651;
+}

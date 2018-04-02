@@ -1,0 +1,16 @@
+.action-icon {
+  margin-right: 10px;
+}
+.notification {
+  padding: 8px;
+}
+
+.notification.error {
+  border: 1px solid #a94442;
+    color: #a94442;
+}
+
+.notification.success {
+  border: 1px solid #00a651;
+    color: #00a651;
+}
