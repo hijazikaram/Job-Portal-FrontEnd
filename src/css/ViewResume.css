@@ -1,6 +1,6 @@
-.resume-photo {
+.user-photo {
   width: 151px;
-  height: 181px;
+  height: 151px;
 }
 
 .no-resume {
@@ -13,4 +13,13 @@
   color: white;
   font-size: 18px;
   border-radius: 4px;
+}
+
+.download-resume-photo {
+  padding: 5px 25px 7px;
+  background-color: #0072bc;
+  font-weight: 400;
+  font-size: 14px;
+  color: #fff;
+  margin-left: 20px;
 }
