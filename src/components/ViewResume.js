@@ -46,6 +46,8 @@ class ViewResume extends Component {
           self.setState({ photoAvailable : true });
         }
         self.setState({ resumeAvailable: true });
+
+        console.log(self.state);
       } else {
         self.setState({ resumeAvailable: false });
       }
@@ -65,7 +67,7 @@ class ViewResume extends Component {
           <div className="container">
             <div className="breadcrumb-section">
               <ol className="breadcrumb">
-                <li><a href="/UserProfile">Home</a></li>
+                <li><Link to={"/UserProfile"}>Home</Link></li>
                 <li>Candidate Profile</li>
               </ol>           
               <h2 className="title">{this.state.express_yourself_full_name} Resume</h2>
@@ -160,11 +162,11 @@ class ViewResume extends Component {
                           <li key={key}>
                             <span>{language.name}</span>
                             <ul>
-                              <li><i className={`fa ${language.rating < 1.5 ? 'fa-star-o': 'fa-star'}  `} aria-hidden="true"></i></li>
-                              <li><i className={`fa ${language.rating < 2.5 ? 'fa-star-o': 'fa-star'}  `} aria-hidden="true"></i></li>
-                              <li><i className={`fa ${language.rating < 3.5 ? 'fa-star-o': 'fa-star'}  `} aria-hidden="true"></i></li>
-                              <li><i className={`fa ${language.rating < 4.5 ? 'fa-star-o': 'fa-star'}  `} aria-hidden="true"></i></li>
-                              <li><i className={`fa ${language.rating < 5.5 ? 'fa-star-o': 'fa-star'}  `} aria-hidden="true"></i></li>
+                              <li><i className={`fa ${language.rating >= 1 ? 'fa-star': 'fa-star-o'}  `} aria-hidden="true"></i></li>
+                              <li><i className={`fa ${language.rating >= 2 ? 'fa-star': 'fa-star-o'}  `} aria-hidden="true"></i></li>
+                              <li><i className={`fa ${language.rating >= 3 ? 'fa-star': 'fa-star-o'}  `} aria-hidden="true"></i></li>
+                              <li><i className={`fa ${language.rating >= 4 ? 'fa-star': 'fa-star-o'}  `} aria-hidden="true"></i></li>
+                              <li><i className={`fa ${language.rating >= 5 ? 'fa-star': 'fa-star-o'}  `} aria-hidden="true"></i></li>
                             </ul>
                           </li>
                         )
