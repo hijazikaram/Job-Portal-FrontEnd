@@ -153,7 +153,7 @@ input:focus, textarea:focus, select:focus, .form-control:focus {
 
 .title {
 	line-height: 34px;
-	color: #ffffff;
+	/*color: #ffffff;*/
 	font-family: 'Ubuntu', sans-serif;
 	font-weight: 700;
 }
@@ -855,7 +855,7 @@ a.verified i {
 
 .breadcrumb li,
 .breadcrumb li a {
-	color: #fff;
+	/*color: #fff;*/
 	font-weight: 300;
 }
 
