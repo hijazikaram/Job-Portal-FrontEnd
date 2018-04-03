@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {Switch, Route, Link} from "react-router-dom";
-import resumeIcon from '../img/resume.jpg';
 import axios from 'axios';
 
 import UserPageNavBar from './properties/UserPageNavBar';
+import resumeIcon from '../img/resume.jpg';
+import userIcon from '../img/user.jpg';
 import '../css/ViewResume.css';
 class ViewResume extends Component {
   constructor(props) {
@@ -46,8 +47,6 @@ class ViewResume extends Component {
           self.setState({ photoAvailable : true });
         }
         self.setState({ resumeAvailable: true });
-
-        console.log(self.state);
       } else {
         self.setState({ resumeAvailable: false });
       }
@@ -61,22 +60,14 @@ class ViewResume extends Component {
       window.location.href = '/SignIn';
     }
   }
+
   render() {
     var main_content = this.state.resumeAvailable ? (
-      <section className=" job-bg page  ad-profile-page">
           <div className="container">
-            <div className="breadcrumb-section">
-              <ol className="breadcrumb">
-                <li><Link to={"/UserProfile"}>Home</Link></li>
-                <li>Candidate Profile</li>
-              </ol>           
-              <h2 className="title">{this.state.express_yourself_full_name} Resume</h2>
-            </div>
-
             <div className="resume-content">
               <div className="profile section clearfix">
                 <div className="profile-logo">
-                  <img className="img-responsive resume-photo" src={this.state.photoAvailable ? this.state.express_yourself_photo_for_resume : resumeIcon} alt="Image" />
+                  <img className="img-responsive user-photo" src={userIcon} alt="Image" />
                 </div>
                 <div className="profile-info">
                   <h1>{this.state.express_yourself_full_name}</h1>
@@ -84,6 +75,20 @@ class ViewResume extends Component {
                     <p dangerouslySetInnerHTML={{__html: this.state.express_yourself_additional_information}}></p>
                   </address>
                 </div>          
+              </div>
+
+              <div className="photo-of-resume section">
+                <div className="icons">
+                  <i className="fa fa-image" aria-hidden="true"></i>
+                </div>
+                <div className="career-info">
+                  <h3>Photo of Resume</h3>
+                  <p>
+                    <a href={this.state.photoAvailable ? this.state.express_yourself_photo_for_resume : resumeIcon} download="resume_photo.jpg">
+                      <button className="btn download-resume-photo">Download Resume(The picture he saved)</button>
+                    </a>
+                  </p>
+                </div>                 
               </div>
 
               <div className="career-objective section">
@@ -206,12 +211,8 @@ class ViewResume extends Component {
               <div className="buttons">
                 <a href="#" className="btn">Send Email</a>
               </div>
-              <div className="download-button">
-                <a href="#" className="btn">Download Resume as doc</a>
-              </div>
             </div>
-          </div>
-        </section>) : (
+          </div>) : (
 
           <div className='no-resume'><Link to={"/UserProfile/EditResume"}>Please enter your information</Link></div>
         );
