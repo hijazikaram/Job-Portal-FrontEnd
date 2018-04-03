@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import {Switch, Route, Link} from "react-router-dom";
 import FileBase64 from 'react-file-base64';
 import axios from 'axios';
 
+import UserPageNavBar from './properties/UserPageNavBar';
 import '../css/EditUserResume.css';
 
 class EditUserResume extends Component {
@@ -32,28 +34,22 @@ class EditUserResume extends Component {
       updating : false,
 
       notificationMsg: '',
-      updateProfileValid : false
-    };
+      updateProfileValid : false,
 
-    this.education = {
-      institute_name: '',
-      degree: '',
-      time_start: '',
-      time_end: '',
-      description: ''
-    };
+      history_company_name : '',
+      history_designation : '',
+      history_time_start : '',
+      history_time_end : '',
+      history_job_description : '',
 
-    this.history = {
-      company_name: '',
-      designation: '',
-      time_start: '',
-      time_end: '',
-      job_description: ''
-    };
+      education_institute_name: '',
+      education_degree: '',
+      education_time_start: '',
+      education_time_end: '',
+      education_description: '',
 
-    this.language = {
-      name: '',
-      rating: ''
+      language_name: '',
+      language_rating: 0
     };
 
     this.user_id = localStorage.getItem('user_id');
@@ -92,33 +88,24 @@ class EditUserResume extends Component {
     this.setState({ characters_left : characters_left });
   }
 
-  onAddEducation(e) {
-
-    if(this.education.institute_name || this.education.degree || this.education.time_start || this.education.time_end || this.education.description) {
-      var educations = this.state.education_background;
-      educations.push(this.education);
-      this.setState({ education_background : educations });
-    }
-  }
-
   add_institute_name(e) {
-    this.education.institute_name = e.target.value;
+    this.setState({ education_institute_name : e.target.value });
   }
 
   add_degree(e) {
-    this.education.degree = e.target.value;
+    this.setState({ education_degree : e.target.value });
   }
 
   add_time_start(e) {
-    this.education.time_start = e.target.value;
+    this.setState({ education_time_start : e.target.value });
   }
 
   add_time_end(e) {
-    this.education.time_end = e.target.value;
+    this.setState({ education_time_end : e.target.value });
   }
 
   add_description(e) {
-    this.education.description = e.target.value;
+    this.setState({ education_description : e.target.value });
   }
 
   onSpecialQualificationChange(e) {
@@ -156,14 +143,95 @@ class EditUserResume extends Component {
   onGetFile(file) {
     this.setState({ express_yourself_photo_for_resume : file.base64 });
   }
+  
+  onAddCompanyNameChange(e) {
+    this.setState({history_company_name : e.target.value});
+  }
+  onAddDesignation(e) {
+    this.setState({history_designation : e.target.value});
+  }
+  onAddWorkHistoryTimeStartChange(e) {
+    this.setState({history_time_start : e.target.value});
+  }
+  onAddWorkHistoryTimeEndChange(e) {
+    this.setState({history_time_end : e.target.value});
+  }
+  onAddJobDescription(e) {
+    this.setState({history_job_description : e.target.value});
+  }
+
+  onAddLanguageName(e) {
+    this.setState({ language_name : e.target.value });
+  }
+
+  onAddRating(e) {
+    var id = e.target.id;
+    var rating = (11 - parseInt(id.split("star")[1])) * 0.5;
+
+    this.setState({ language_rating : rating });
+  }
+
+  onAddNewLanguage(e) {
+    if(this.state.language_name && this.state.language_rating) {
+      var language = this.state.language_proficiency;
+      
+      var new_language = {};
+      new_language.name = this.state.language_name;
+      new_language.rating = this.state.language_rating;
+
+      language.push(new_language);
+
+      this.setState({ language_proficiency: language });
+
+      this.setState({ language_name : '', language_rating : 0 });
+    }
+  }
+
+  onAddNewHistory(e) {
+    e.preventDefault();
+
+    if(this.state.history_company_name || this.state.history_designation || this.state.history_time_start || this.state.history_time_end || this.state.history_job_description) {
+      var history = this.state.work_history;
+      var newHistory = {};
+      newHistory.company_name = this.state.history_company_name;
+      newHistory.designation = this.state.history_designation;
+      newHistory.time_start = this.state.history_time_start;
+      newHistory.time_end = this.state.history_time_end;
+      newHistory.job_description = this.state.history_job_description;
+      history.push(newHistory);
+      this.setState({ work_history : history });
+
+      this.setState({ history_company_name : '', history_designation : '', history_time_start : '', history_time_end : '', history_job_description : ''});
+    }
+  }
+
+  onAddEducation(e) {
+    e.preventDefault();
+
+    if(this.state.education_institute_name || this.state.education_degree || this.state.education_time_start || this.state.education_time_end || this.state.education_description) {
+      var educations = this.state.education_background;
+      var new_education = {};
+      
+      new_education.institute_name = this.state.education_institute_name;
+      new_education.degree = this.state.education_degree;
+      new_education.time_start = this.state.education_time_start;
+      new_education.time_end = this.state.education_time_end;
+      new_education.description = this.state.education_description;
+
+      educations.push(new_education);
+      this.setState({ education_background : educations });
+
+      this.setState({ education_institute_name : '', education_degree : '', education_time_start : '', education_time_end : '', education_description : ''});
+    }
+  }
+
   onUpdateProfile(e){
     e.preventDefault();
 
     var self = this;
-
     self.state.user_id = self.user_id;
-
     self.setState({ updating : true });
+
     axios.post('http://localhost:5000/api/resume', self.state).then(function (response) {
       console.log(response);
       self.setState({ updating : false , notificationMsg : 'Updated Successfully', updateProfileValid : true });
@@ -171,55 +239,6 @@ class EditUserResume extends Component {
       console.log(error);
     });
   }
-
-  onAddCompanyNameChange(e) {
-    this.history.company_name = e.target.value;
-  }
-  onAddDesignation(e) {
-    this.history.designation = e.target.value; 
-  }
-  onAddWorkHistoryTimeStartChange(e) {
-    this.history.time_start = e.target.value;
-  }
-  onAddWorkHistoryTimeEndChange(e) {
-    this.history.time_end = e.target.value;
-  }
-  onAddJobDescription(e) {
-    this.history.job_description = e.target.value;
-  }
-
-  onAddNewHistory(e) {
-    e.preventDefault();
-
-    if(this.history.company_name || this.history.designation || this.history.time_start || this.history.time_end || this.history.job_description) {
-      var history = this.state.work_history;
-      history.push(this.history);
-
-      this.setState({ work_history : history });
-    }
-  }
-
-  onAddLanguageName(e) {
-    this.language.name = e.target.value;
-  }
-
-  onAddRating(e) {
-    var id = e.target.id;
-    var rating = (11 - parseInt(id.split("star")[1])) * 0.5;
-
-    this.language.rating = rating;
-  }
-
-  onAddNewLanguage(e) {
-    if(this.language.name && this.language.rating) {
-      var language = this.state.language_proficiency;
-      language.push(this.language);
-      this.language = {};
-
-      this.setState({ language_proficiency: language });
-    }
-  }
-
   render() {
     /* Adding Express Yourself Information */
     var expressYourselfFullNameChange = this.onExpressYourSelfFullNameChange.bind(this);
@@ -280,6 +299,8 @@ class EditUserResume extends Component {
 
     return (
       <div>
+        <Route exact path={this.props.match.path} component={UserPageNavBar}/>
+
         <div className="adpost-details post-resume">
           <div className="row">
             <div className="col-md-12 clearfix">
@@ -300,7 +321,7 @@ class EditUserResume extends Component {
                       </div>
                     </div>
                     <div className="row form-group photos-resume">
-                      <label className="col-sm-4 label-title">Photos for your Resume</label>
+                      <label className="col-sm-4 label-title">Photo of resume</label>
                       <div className="col-sm-8">
                         <div>
                           <label className="upload-image left">
@@ -362,31 +383,30 @@ class EditUserResume extends Component {
                     <div className="row form-group">
                       <label className="col-sm-3 label-title">Company Name</label>
                       <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="Name" onChange={addCompanyNameChange}/>
+                        <input type="text" name="name" className="form-control" placeholder="Name" value={this.state.history_company_name}  onChange={addCompanyNameChange}/>
                       </div>
                     </div>
                     <div className="row form-group">
                       <label className="col-sm-3 label-title">Designation</label>
                       <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="Human Resource Manager" onChange={addDesignation}/>
+                        <input type="text" name="name" className="form-control" placeholder="Human Resource Manager" onChange={addDesignation} value={this.state.history_designation}/>
                       </div>
                     </div>
                     <div className="row form-group time-period">
                       <label className="col-sm-3 label-title">Time Period</label>
                       <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="dd/mm/yy" onChange={addWorkHistoryTimeStartChange}/><span>-</span>
-                        <input type="text" name="name" className="form-control pull-right" placeholder="dd/mm/yy" onChange={addWorkHistoryTimeEndChange}/>
+                        <input type="text" name="name" className="form-control" placeholder="dd/mm/yy" onChange={addWorkHistoryTimeStartChange} value={this.state.history_time_start}/><span>-</span>
+                        <input type="text" name="name" className="form-control pull-right" placeholder="dd/mm/yy" onChange={addWorkHistoryTimeEndChange} value={this.state.history_time_end}/>
                       </div>
                     </div>
                     <div className="row form-group job-description">
                       <label className="col-sm-3 label-title">Job Description</label>
                       <div className="col-sm-9">
-                        <textarea className="form-control" placeholder="" rows="8" onChange={addJobDescription}></textarea>
+                        <textarea className="form-control" placeholder="" rows="8" onChange={addJobDescription} value={this.state.history_job_description}></textarea>
                       </div>
                     </div>
                     <div className="buttons pull-right">
                       <a href="javascript:void(0)" className="btn" onClick={addNewHistory}>Add New Exprience</a>
-                      <a href="#" className="btn delete">Delete</a>
                     </div>
                   </div>
 
@@ -422,31 +442,30 @@ class EditUserResume extends Component {
                     <div className="row form-group">
                       <label className="col-sm-3 label-title">Institute Name</label>
                       <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="ropbox" onChange={addInstituteName}/>
+                        <input type="text" name="name" className="form-control" placeholder="ropbox" onChange={addInstituteName} value={this.state.education_institute_name}/>
                       </div>
                     </div>
                     <div className="row form-group">
                       <label className="col-sm-3 label-title">Degree</label>
                       <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="Human Resource Manager" onChange={addDegree}/>
+                        <input type="text" name="name" className="form-control" placeholder="Human Resource Manager" value={this.state.education_degree} onChange={addDegree}/>
                       </div>
                     </div>
                     <div className="row form-group time-period">
                       <label className="col-sm-3 label-title">Time Period</label>
                       <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="dd/mm/yy" onChange={addStartDate}/><span>-</span>
-                        <input type="text" name="name" className="form-control pull-right" placeholder="dd/mm/yy" onChange={addEndDate}/>
+                        <input type="text" name="name" className="form-control" placeholder="dd/mm/yy" onChange={addStartDate} value={this.state.education_time_start}/><span>-</span>
+                        <input type="text" name="name" className="form-control pull-right" placeholder="dd/mm/yy" onChange={addEndDate} value={this.state.education_time_end}/>
                       </div>
                     </div>
                     <div className="row form-group job-description">
                       <label className="col-sm-3 label-title">Description</label>
                       <div className="col-sm-9">
-                        <textarea className="form-control" placeholder="" rows="8" onChange={addDescription}></textarea>
+                        <textarea className="form-control" placeholder="" rows="8" onChange={addDescription} value={this.state.education_description}></textarea>
                       </div>
                     </div>
                     <div className="buttons pull-right">
                       <a href="javascript:void(0)" className="btn" onClick={addEducation}>Add New Education</a>
-                      <a href="#" className="btn delete">Delete</a>
                     </div>
                   </div>
 
@@ -479,7 +498,7 @@ class EditUserResume extends Component {
                     <div className="row form-group">
                       <label className="col-sm-3 label-title">Language Name</label>
                       <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="English" onChange={addLanguageName}/>
+                        <input type="text" name="name" className="form-control" placeholder="English" onChange={addLanguageName} value={this.state.language_name}/>
                       </div>
                     </div>
                     <div className="row form-group rating">
@@ -487,32 +506,31 @@ class EditUserResume extends Component {
                       <div className="col-sm-9">
                         <div className="rating-star">
                             <div className="rating">
-                                <input type="radio" id="star1" name="rating" onChange={addRating}/><label className="full" htmlFor="star1"></label>
+                                <input type="radio" id="star1" name="rating" onChange={addRating} checked={this.state.language_rating === 5}/><label className="full" htmlFor="star1"></label>
 
-                                <input type="radio" id="star2" name="rating" onChange={addRating}/><label className="half" htmlFor="star2"></label>
+                                <input type="radio" id="star2" name="rating" onChange={addRating} checked={this.state.language_rating === 4.5}/><label className="half" htmlFor="star2"></label>
 
-                                <input type="radio" id="star3" name="rating" onChange={addRating}/><label className="full" htmlFor="star3"></label>
+                                <input type="radio" id="star3" name="rating" onChange={addRating} checked={this.state.language_rating === 4}/><label className="full" htmlFor="star3"></label>
 
-                                <input type="radio" id="star4" name="rating" onChange={addRating}/><label className="half" htmlFor="star4"></label>
+                                <input type="radio" id="star4" name="rating" onChange={addRating} checked={this.state.language_rating === 3.5}/><label className="half" htmlFor="star4"></label>
 
-                                <input type="radio" id="star5" name="rating" onChange={addRating}/><label className="full" htmlFor="star5"></label>
+                                <input type="radio" id="star5" name="rating" onChange={addRating} checked={this.state.language_rating === 3}/><label className="full" htmlFor="star5"></label>
 
-                                <input type="radio" id="star6" name="rating" onChange={addRating}/><label className="half" htmlFor="star6"></label>
+                                <input type="radio" id="star6" name="rating" onChange={addRating} checked={this.state.language_rating === 2.5}/><label className="half" htmlFor="star6"></label>
 
-                                <input type="radio" id="star7" name="rating" onChange={addRating}/><label className="full" htmlFor="star7"></label>
+                                <input type="radio" id="star7" name="rating" onChange={addRating} checked={this.state.language_rating === 2}/><label className="full" htmlFor="star7"></label>
 
-                                <input type="radio" id="star8" name="rating" onChange={addRating}/><label className="half" htmlFor="star8"></label>
+                                <input type="radio" id="star8" name="rating" onChange={addRating} checked={this.state.language_rating === 1.5}/><label className="half" htmlFor="star8"></label>
 
-                                <input type="radio" id="star9" name="rating" onChange={addRating}/><label className="full" htmlFor="star9"></label>
+                                <input type="radio" id="star9" name="rating" onChange={addRating} checked={this.state.language_rating === 1}/><label className="full" htmlFor="star9"></label>
 
-                                <input type="radio" id="star10" name="rating" onChange={addRating}/><label className="half" htmlFor="star10"></label>
+                                <input type="radio" id="star10" name="rating" onChange={addRating} checked={this.state.language_rating === 0.5} /><label className="half" htmlFor="star10"></label>
                             </div>
                         </div>
                       </div>
                     </div>
                     <div className="buttons pull-right">
                       <a href="javascript:void(0)" className="btn" onClick={addNewLanguage}>Add New Language</a>
-                      <a href="#" className="btn delete">Delete</a>
                     </div>
                   </div>
 
