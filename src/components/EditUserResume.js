@@ -61,9 +61,10 @@ class EditUserResume extends Component {
     var self = this;
     axios.get("http://localhost:5000/api/resume/" + this.user_id).then(function (response) {
       var resume = response.data.resume;
-
-      for(var key in self.state) {
-        self.setState({ [key] : resume[key] });
+      if(resume) {
+        for(var key in self.state) {
+          self.setState({ [key] : resume[key] });
+        }
       }
     }, function (error) {
       console.log(error);
