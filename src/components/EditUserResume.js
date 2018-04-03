@@ -317,7 +317,7 @@ class EditUserResume extends Component {
                     <div className="row form-group additional-information">
                       <label className="col-sm-4 label-title">Additional Information</label>
                       <div className="col-sm-8">
-                        <textarea className="form-control" placeholder="Address: 123 West 12th Street, Suite 456 New York, NY 123456\n Phone: +012 345 678 910 \n Email: itsme@surzilegeek.com*" onChange={expressYourselfAdditionInformationChange} value={this.state.express_yourself_additional_information}></textarea>
+                        <textarea className="form-control" placeholder="Address: 123 West 12th Street, Suite 456 New York, NY 123456<br/>Phone: +012 345 678 910 <br/>Email: itsme@surzilegeek.com*" onChange={expressYourselfAdditionInformationChange} value={this.state.express_yourself_additional_information}></textarea>
                       </div>
                     </div>
                     <div className="row form-group photos-resume">
