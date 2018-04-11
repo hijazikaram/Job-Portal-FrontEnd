@@ -30,24 +30,27 @@ class FindAJob extends Component {
     this.no_errors = true;
 	}
   onUserNameChange(e) {
-    var value = e.target.value
+    var value = e.target.value;
     this.setState({ name: e.target.value },() => { this.validateField('name', value)});
   }
   onEmailChange(e) {
-    var value = e.target.value
+    var value = e.target.value;
     this.setState({ email: e.target.value },() => { this.validateField('email', value)});
   }
   onPasswordChange(e) {
-    var value = e.target.value
+    var value = e.target.value;
     this.setState({ password: e.target.value },() => { this.validateField('password', value)});
   }
   onConfirmPasswordChange(e) {
-    var value = e.target.value
+    var value = e.target.value;
     this.setState({ confirmPassword: e.target.value },() => { this.validateField('confirmPassword', value)});
   }
   onUserPhoneNumberChange(e) {
-    var value = e.target.value
-    this.setState({ phoneNumber: e.target.value },() => { this.validateField('userPhoneNumber', value)});
+    var value = e.target.value;
+    const re = /^[0-9\b]+$/;
+    if (e.target.value == '' || re.test(e.target.value)) {
+      this.setState({ phoneNumber: e.target.value },() => { this.validateField('userPhoneNumber', value)});
+    }
   }
   onAgreeTermsAndCondition(e) {
     var value = e.target.checked;
@@ -191,7 +194,7 @@ class FindAJob extends Component {
               <input type="password" className="form-control" placeholder="Confirm Password" onChange={confirmPasswordChange}/>
             </div>
             <div className="form-group">
-              <input type="text" className="form-control" placeholder="Mobile Number" onChange={userPhoneNumberChange}/>
+              <input type="text" className="form-control" placeholder="Mobile Number" onChange={userPhoneNumberChange} value={this.state.phoneNumber}/>
             </div>
             <div className="checkbox">
               <label className={`pull-left ${this.state.checked ? 'checked' : ''}`} htmlFor="signing"><input type="checkbox" name="signing" id="signing" onChange={agreeTermsAndCondition} /> By signing up for an account you agree to our Terms and Conditions </label>

@@ -45,8 +45,11 @@ class PostAJob extends Component {
     this.setState({ confirmPassword: e.target.value },() => { this.validateField('confirmPassword', value)});
   }
   onInstitutionPhoneNumberChange(e) {
-    var value = e.target.value
-    this.setState({ institutionPhoneNumber: e.target.value },() => { this.validateField('institutionPhoneNumber', value)});
+    var value = e.target.value;
+    const re = /^[0-9\b]+$/;
+    if (e.target.value == '' || re.test(e.target.value)) {
+       this.setState({ institutionPhoneNumber: e.target.value },() => { this.validateField('institutionPhoneNumber', value)});
+    }
   }
 
   onAgreeTermsAndCondition(e) {
@@ -182,7 +185,7 @@ class PostAJob extends Component {
             <input type="password" className="form-control" placeholder="Confirm Password" onChange={confirmPasswordChange}/>
           </div>
           <div className="form-group">
-            <input type="text" className="form-control" placeholder="Contact Number" onChange={institutionPhoneNumberChange}/>
+            <input type="text" className="form-control" placeholder="Contact Number" onChange={institutionPhoneNumberChange} value={this.state.institutionPhoneNumber}/>
           </div>
           <div className="checkbox">
             <label className={`pull-left ${this.state.checked ? 'checked' : ''}`} htmlFor="signing-2"><input type="checkbox" name="signing-2" id="signing-2" onChange={agreeTermsAndCondition} /> By signing up for an account you agree to our Terms and Conditions </label>
