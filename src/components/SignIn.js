@@ -14,15 +14,21 @@ class SignIn extends Component {
   }
   componentWillMount() {
     var id = localStorage.getItem('user_id');
-    if(id) {
+    var user_type = localStorage.getItem('user_type');
+    if(id && !user_type) {
       window.location.href = '/UserProfile';
+    }
+
+    if(id && user_type) {
+      window.location.href = '/InstitutionProfile';
     }
   }
   onLogin(e){
     e.preventDefault();
     var self = this;
 
-    axios.post('http://localhost:5000/api/user', this.state).then(function (response) {
+    /* Check if it's a normal user */
+    axios.post('http://localhost:5000/api/user', self.state).then(function (response) {
 
       if(response.data.success) {
         // Correct credentials
@@ -32,7 +38,24 @@ class SignIn extends Component {
           window.location.href = '/UserProfile';
         },1000);
       } else {
-        self.setState({ notificationMsg : response.data.error, loginValid : false });
+
+        /* Check if it's an institution account */
+        axios.post('http://localhost:5000/api/institution', self.state).then(function (response) {
+
+          if(response.data.success) {
+            // Correct credentials
+            self.setState({ notificationMsg : 'Login Successfully', loginValid : true });
+            setTimeout(function () {
+              localStorage.setItem('user_id', response.data.institution._id);
+              localStorage.setItem('user_type', 'institution');
+              window.location.href = '/InstitutionProfile';
+            },1000);
+          } else {           
+            self.setState({ notificationMsg : response.data.error, loginValid : false });
+          }
+        }, function (error) {
+          console.log(error);
+        });
       }
     }, function (error) {
       console.log(error);

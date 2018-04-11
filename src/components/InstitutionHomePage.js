@@ -2,6 +2,18 @@ import React, { Component } from 'react';
 import userImg from '../img/user.jpg';
 
 class UserHomePage extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillMount() {
+    var id = localStorage.getItem('user_id');
+    var user_type = localStorage.getItem('user_type');
+    
+    if(!id || !user_type) {
+      window.location.href = '/SignIn';
+    }
+  }
   render() {
     console.log("render");
     return (
