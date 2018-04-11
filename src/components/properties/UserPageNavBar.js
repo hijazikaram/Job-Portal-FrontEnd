@@ -19,6 +19,7 @@ class UserPageNavBar extends Component {
 
   onLogOut(e) {
     localStorage.removeItem('user_id');
+    localStorage.removeItem('user_type');
   }
 
   render() {

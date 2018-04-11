@@ -3,7 +3,12 @@ import userIcon from '../../img/user.jpg';
 import {Link} from "react-router-dom";
 
 class UserPageNavBar extends Component {
+  onLogOut(e) {
+    localStorage.removeItem('user_id');
+  }
   render() {
+    var logout = this.onLogOut.bind(this);
+
     return (
       <div>
       <div className="job-profile section">
@@ -31,6 +36,7 @@ class UserPageNavBar extends Component {
           <li><Link to={"/InstitutionProfile/PostAJob"}>Post Your Job</Link></li>
           <li><Link to={"/InstitutionProfile/PostedJobs"}>Posted Jobs</Link></li>
           <li><Link to={"/InstitutionProfile/DeleteMyProfile"}>Close account</Link></li>
+          <li><Link to={"/SignIn"} onClick={logout}>Logout</Link></li>
         </ul>
       </div>
       </div>

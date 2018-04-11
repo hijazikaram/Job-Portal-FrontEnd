@@ -376,3 +376,35 @@
 	border: 1px solid #00a651;
     color: #00a651;
 }
+
+#post-job .panel.panel-default {
+  border-color: #fff;
+}
+
+#post-job .panel.panel-default .formErrors.has-errors {
+  border: 1px solid #a94442;
+  color: #a94442;
+}
+
+#post-job .panel.panel-default .formErrors p {
+  margin-bottom: 0;
+  padding: 8px 0;
+}
+
+#post-job .panel.panel-default .formErrors.has-errors .error {
+  padding: 8px 0;
+}
+
+#post-job .notification {
+  padding: 8px 0;
+}
+
+#post-job .notification.error {
+  border: 1px solid #a94442;
+    color: #a94442;
+}
+
+#post-job .notification.success {
+  border: 1px solid #00a651;
+    color: #00a651;
+}
