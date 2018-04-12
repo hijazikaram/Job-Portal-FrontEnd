@@ -11,7 +11,6 @@ class UserHomePage extends Component {
       email : '',
       phoneNumber: '',
       address: '',
-      type: '',
       comments_enable : false,
       receive_newsletter: false,
       receive_advice: false,
@@ -37,12 +36,6 @@ class UserHomePage extends Component {
         this.setState({ address : '' });
       } else {
         this.setState({ address : institution.address });
-      }
-
-      if(!institution.type) {
-        this.setState({ type : '' });
-      } else {
-        this.setState({ type : institution.type });
       }
     });
   }
@@ -71,10 +64,6 @@ class UserHomePage extends Component {
     this.setState({ address : e.target.value });
   }
 
-  onTypeChange(e){
-    this.setState({ type : e.target.value });
-  }
-
   onUpdateProfile(e) {
     e.preventDefault();
     var self = this;
@@ -90,9 +79,11 @@ class UserHomePage extends Component {
         } else {
           self.setState({ notificationMsg: '' , updateProfileValid : false, oldPassword : self.oldPassword, newPassword : self.newPassword }, () => {
             axios.put('http://localhost:5000/api/institution/' + self.id , self.state).then(function (response) {
-              console.log(response);
               if(!response.data.error) {
                 self.setState({ notificationMsg: 'Updated Successfully.' , updateProfileValid : true });
+                setTimeout(function () {
+                  window.location.reload(true);  
+                },300);
               } else {
                 self.setState({ notificationMsg: response.data.error , updateProfileValid : false });
               }
@@ -107,6 +98,9 @@ class UserHomePage extends Component {
         console.log(response);
         if(!response.data.error) {
           self.setState({ notificationMsg: 'Updated Successfully.' , updateProfileValid : true });
+          setTimeout(function () {
+            window.location.reload(true);  
+          },300);
         }
       }, function (error) {
         console.log(error);
@@ -142,7 +136,6 @@ class UserHomePage extends Component {
     var emailChange = this.onEmailChange.bind(this);
     var phoneNumberChange = this.onPhoneNumberChange.bind(this);
     var addressChange = this.onAddressChange.bind(this);
-    var typeChange = this.onTypeChange.bind(this);
 
     var oldPasswordInput = this.onOldPasswordInput.bind(this);
     var newPasswordChange = this.onNewPasswordChange.bind(this);
@@ -202,14 +195,6 @@ class UserHomePage extends Component {
     								</select>
     							</div>
 
-    							<div className="form-group">
-    								<label>You are a</label>
-    								<select className="form-control" value={this.state.type} onChange={typeChange}>
-                      <option value="">Select the type</option>
-    									<option value="Employer">Employer</option>
-    									<option value="Employee">Employee</option>
-    								</select>
-    							</div>
     						</form>
     					</div>
     					<div className="change-password section">
