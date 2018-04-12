@@ -5,6 +5,9 @@ import axios from 'axios';
 class UserHomePage extends Component {
   constructor(props) {
     super(props);
+    this.temp = {
+
+    };
 
     this.state = {
       name : '',
@@ -37,6 +40,16 @@ class UserHomePage extends Component {
       } else {
         this.setState({ address : institution.address });
       }
+
+      this.temp = this.state;
+
+      this.nameChanged = false;
+      this.emailChanged = false;
+      this.mobileChanged = false;
+      this.addressChanged = false;
+      this.commentsEnableChanged = false;
+      this.receiveNewsletterChanged = false;
+      this.receiveAdviceChanged = false;
     });
   }
 
@@ -50,18 +63,43 @@ class UserHomePage extends Component {
   }
   onUserNameChange(e) {
     this.setState({ name : e.target.value });
+    if(this.temp.name != e.target.value) {
+      this.nameChanged = true;
+    } else {
+      this.nameChanged = false;
+    }
+    this.forceUpdate();
   }
 
   onEmailChange(e) {
     this.setState({ email : e.target.value });
+
+    if(this.temp.email != e.target.value) {
+      this.emailChanged = true;
+    } else {
+      this.emailChanged = false;
+    }
+    this.forceUpdate();
   }
 
   onPhoneNumberChange(e) {
     this.setState({ phoneNumber : e.target.value });
+    if(this.temp.phoneNumber != e.target.value) {
+      this.mobileChanged = true;
+    } else {
+      this.mobileChanged = false;
+    }
+    this.forceUpdate();
   }
 
   onAddressChange(e) {
     this.setState({ address : e.target.value });
+    if(this.temp.address != e.target.value) {
+      this.addressChanged = true;
+    } else {
+      this.addressChanged = false;
+    }
+    this.forceUpdate();
   }
 
   onUpdateProfile(e) {
@@ -110,14 +148,32 @@ class UserHomePage extends Component {
 
   onUpdateCommentsEnable(e) {
     this.setState({ comments_enable : e.target.checked });
+    if(this.temp.comments_enable != e.target.checked) {
+      this.commentsEnableChanged = true;
+    } else {
+      this.commentsEnableChanged = false;
+    }
+    this.forceUpdate();
   }
 
   onUpdateReceiveNewsletter(e) {
     this.setState({ receive_newsletter : e.target.checked });
+    if(this.temp.receive_newsletter != e.target.checked) {
+      this.receiveNewsletterChanged = true;
+    } else {
+      this.receiveNewsletterChanged = false;
+    }
+    this.forceUpdate();
   }
 
   onUpdateReceiveAdvice(e) {
     this.setState({ receive_advice : e.target.checked });
+    if(this.temp.receive_advice != e.target.checked) {
+      this.receiveAdviceChanged = true;
+    } else {
+      this.receiveAdviceChanged = false;
+    }
+    this.forceUpdate();
   }
 
   onOldPasswordInput(e) {
@@ -234,7 +290,7 @@ class UserHomePage extends Component {
                 </div>
 
                 <div className="buttons">
-                  <a href="javascript:void(0)" className="btn" onClick={updateProfile}>Update Profile</a>
+                  <a href="javascript:void(0)" className="btn" onClick={updateProfile} disabled = {!this.nameChanged && !this.emailChanged && !this.mobileChanged && !this.addressChanged && !this.commentsEnableChanged && !this.receiveNewsletterChanged && !this.receiveAdviceChanged }>Update Profile</a>
                   <a href="#" className="btn cancle">Cancel</a>
                 </div>
               </div>
