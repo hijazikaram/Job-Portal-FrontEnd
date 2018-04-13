@@ -1,6 +1,311 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+import '../css/PostAJob.css';
+
 class InstitutionPostAJob extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      job_category : '',
+      job_type: '',
+      job_title: '',
+      job_description : '',
+      location_country: '',
+      location_state: '',
+      salary_min: '',
+      salary_max: '',
+      salary_negotiable: '',
+      application_deadline: '',
+      experience: '',
+      job_function: '',
+
+      company_industry: '',
+      company_name:'',
+      company_email:'',
+      company_mobile: '',
+      company_address:'',
+
+      post_premium: '',
+
+      agree_terms: false,
+
+      characters_left : 5000,
+
+      jobTypeExist : false,
+      jobTitleExist : false,
+      jobDescriptionExist : false,
+      salaryMinExist : false,
+      salaryMaxExist : false,
+      salaryNegotiableExist : false,
+      locationCountryExist : false,
+      locationStateExist : false,
+      applicationDeadlineExist: false,
+      jobFunctionExist : false,
+
+      companyIndustryExist : false,
+      companyNameExist : false,
+      companyEmailExist : false,
+      companyMobileExist : false,
+      companyAddressExist : false,
+
+      errorMsg: ['sample'],
+      postValid: true,
+
+      postedSuccessfully : false,
+      postResultMsg : ''
+    }
+  }
+
+  onChangeJobCategory(e) {
+    this.setState({ job_category : e.target.value });
+  }
+
+  onChangeJobType(e) {
+    if(e.target.value != ''){
+      this.setState({ jobTypeExist : true });
+    } else {
+      this.setState({ jobTypeExist : false });
+    }
+    this.setState({ job_type : e.target.value });
+  }
+
+  onChangeJobTitle(e) {
+    if(e.target.value != ''){
+      this.setState({ jobTitleExist : true });
+    } else {
+      this.setState({ jobTitleExist : false });
+    }
+    this.setState({ job_title : e.target.value });
+  }
+
+  onChangeJobDescription(e) {
+    if(e.target.value != ''){
+      this.setState({ jobDescriptionExist : true });
+    } else {
+      this.setState({ jobDescriptionExist : false });
+    }
+    this.setState({ job_description : e.target.value });
+    this.setState({ characters_left : (5000 - e.target.value.length ) });
+  }
+
+  onChangeLocationCountry(e) {
+    if(e.target.value != ''){
+      this.setState({ locationCountryExist : true });
+    } else {
+      this.setState({ locationCountryExist : false });
+    }
+    this.setState({ location_country : e.target.value });
+  }
+
+  onChangeLocationState(e) {
+    if(e.target.value != ''){
+      this.setState({ locationStateExist : true });
+    } else {
+      this.setState({ locationStateExist : false });
+    }
+    this.setState({ location_state : e.target.value });
+  }
+
+  onChangeSalaryMin(e) {
+    if(e.target.value != ''){
+      this.setState({ salaryMinExist : true });
+    } else {
+      this.setState({ salaryMinExist : false });
+    }
+    this.setState({ salary_min : e.target.value });
+  }
+
+  onChangeSalaryMax(e) {
+    if(e.target.value != ''){
+      this.setState({ salaryMaxExist : true });
+    } else {
+      this.setState({ salaryMaxExist : false });
+    }
+    this.setState({ salary_max : e.target.value });
+  }
+
+  onChangeSalaryNegotiable(e) {
+    if(e.target.value != ''){
+      this.setState({ salaryNegotiableExist : true });
+    } else {
+      this.setState({ salaryNegotiableExist : false });
+    }
+    this.setState({ salary_negotiable : e.target.value });
+  }
+  
+  onChangeApplicationDeadline(e) {
+    if(e.target.value != ''){
+      this.setState({ applicationDeadlineExist : true });
+    } else {
+      this.setState({ applicationDeadlineExist : false });
+    }
+    this.setState({ application_deadline : e.target.value });
+  }
+
+  onChangeExperience(e) {
+    this.setState({ experience : e.target.value });
+  }
+
+  onChangeJobFunction(e) {
+    if(e.target.value != ''){
+      this.setState({ jobFunctionExist : true });
+    } else {
+      this.setState({ jobFunctionExist : false });
+    }
+    this.setState({ job_function : e.target.value });
+  }
+
+  onChangeCompanyIndustry(e) {
+    if(e.target.value != ''){
+      this.setState({ companyIndustryExist : true });
+    } else {
+      this.setState({ companyIndustryExist : false });
+    }
+    this.setState({ company_industry : e.target.value });
+  }
+
+  onChangeCompanyName(e) {
+    if(e.target.value != ''){
+      this.setState({ companyNameExist : true });
+    } else {
+      this.setState({ companyNameExist : false });
+    }
+    this.setState({ company_name : e.target.value });
+  }
+
+  onChangeCompanyEmail(e) {
+    if(e.target.value != ''){
+      this.setState({ companyEmailExist : true });
+    } else {
+      this.setState({ companyEmailExist : false });
+    }
+    this.setState({ company_email : e.target.value });
+  }
+
+  onChangeCompanyMobile(e) {
+    if(e.target.value != ''){
+      this.setState({ companyMobileExist : true });
+    } else {
+      this.setState({ companyMobileExist : false });
+    }
+    var value = e.target.value;
+    const re = /^[0-9\b]+$/;
+    if (e.target.value == '' || re.test(e.target.value)) {
+       this.setState({ company_mobile: e.target.value });
+    }
+  }
+
+  onChangeCompanyAddress(e) {
+    if(e.target.value != ''){
+      this.setState({ companyAddressExist : true });
+    } else {
+      this.setState({ companyAddressExist : false });
+    }
+    this.setState({ company_address : e.target.value });
+  }
+
+  onChangePostPremium(e) {
+    this.setState({ post_premium : e.target.value });
+  }
+
+  onAgreeTermsAndCondition(e) {
+    var value = e.target.checked;
+    this.setState({ agree_terms : value });
+  }
+
+  postJob(e) {
+    e.preventDefault();
+
+    var error_msg = this.state.errorMsg;
+    error_msg = [];
+
+    if(!this.state.jobTypeExist) {
+      error_msg.push("Job Type");
+    }
+    if(!this.state.jobTitleExist) {
+      error_msg.push("Job Title");
+    }
+    if(!this.state.jobDescriptionExist) {
+      error_msg.push("Job Description");
+    }
+    if(!this.state.locationCountryExist) {
+      error_msg.push("Location Country");
+    }
+    if(!this.state.locationStateExist) {
+      error_msg.push("Location State");
+    }
+    if(!this.state.salaryMinExist) {
+      if(!this.state.salaryNegotiableExist) {
+        error_msg.push("Salary Min");  
+      }
+    }
+    if(!this.state.salaryMaxExist) {
+      if(!this.state.salaryNegotiableExist) {
+        error_msg.push("Salary Max");
+      }
+    }
+    if(!this.state.applicationDeadlineExist) {
+      error_msg.push("Application Deadline");
+    }
+    if(!this.state.jobFunctionExist) {
+      error_msg.push("Job Function");
+    }
+    if(!this.state.companyIndustryExist) {
+      error_msg.push("Company Industry");
+    }
+    if(!this.state.companyNameExist) {
+      error_msg.push("Company Name");
+    }
+    if(!this.state.companyEmailExist) {
+      error_msg.push("Company Email");
+    }
+    if(!this.state.companyMobileExist) {
+      error_msg.push("Company Mobile");
+    }
+    if(!this.state.companyAddressExist) {
+      error_msg.push("Company Address");
+    }
+
+    var self = this;
+    self.setState({ errorMsg : error_msg }, () => {
+      if(self.state.errorMsg.length > 0 ) {
+        self.setState({ postValid : false });
+        return false;
+      } else {
+        self.setState({ postValid : true });
+        axios.post("http://localhost:5000/api/jobs", self.state).then(function (response) {
+          if(response.data.success) {
+            self.setState({ postedSuccessfully : true , postResultMsg : 'Posted Successfully' });
+          } else {
+            self.setState({ postedSuccessfully : false , postResultMsg : 'Error Occured.' });
+          }
+        }, function (error) {
+          console.log(error);
+          self.setState({ postedSuccessfully : false , postResultMsg : 'Error Occured.' });
+        });
+      }
+    });
+  }
+
   render() {
+    var notification = !this.state.postValid ? (
+      <div className='panel panel-default'>
+        <ul className="notification error">
+        {  
+          this.state.errorMsg.map(function (msg , index) {
+            return <li key={index}>{msg} is required</li>
+          })
+        }
+        </ul>
+      </div>) : (<div></div>);
+
+    var postNotification = this.state.postResultMsg ? (
+      <div className='panel panel-default'>
+        <div className={`notification ${!this.state.postedSuccessfully ? 'error' : 'success'}`}>{ this.state.postResultMsg }
+        </div>
+      </div>) : (<div></div>);
+
     return (
       <div>
         <div className="job-postdetails">
@@ -15,12 +320,12 @@ class InstitutionPostAJob extends Component {
                       <div className="col-sm-9">
                         <div className="dropdown">
                           <div className="form-group">
-                            <select className="form-control">
-                              <option>Select a category</option>
-                              <option>Software Engineer</option>
-                              <option>Program Development</option>
-                              <option>Project Manager</option>
-                              <option>Graphics Designer</option>
+                            <select className="form-control" onChange={this.onChangeJobCategory.bind(this)}>
+                              <option value=''>Select a category</option>
+                              <option value='software_engineer'>Software Engineer</option>
+                              <option value='program_development'>Program Development</option>
+                              <option value='project_manager'>Project Manager</option>
+                              <option value='graphic_designer'>Graphics Designer</option>
                             </select>
                           </div>
                         </div>
@@ -29,27 +334,27 @@ class InstitutionPostAJob extends Component {
                     <div className="row form-group">
                       <label className="col-sm-3">Job Type<span className="required">*</span></label>
                       <div className="col-sm-9 user-type">
-                        <input type="radio" name="sellType" value="full-time" id="full-time"/> <label for="full-time">Full Time</label>
-                        <input type="radio" name="sellType" value="part-time" id="part-time"/> <label for="part-time">Part Time</label>
-                        <input type="radio" name="sellType" value="freelance" id="freelance"/> <label for="freelance">Freelance</label>
-                        <input type="radio" name="sellType" value="contract" id="contract"/> <label for="contract">Contract</label>
+                        <input type="radio" name="sellType" value="full-time" id="full-time" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="full-time">Full Time</label>
+                        <input type="radio" name="sellType" value="part-time" id="part-time" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="part-time">Part Time</label>
+                        <input type="radio" name="sellType" value="freelance" id="freelance" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="freelance">Freelance</label>
+                        <input type="radio" name="sellType" value="contract" id="contract" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="contract">Contract</label>
                       </div>
                     </div>
                     <div className="row form-group">
-                      <label className="col-sm-3 label-title">Title for your jonb<span className="required">*</span></label>
+                      <label className="col-sm-3 label-title">Title for your job<span className="required">*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" className="form-control" placeholder="ex, Human Resource Manager"/>
+                        <input type="text" className="form-control" placeholder="ex, Human Resource Manager" onChange={this.onChangeJobTitle.bind(this)}/>
                       </div>
                     </div>
                     <div className="row form-group item-description">
                       <label className="col-sm-3 label-title">Description<span className="required">*</span></label>
                       <div className="col-sm-9">
-                        <textarea className="form-control" id="textarea" placeholder="Write few lines about your jobs" rows="8"></textarea>
+                        <textarea className="form-control" id="textarea" placeholder="Write few lines about your jobs" rows="8" onChange={this.onChangeJobDescription.bind(this)}></textarea>
                       </div>
                     </div>
                     <div className="row characters">
                       <div className="col-sm-9 col-sm-offset-3">
-                        <p>5000 characters left</p>
+                        <p>{this.state.characters_left} characters left</p>
                       </div>
                     </div>
                     <div className="row form-group add-title location">
@@ -59,23 +364,23 @@ class InstitutionPostAJob extends Component {
                         <div className="row">
                           <div className="dropdown pull-left col-sm-6 col-xs-12">
                             <div className="form-group">
-                              <select className="form-control">
-                                <option>Country</option>
-                                <option>Software Engineer</option>
-                                <option>Program Development</option>
-                                <option>Project Manager</option>
-                                <option>Graphics Designer</option>
+                              <select className="form-control" onChange={this.onChangeLocationCountry.bind(this)}>
+                                <option value=''>Country</option>
+                                <option value='US'>US</option>
+                                <option value='Canada'>Canada</option>
+                                <option value='Australia'>Australia</option>
+                                <option value='Germany'>Germany</option>
                               </select>
                             </div>
                           </div>
                           <div className="dropdown pull-right col-sm-6 col-xs-12">
                             <div className="form-group">
-                              <select className="form-control">
-                                <option>State</option>
-                                <option>Software Engineer</option>
-                                <option>Program Development</option>
-                                <option>Project Manager</option>
-                                <option>Graphics Designer</option>
+                              <select className="form-control" onChange={this.onChangeLocationState.bind(this)}>
+                                <option value=''>State</option>
+                                <option value='CA'>California</option>
+                                <option value='TX'>Texas</option>
+                                <option value='ON'>Ontario</option>
+                                <option value='Berlin'>Berlin</option>
                               </select>
                             </div>
                           </div>
@@ -86,27 +391,17 @@ class InstitutionPostAJob extends Component {
                       <label className="col-sm-3 label-title">Salary<span className="required">*</span></label>
                       <div className="col-sm-9">
                         <label>$USD</label>
-                        <input type="text" className="form-control" placeholder="Min"/>
+                        <input type="text" className="form-control" placeholder="Min" onChange={this.onChangeSalaryMin.bind(this)}/>
                         <span>-</span>
-                        <input type="text" className="form-control" placeholder="Max"/>
-                        <input type="radio" name="price" value="negotiable" id="negotiable"/>
-                        <label for="negotiable">Negotiable </label>
+                        <input type="text" className="form-control" placeholder="Max" onChange={this.onChangeSalaryMax.bind(this)}/>
+                        <input type="radio" name="price" value="negotiable" id="negotiable" onChange={this.onChangeSalaryNegotiable.bind(this)}/>
+                        <label htmlFor="negotiable">Negotiable </label>
                       </div>
                     </div>
-                    <div className="row form-group add-title">
-                      <label className="col-sm-3 label-title">Salary Type<span className="required">*</span></label>
+                    <div className="row form-group">
+                      <label className="col-sm-3 label-title">Application Deadline<span className="required">*</span></label>
                       <div className="col-sm-9">
-                        <div className="dropdown">
-                          <div className="form-group">
-                            <select className="form-control">
-                              <option>State</option>
-                              <option>Software Engineer</option>
-                              <option>Program Development</option>
-                              <option>Project Manager</option>
-                              <option>Graphics Designer</option>
-                            </select>
-                          </div>
-                        </div>
+                        <input type="text" className="form-control" placeholder="ex, 08-12-2018" onChange={this.onChangeApplicationDeadline.bind(this)}/>
                       </div>
                     </div>
                     <div className="row form-group add-title">
@@ -114,11 +409,11 @@ class InstitutionPostAJob extends Component {
                       <div className="col-sm-9">
                         <div className="dropdown">
                           <div className="form-group">
-                            <select className="form-control">
-                              <option>Entry Level</option>
-                              <option>Mid Level</option>
-                              <option>Mid-Senior Level</option>
-                              <option>Top Level</option>
+                            <select className="form-control" onChange={this.onChangeExperience.bind(this)}>
+                              <option value='entry'>Entry Level</option>
+                              <option value='mid'>Mid Level</option>
+                              <option value='mid-senior'>Mid-Senior Level</option>
+                              <option value='top'>Top Level</option>
                             </select>
                           </div>
                         </div>
@@ -127,7 +422,7 @@ class InstitutionPostAJob extends Component {
                     <div className="row form-group brand-name">
                       <label className="col-sm-3 label-title">Job Function<span className="required">*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" className="form-control" placeholder="human, reosurce, job, hrm"/>
+                        <input type="text" className="form-control" placeholder="human, reosurce, job, hrm" onChange={this.onChangeJobFunction.bind(this)}/>
                       </div>
                     </div>
                   </div>
@@ -137,31 +432,31 @@ class InstitutionPostAJob extends Component {
                     <div className="row form-group">
                       <label className="col-sm-3 label-title">Industry<span className="required">*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="Marketing and Advertising"/>
+                        <input type="text" name="name" className="form-control" placeholder="Marketing and Advertising" onChange={this.onChangeCompanyIndustry.bind(this)}/>
                       </div>
                     </div>
                     <div className="row form-group">
                       <label className="col-sm-3 label-title">Company Name<span className="required">*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="ex, Jhon Doe"/>
+                        <input type="text" name="name" className="form-control" placeholder="ex, Jhon Doe" onChange={this.onChangeCompanyName.bind(this)}/>
                       </div>
                     </div>
                     <div className="row form-group">
                       <label className="col-sm-3 label-title">Email ID</label>
                       <div className="col-sm-9">
-                        <input type="email" name="email" className="form-control" placeholder="ex, jhondoe@mail.com"/>
+                        <input type="email" name="email" className="form-control" placeholder="ex, jhondoe@mail.com" onChange={this.onChangeCompanyEmail.bind(this)}/>
                       </div>
                     </div>
                     <div className="row form-group">
                       <label className="col-sm-3 label-title">Mobile Number<span className="required">*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" name="mobileNumber" className="form-control" placeholder="ex, +912457895"/>
+                        <input type="text" name="mobileNumber" className="form-control" placeholder="ex, +912457895" onChange={this.onChangeCompanyMobile.bind(this)} value={this.state.company_mobile}/>
                       </div>
                     </div>
                     <div className="row form-group address">
                       <label className="col-sm-3 label-title">Address<span className="required">*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" name="address" className="form-control" placeholder="ex, alekdera House, coprotec, usa"/>
+                        <input type="text" name="address" className="form-control" placeholder="ex, alekdera House, coprotec, usa" onChange={this.onChangeCompanyAddress.bind(this)}/>
                       </div>
                     </div>
                   </div>
@@ -171,34 +466,38 @@ class InstitutionPostAJob extends Component {
                     <p>More replies means more interested buyers. With lots of interested buyers, you have a better chance of selling for the price that you want.<a href="#">Learn more</a></p>
                     <ul className="premium-options">
                       <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-one" id="day-one"/>
-                        <label for="day-one">Regular Post</label>
+                        <input type="radio" name="premiumOption" value="day-one" id="day-one" onChange={this.onChangePostPremium.bind(this)}/>
+                        <label htmlFor="day-one">Regular Post</label>
                         <span>$20.00</span>
                       </li>
                       <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-two" id="day-two"/>
-                        <label for="day-two">Regular Post</label>
+                        <input type="radio" name="premiumOption" value="day-two" id="day-two" onChange={this.onChangePostPremium.bind(this)}/>
+                        <label htmlFor="day-two">Regular Post</label>
                         <span>$30.00</span>
                       </li>
                       <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-three" id="day-three"/>
-                        <label for="day-three">Top Post for 7 days</label>
+                        <input type="radio" name="premiumOption" value="day-three" id="day-three" onChange={this.onChangePostPremium.bind(this)}/>
+                        <label htmlFor="day-three">Top Post for 7 days</label>
                         <span>$50.00</span>
                       </li>
                       <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-four" id="day-four"/>
-                        <label for="day-four">Daily Bump Up for 7 days</label>
+                        <input type="radio" name="premiumOption" value="day-four" id="day-four" onChange={this.onChangePostPremium.bind(this)}/>
+                        <label htmlFor="day-four">Daily Bump Up for 7 days</label>
                         <span>$100.00</span>
                       </li>
                     </ul>
                   </div>
 
+                  { notification }
+
+                  { postNotification }
+
                   <div className="checkbox section agreement">
-                    <label for="send">
-                      <input type="checkbox" name="send" id="send"/>
+                    <label className={`pull-left ${this.state.agree_terms ? 'checked' : ''}`} htmlFor="signing-2"><input type="checkbox" name="signing-2" id="signing-2" onChange={this.onAgreeTermsAndCondition.bind(this)} />
                       You agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a> and acknowledge that you are the rightful owner of this item and using Jobs to find a genuine buyer.
                     </label>
-                    <button type="submit" className="btn btn-primary">Post Your Job</button>
+
+                    <button type="submit" className="btn btn-primary" onClick={this.postJob.bind(this)} disabled={!this.state.agree_terms}>Post Your Job</button>
                   </div>
 
                 </fieldset>
