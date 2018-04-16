@@ -138,7 +138,7 @@ class ViewJob extends Component {
                             <li><span className="icon"><i className="fa fa-bolt" aria-hidden="true"></i></span>Posted: 1 day ago</li>
                             <li><span className="icon"><i className="fa fa-user-plus" aria-hidden="true"></i></span> Job poster: <a href="#">Lance Ladaga</a></li>
                             <li><span className="icon"><i className="fa fa-industry" aria-hidden="true"></i></span>Industry: <a href="#">{ this.state.job.company_industry }</a></li>
-                            <li><span className="icon"><i className="fa fa-line-chart" aria-hidden="true"></i></span>Experience: <a href="#">{ this.state.job.company_industry }</a></li>
+                            <li><span className="icon"><i className="fa fa-line-chart" aria-hidden="true"></i></span>Experience: <a href="#">{ this.state.job.experience }</a></li>
                             <li><span className="icon"><i className="fa fa-key" aria-hidden="true"></i></span>Job function: { this.state.job.job_function }</li>
                           </ul>
                         </div>
