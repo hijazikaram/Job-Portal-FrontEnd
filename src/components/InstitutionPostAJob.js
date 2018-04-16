@@ -7,6 +7,8 @@ class InstitutionPostAJob extends Component {
   constructor(props){
     super(props);
     this.state = {
+      institution_id: '',
+
       job_category : '',
       job_type: '',
       job_title: '',
@@ -54,6 +56,19 @@ class InstitutionPostAJob extends Component {
 
       postedSuccessfully : false,
       postResultMsg : ''
+    }
+  }
+
+  componentWillMount() {
+    var id = localStorage.getItem('user_id');
+    var user_type = localStorage.getItem('user_type');
+    
+    if(!id || !user_type) {
+      window.location.href = '/SignIn';
+    }
+
+    if(id && user_type) {
+      this.setState({ institution_id : id });
     }
   }
 
@@ -126,12 +141,12 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeSalaryNegotiable(e) {
+    this.setState({ salary_negotiable : e.target.value });
     if(e.target.value != ''){
       this.setState({ salaryNegotiableExist : true });
     } else {
       this.setState({ salaryNegotiableExist : false });
     }
-    this.setState({ salary_negotiable : e.target.value });
   }
   
   onChangeApplicationDeadline(e) {
@@ -277,6 +292,9 @@ class InstitutionPostAJob extends Component {
         axios.post("http://localhost:5000/api/jobs", self.state).then(function (response) {
           if(response.data.success) {
             self.setState({ postedSuccessfully : true , postResultMsg : 'Posted Successfully' });
+            setTimeout(function () {
+              window.location.href = '/InstitutionProfile/PostedJobs';
+            },500);
           } else {
             self.setState({ postedSuccessfully : false , postResultMsg : 'Error Occured.' });
           }
@@ -322,10 +340,10 @@ class InstitutionPostAJob extends Component {
                           <div className="form-group">
                             <select className="form-control" onChange={this.onChangeJobCategory.bind(this)}>
                               <option value=''>Select a category</option>
-                              <option value='software_engineer'>Software Engineer</option>
-                              <option value='program_development'>Program Development</option>
-                              <option value='project_manager'>Project Manager</option>
-                              <option value='graphic_designer'>Graphics Designer</option>
+                              <option value='Software Engineer'>Software Engineer</option>
+                              <option value='Program Development'>Program Development</option>
+                              <option value='Project Manager'>Project Manager</option>
+                              <option value='Graphics Designer'>Graphics Designer</option>
                             </select>
                           </div>
                         </div>
@@ -334,10 +352,10 @@ class InstitutionPostAJob extends Component {
                     <div className="row form-group">
                       <label className="col-sm-3">Job Type<span className="required">*</span></label>
                       <div className="col-sm-9 user-type">
-                        <input type="radio" name="sellType" value="full-time" id="full-time" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="full-time">Full Time</label>
-                        <input type="radio" name="sellType" value="part-time" id="part-time" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="part-time">Part Time</label>
-                        <input type="radio" name="sellType" value="freelance" id="freelance" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="freelance">Freelance</label>
-                        <input type="radio" name="sellType" value="contract" id="contract" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="contract">Contract</label>
+                        <input type="radio" name="sellType" value="Full Time" id="full-time" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="full-time">Full Time</label>
+                        <input type="radio" name="sellType" value="Part Time" id="part-time" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="part-time">Part Time</label>
+                        <input type="radio" name="sellType" value="Freelance" id="freelance" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="freelance">Freelance</label>
+                        <input type="radio" name="sellType" value="Contract" id="contract" onChange={this.onChangeJobType.bind(this)}/> <label htmlFor="contract">Contract</label>
                       </div>
                     </div>
                     <div className="row form-group">
@@ -410,10 +428,10 @@ class InstitutionPostAJob extends Component {
                         <div className="dropdown">
                           <div className="form-group">
                             <select className="form-control" onChange={this.onChangeExperience.bind(this)}>
-                              <option value='entry'>Entry Level</option>
-                              <option value='mid'>Mid Level</option>
-                              <option value='mid-senior'>Mid-Senior Level</option>
-                              <option value='top'>Top Level</option>
+                              <option value='Entry Level'>Entry Level</option>
+                              <option value='Mid Level'>Mid Level</option>
+                              <option value='Mid-Senior Level'>Mid-Senior Level</option>
+                              <option value='Top Level'>Top Level</option>
                             </select>
                           </div>
                         </div>

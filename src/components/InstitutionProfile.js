@@ -15,7 +15,7 @@ class UserProfile extends Component {
   render() {
     return (
       <div>
-          <section className=" job-bg page  ad-profile-page">
+          <section className="job-bg ad-profile-page">
             <div className="container">
               <InstitutionPageNavBar/>
               <Switch>

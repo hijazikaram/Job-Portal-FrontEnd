@@ -6,6 +6,7 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import UserProfile from "./components/UserProfile";
 import InstitutionProfile from "./components/InstitutionProfile";
+import ViewJob from "./components/ViewJob";
 import configureStore from "./store/configure-store";
 const store = configureStore();
 
@@ -17,6 +18,7 @@ const BasicExample = () => (<Router>
     <Route path="/SignUp" component={SignUp}/>
     <Route path="/UserProfile" component={UserProfile}/>
     <Route path="/InstitutionProfile" component={InstitutionProfile}/>
+    <Route path="/InstitutionProfile/Job/:job_id" component={ViewJob}/>
   </div>
 </Router>);
 export default BasicExample;

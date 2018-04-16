@@ -128,7 +128,7 @@ section {
   min-width: 100%;
   position: relative;
   width: 100%;
-  padding: 50px 0;
+  padding: 50px 0 0 0;
 }
 
 a:active,
@@ -869,6 +869,7 @@ a.verified i {
 	font-weight: 400;
 	font-size: 36px;
 	margin-bottom: 14px;
+  color: #fff;
 }
 
 .job-list-item {
