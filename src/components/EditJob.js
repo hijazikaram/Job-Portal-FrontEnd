@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import FileBase64 from 'react-file-base64';
 
 import '../css/PostAJob.css';
 
@@ -91,8 +92,6 @@ class EditJob extends Component {
 
         this.setState({ characters_left : (5000 - job.job_description.length) });
         this.setState({ job_id : job._id });
-
-        console.log(this.state);
       }
     }, (error) => {
       console.log(error)
@@ -105,6 +104,12 @@ class EditJob extends Component {
     
     if(!id || !user_type) {
       window.location.href = '/SignIn';
+    }
+  }
+
+  getFile(file){
+    if(file.base64) {
+      this.setState({ company_logo : file.base64 });
     }
   }
 
@@ -357,214 +362,228 @@ class EditJob extends Component {
 
     return (
       <div>
-        <div className="job-postdetails">
-          <div className="row">
-            <div className="col-md-8">
-              <form action="#">
-                <fieldset>
-                  <div className="section postdetails">
-                    <h4>Edit Your Job</h4>
-                    <div className="row form-group add-title">
-                      <label className="col-sm-3 label-title">Job Category</label>
-                      <div className="col-sm-9">
-                        <div className="dropdown">
-                          <div className="form-group">
-                            <select className="form-control" onChange={this.onChangeJobCategory.bind(this)} value={this.state.job_category}>
-                              <option value=''>Select a category</option>
-                              <option value='Software Engineer'>Software Engineer</option>
-                              <option value='Program Development'>Program Development</option>
-                              <option value='Project Manager'>Project Manager</option>
-                              <option value='Graphics Designer'>Graphics Designer</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3">Job Type<span className="required">*</span></label>
-                      <div className="col-sm-9 user-type">
-                        <input type="radio" name="sellType" value="Full Time" id="full-time" onChange={this.onChangeJobType.bind(this)} checked={this.state.job_type == "Full Time"} /> <label htmlFor="full-time">Full Time</label>
-                        <input type="radio" name="sellType" value="Part Time" id="part-time" onChange={this.onChangeJobType.bind(this)} checked={this.state.job_type == "Part Time"} /> <label htmlFor="part-time">Part Time</label>
-                        <input type="radio" name="sellType" value="Freelance" id="freelance" onChange={this.onChangeJobType.bind(this)} checked={this.state.job_type == "Freelance"} /> <label htmlFor="freelance">Freelance</label>
-                        <input type="radio" name="sellType" value="Contract" id="contract" onChange={this.onChangeJobType.bind(this)} checked={this.state.job_type == "Contract"} /> <label htmlFor="contract">Contract</label>
-                      </div>
-                    </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Title for your job<span className="required">*</span></label>
-                      <div className="col-sm-9">
-                        <input type="text" className="form-control" placeholder="ex, Human Resource Manager" onChange={this.onChangeJobTitle.bind(this)} value={this.state.job_title}/>
-                      </div>
-                    </div>
-                    <div className="row form-group item-description">
-                      <label className="col-sm-3 label-title">Description<span className="required">*</span></label>
-                      <div className="col-sm-9">
-                        <textarea className="form-control" id="textarea" placeholder="Write few lines about your jobs" rows="8" onChange={this.onChangeJobDescription.bind(this)} value={this.state.job_description}></textarea>
-                      </div>
-                    </div>
-                    <div className="row characters">
-                      <div className="col-sm-9 col-sm-offset-3">
-                        <p>{this.state.characters_left} characters left</p>
-                      </div>
-                    </div>
-                    <div className="row form-group add-title location">
-                      <label className="col-sm-3 label-title">Location<span className="required">*</span></label>
-
-                      <div className="col-sm-9">
-                        <div className="row">
-                          <div className="dropdown pull-left col-sm-6 col-xs-12">
+        <div className="container">
+          <div className="job-postdetails">
+            <div className="row">
+              <div className="col-md-8">
+                <form action="#">
+                  <fieldset>
+                    <div className="section postdetails">
+                      <h4>Edit Your Job</h4>
+                      <div className="row form-group add-title">
+                        <label className="col-sm-3 label-title">Job Category</label>
+                        <div className="col-sm-9">
+                          <div className="dropdown">
                             <div className="form-group">
-                              <select className="form-control" value={this.state.location_country} onChange={this.onChangeLocationCountry.bind(this)}>
-                                <option value=''>Country</option>
-                                <option value='US'>US</option>
-                                <option value='Canada'>Canada</option>
-                                <option value='Australia'>Australia</option>
-                                <option value='Germany'>Germany</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div className="dropdown pull-right col-sm-6 col-xs-12">
-                            <div className="form-group">
-                              <select className="form-control" value={this.state.location_state} onChange={this.onChangeLocationState.bind(this)}>
-                                <option value=''>State</option>
-                                <option value='CA'>California</option>
-                                <option value='TX'>Texas</option>
-                                <option value='ON'>Ontario</option>
-                                <option value='Berlin'>Berlin</option>
+                              <select className="form-control" onChange={this.onChangeJobCategory.bind(this)} value={this.state.job_category}>
+                                <option value=''>Select a category</option>
+                                <option value='Software Engineer'>Software Engineer</option>
+                                <option value='Program Development'>Program Development</option>
+                                <option value='Project Manager'>Project Manager</option>
+                                <option value='Graphics Designer'>Graphics Designer</option>
                               </select>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="row form-group select-price">
-                      <label className="col-sm-3 label-title">Salary<span className="required">*</span></label>
-                      <div className="col-sm-9">
-                        <label>$USD</label>
-                        <input type="text" className="form-control" placeholder="Min" value={this.state.salary_min} onChange={this.onChangeSalaryMin.bind(this)}/>
-                        <span>-</span>
-                        <input type="text" className="form-control" placeholder="Max" onChange={this.onChangeSalaryMax.bind(this)} value={this.state.salary_max}/>
-                        <input type="radio" name="price" value="negotiable" id="negotiable" onChange={this.onChangeSalaryNegotiable.bind(this)} checked={this.state.salary_negotiable == 'negotiable'}/>
-                        <label htmlFor="negotiable">Negotiable </label>
+                      <div className="row form-group">
+                        <label className="col-sm-3">Job Type<span className="required">*</span></label>
+                        <div className="col-sm-9 user-type">
+                          <input type="radio" name="sellType" value="Full Time" id="full-time" onChange={this.onChangeJobType.bind(this)} checked={this.state.job_type == "Full Time"} /> <label htmlFor="full-time">Full Time</label>
+                          <input type="radio" name="sellType" value="Part Time" id="part-time" onChange={this.onChangeJobType.bind(this)} checked={this.state.job_type == "Part Time"} /> <label htmlFor="part-time">Part Time</label>
+                          <input type="radio" name="sellType" value="Freelance" id="freelance" onChange={this.onChangeJobType.bind(this)} checked={this.state.job_type == "Freelance"} /> <label htmlFor="freelance">Freelance</label>
+                          <input type="radio" name="sellType" value="Contract" id="contract" onChange={this.onChangeJobType.bind(this)} checked={this.state.job_type == "Contract"} /> <label htmlFor="contract">Contract</label>
+                        </div>
                       </div>
-                    </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Application Deadline<span className="required">*</span></label>
-                      <div className="col-sm-9">
-                        <input type="text" className="form-control" placeholder="ex, 08-12-2018" onChange={this.onChangeApplicationDeadline.bind(this)} value={this.state.application_deadline}/>
+                      <div className="row form-group">
+                        <label className="col-sm-3 label-title">Title for your job<span className="required">*</span></label>
+                        <div className="col-sm-9">
+                          <input type="text" className="form-control" placeholder="ex, Human Resource Manager" onChange={this.onChangeJobTitle.bind(this)} value={this.state.job_title}/>
+                        </div>
                       </div>
-                    </div>
-                    <div className="row form-group add-title">
-                      <label className="col-sm-3 label-title">Exprience<span className="required">*</span></label>
-                      <div className="col-sm-9">
-                        <div className="dropdown">
-                          <div className="form-group">
-                            <select className="form-control" value={this.state.experience} onChange={this.onChangeExperience.bind(this)}>
-                              <option value='Entry Level'>Entry Level</option>
-                              <option value='Mid Level'>Mid Level</option>
-                              <option value='Mid-Senior Level'>Mid-Senior Level</option>
-                              <option value='Top Level'>Top Level</option>
-                            </select>
+                      <div className="row form-group item-description">
+                        <label className="col-sm-3 label-title">Description<span className="required">*</span></label>
+                        <div className="col-sm-9">
+                          <textarea className="form-control" id="textarea" placeholder="Write few lines about your jobs" rows="8" onChange={this.onChangeJobDescription.bind(this)} value={this.state.job_description}></textarea>
+                        </div>
+                      </div>
+                      <div className="row characters">
+                        <div className="col-sm-9 col-sm-offset-3">
+                          <p>{this.state.characters_left} characters left</p>
+                        </div>
+                      </div>
+                      <div className="row form-group add-title location">
+                        <label className="col-sm-3 label-title">Location<span className="required">*</span></label>
+
+                        <div className="col-sm-9">
+                          <div className="row">
+                            <div className="dropdown pull-left col-sm-6 col-xs-12">
+                              <div className="form-group">
+                                <select className="form-control" value={this.state.location_country} onChange={this.onChangeLocationCountry.bind(this)}>
+                                  <option value=''>Country</option>
+                                  <option value='US'>US</option>
+                                  <option value='Canada'>Canada</option>
+                                  <option value='Australia'>Australia</option>
+                                  <option value='Germany'>Germany</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="dropdown pull-right col-sm-6 col-xs-12">
+                              <div className="form-group">
+                                <select className="form-control" value={this.state.location_state} onChange={this.onChangeLocationState.bind(this)}>
+                                  <option value=''>State</option>
+                                  <option value='CA'>California</option>
+                                  <option value='TX'>Texas</option>
+                                  <option value='ON'>Ontario</option>
+                                  <option value='Berlin'>Berlin</option>
+                                </select>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="row form-group brand-name">
-                      <label className="col-sm-3 label-title">Job Function<span className="required">*</span></label>
-                      <div className="col-sm-9">
-                        <input type="text" className="form-control" placeholder="human, reosurce, job, hrm" onChange={this.onChangeJobFunction.bind(this)} value={this.state.job_function} />
+                      <div className="row form-group select-price">
+                        <label className="col-sm-3 label-title">Salary<span className="required">*</span></label>
+                        <div className="col-sm-9">
+                          <label>$USD</label>
+                          <input type="text" className="form-control" placeholder="Min" value={this.state.salary_min} onChange={this.onChangeSalaryMin.bind(this)}/>
+                          <span>-</span>
+                          <input type="text" className="form-control" placeholder="Max" onChange={this.onChangeSalaryMax.bind(this)} value={this.state.salary_max}/>
+                          <input type="radio" name="price" value="negotiable" id="negotiable" onChange={this.onChangeSalaryNegotiable.bind(this)} checked={this.state.salary_negotiable == 'negotiable'}/>
+                          <label htmlFor="negotiable">Negotiable </label>
+                        </div>
+                      </div>
+                      <div className="row form-group">
+                        <label className="col-sm-3 label-title">Application Deadline<span className="required">*</span></label>
+                        <div className="col-sm-9">
+                          <input type="text" className="form-control" placeholder="ex, 08-12-2018" onChange={this.onChangeApplicationDeadline.bind(this)} value={this.state.application_deadline}/>
+                        </div>
+                      </div>
+                      <div className="row form-group add-title">
+                        <label className="col-sm-3 label-title">Exprience<span className="required">*</span></label>
+                        <div className="col-sm-9">
+                          <div className="dropdown">
+                            <div className="form-group">
+                              <select className="form-control" value={this.state.experience} onChange={this.onChangeExperience.bind(this)}>
+                                <option value='Entry Level'>Entry Level</option>
+                                <option value='Mid Level'>Mid Level</option>
+                                <option value='Mid-Senior Level'>Mid-Senior Level</option>
+                                <option value='Top Level'>Top Level</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row form-group brand-name">
+                        <label className="col-sm-3 label-title">Job Function<span className="required">*</span></label>
+                        <div className="col-sm-9">
+                          <input type="text" className="form-control" placeholder="human, reosurce, job, hrm" onChange={this.onChangeJobFunction.bind(this)} value={this.state.job_function} />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="section company-information">
-                    <h4>Company Information</h4>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Industry<span className="required">*</span></label>
-                      <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="Marketing and Advertising" onChange={this.onChangeCompanyIndustry.bind(this)} value={this.state.company_industry} />
+                    <div className="section company-information">
+                      <h4>Company Information</h4>
+                      <div className="row form-group">
+                        <label className="upload-image caption">Max 20MB</label>
+                        <label className="upload-image">
+                          <FileBase64 onDone={ this.getFile.bind(this) }/>
+                          Upload Photo
+                        </label>
+                        { this.state.company_logo ? (
+                          <img className="company-logo" src={this.state.company_logo} />
+                        ) : (
+                          <div></div>
+                        )}
+                      </div>
+                      <div className="row form-group">
+                        <label className="col-sm-3 label-title">Industry<span className="required">*</span></label>
+                        <div className="col-sm-9">
+                          <input type="text" name="name" className="form-control" placeholder="Marketing and Advertising" onChange={this.onChangeCompanyIndustry.bind(this)} value={this.state.company_industry} />
+                        </div>
+                      </div>
+                      <div className="row form-group">
+                        <label className="col-sm-3 label-title">Company Name<span className="required">*</span></label>
+                        <div className="col-sm-9">
+                          <input type="text" name="name" className="form-control" placeholder="ex, Jhon Doe" onChange={this.onChangeCompanyName.bind(this)} value={this.state.company_name} />
+                        </div>
+                      </div>
+                      <div className="row form-group">
+                        <label className="col-sm-3 label-title">Email ID</label>
+                        <div className="col-sm-9">
+                          <input type="email" name="email" className="form-control" placeholder="ex, jhondoe@mail.com" onChange={this.onChangeCompanyEmail.bind(this)} value={this.state.company_email} />
+                        </div>
+                      </div>
+                      <div className="row form-group">
+                        <label className="col-sm-3 label-title">Mobile Number<span className="required">*</span></label>
+                        <div className="col-sm-9">
+                          <input type="text" name="mobileNumber" className="form-control" placeholder="ex, +912457895" onChange={this.onChangeCompanyMobile.bind(this)} value={this.state.company_mobile}/>
+                        </div>
+                      </div>
+                      <div className="row form-group address">
+                        <label className="col-sm-3 label-title">Address<span className="required">*</span></label>
+                        <div className="col-sm-9">
+                          <input type="text" name="address" className="form-control" placeholder="ex, alekdera House, coprotec, usa" onChange={this.onChangeCompanyAddress.bind(this)} value={this.state.company_address} />
+                        </div>
                       </div>
                     </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Company Name<span className="required">*</span></label>
-                      <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="ex, Jhon Doe" onChange={this.onChangeCompanyName.bind(this)} value={this.state.company_name} />
-                      </div>
+
+                    <div className="section">
+                      <h4>Make Your Post Premium</h4>
+                      <p>More replies means more interested buyers. With lots of interested buyers, you have a better chance of selling for the price that you want.<a href="#">Learn more</a></p>
+                      <ul className="premium-options">
+                        <li className="premium">
+                          <input type="radio" name="premiumOption" value="day-one" id="day-one" onChange={this.onChangePostPremium.bind(this)} checked={this.state.post_premium == 'day-one'} />
+                          <label htmlFor="day-one">Regular Post</label>
+                          <span>$20.00</span>
+                        </li>
+                        <li className="premium">
+                          <input type="radio" name="premiumOption" value="day-two" id="day-two" onChange={this.onChangePostPremium.bind(this)} checked={this.state.post_premium == 'day-two'} />
+                          <label htmlFor="day-two">Regular Post</label>
+                          <span>$30.00</span>
+                        </li>
+                        <li className="premium">
+                          <input type="radio" name="premiumOption" value="day-three" id="day-three" onChange={this.onChangePostPremium.bind(this)} checked={this.state.post_premium == 'day-three'} />
+                          <label htmlFor="day-three">Top Post for 7 days</label>
+                          <span>$50.00</span>
+                        </li>
+                        <li className="premium">
+                          <input type="radio" name="premiumOption" value="day-four" id="day-four" onChange={this.onChangePostPremium.bind(this)} checked={this.state.post_premium == 'day-four'} />
+                          <label htmlFor="day-four">Daily Bump Up for 7 days</label>
+                          <span>$100.00</span>
+                        </li>
+                      </ul>
                     </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Email ID</label>
-                      <div className="col-sm-9">
-                        <input type="email" name="email" className="form-control" placeholder="ex, jhondoe@mail.com" onChange={this.onChangeCompanyEmail.bind(this)} value={this.state.company_email} />
-                      </div>
+
+                    { notification }
+
+                    { postNotification }
+
+                    <div className="checkbox section agreement">
+                      <button type="submit" className="btn btn-primary" onClick={this.updateJob.bind(this)}>Update Your Job</button>
                     </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Mobile Number<span className="required">*</span></label>
-                      <div className="col-sm-9">
-                        <input type="text" name="mobileNumber" className="form-control" placeholder="ex, +912457895" onChange={this.onChangeCompanyMobile.bind(this)} value={this.state.company_mobile}/>
-                      </div>
-                    </div>
-                    <div className="row form-group address">
-                      <label className="col-sm-3 label-title">Address<span className="required">*</span></label>
-                      <div className="col-sm-9">
-                        <input type="text" name="address" className="form-control" placeholder="ex, alekdera House, coprotec, usa" onChange={this.onChangeCompanyAddress.bind(this)} value={this.state.company_address} />
-                      </div>
-                    </div>
-                  </div>
 
-                  <div className="section">
-                    <h4>Make Your Post Premium</h4>
-                    <p>More replies means more interested buyers. With lots of interested buyers, you have a better chance of selling for the price that you want.<a href="#">Learn more</a></p>
-                    <ul className="premium-options">
-                      <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-one" id="day-one" onChange={this.onChangePostPremium.bind(this)} checked={this.state.post_premium == 'day-one'} />
-                        <label htmlFor="day-one">Regular Post</label>
-                        <span>$20.00</span>
-                      </li>
-                      <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-two" id="day-two" onChange={this.onChangePostPremium.bind(this)} checked={this.state.post_premium == 'day-two'} />
-                        <label htmlFor="day-two">Regular Post</label>
-                        <span>$30.00</span>
-                      </li>
-                      <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-three" id="day-three" onChange={this.onChangePostPremium.bind(this)} checked={this.state.post_premium == 'day-three'} />
-                        <label htmlFor="day-three">Top Post for 7 days</label>
-                        <span>$50.00</span>
-                      </li>
-                      <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-four" id="day-four" onChange={this.onChangePostPremium.bind(this)} checked={this.state.post_premium == 'day-four'} />
-                        <label htmlFor="day-four">Daily Bump Up for 7 days</label>
-                        <span>$100.00</span>
-                      </li>
-                    </ul>
-                  </div>
+                  </fieldset>
+                </form>
+              </div>
 
-                  { notification }
+              <div className="col-md-4">
+                <div className="section quick-rules">
+                  <h4>Quick rules</h4>
+                  <p className="lead">Posting an ad on <a href="#">jobs.com</a> is free! However, all ads must follow our rules:</p>
 
-                  { postNotification }
-
-                  <div className="checkbox section agreement">
-                    <button type="submit" className="btn btn-primary" onClick={this.updateJob.bind(this)}>Update Your Job</button>
-                  </div>
-
-                </fieldset>
-              </form>
-            </div>
-
-            <div className="col-md-4">
-              <div className="section quick-rules">
-                <h4>Quick rules</h4>
-                <p className="lead">Posting an ad on <a href="#">jobs.com</a> is free! However, all ads must follow our rules:</p>
-
-                <ul>
-                  <li>Make sure you post in the correct category.</li>
-                  <li>Do not post the same ad more than once or repost an ad within 48 hours.</li>
-                  <li>Do not upload pictures with watermarks.</li>
-                  <li>Do not post ads containing multiple items unless it's a package deal.</li>
-                  <li>Do not put your email or phone numbers in the title or description.</li>
-                  <li>Make sure you post in the correct category.</li>
-                  <li>Do not post the same ad more than once or repost an ad within 48 hours.</li>
-                  <li>Do not upload pictures with watermarks.</li>
-                  <li>Do not post ads containing multiple items unless it's a package deal.</li>
-                </ul>
+                  <ul>
+                    <li>Make sure you post in the correct category.</li>
+                    <li>Do not post the same ad more than once or repost an ad within 48 hours.</li>
+                    <li>Do not upload pictures with watermarks.</li>
+                    <li>Do not post ads containing multiple items unless it's a package deal.</li>
+                    <li>Do not put your email or phone numbers in the title or description.</li>
+                    <li>Make sure you post in the correct category.</li>
+                    <li>Do not post the same ad more than once or repost an ad within 48 hours.</li>
+                    <li>Do not upload pictures with watermarks.</li>
+                    <li>Do not post ads containing multiple items unless it's a package deal.</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

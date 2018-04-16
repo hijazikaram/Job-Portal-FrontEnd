@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import {Switch, Route, Link} from "react-router-dom";
 import axios from 'axios';
-import ViewJob from "./ViewJob";
+import { Modal, Button } from 'react-bootstrap';
 
+
+import ViewJob from "./ViewJob";
 import jobIcon from '../img/4.png';
 
 class InstitutionPostedJobs extends Component {
   constructor(props) {
     super(props);
 
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
+
     this.state = {
-      jobs: []
+      jobs: [],
+      show : false,
+      job_index : 0
     };
 
     var id = localStorage.getItem('user_id');
@@ -38,26 +46,39 @@ class InstitutionPostedJobs extends Component {
     }
   }
 
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
+  }
+
   removeJob(index){
     var self = this;
-    var job_id = self.state.jobs[index]["_id"];
 
-    var confirm = window.confirm('Do you really want to remove this job post?');
-    if(confirm) {
-      axios.delete('http://localhost:5000/api/jobs/' + job_id).then(function (response) {
-        if(response.data.success) {
-          var jobs = self.state.jobs;
-          jobs.splice(index , 1);
-          self.setState({ jobs : jobs });
-        }
-      }, function (error) {
-        console.log(error);
-      })
-    }
+    var job_id = self.state.jobs[index]["_id"];
+    self.setState({ show: true });
+    self.setState({ job_index : job_id });
+  }
+
+  handleRemove() {
+    var self = this;
+    axios.delete('http://localhost:5000/api/jobs/' + self.state.job_index).then(function (response) {
+      if(response.data.success) {
+        var jobs = self.state.jobs;
+        jobs.splice(self.state.job_index , 1);
+        self.setState({ jobs : jobs });
+      }
+    }, function (error) {
+      console.log(error);
+    });
+    self.setState({ show: false });
   }
 
   render() {
     return (
+      <div>
         <div className="section trending-ads latest-jobs-ads">
           <h4>Posted Jobs</h4>
           {  
@@ -101,6 +122,21 @@ class InstitutionPostedJobs extends Component {
             })
           }
         </div>
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Be careful ?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>
+              Do you really want to remove this job post ?
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleClose}>No</Button>
+            <Button className="btn-warning" onClick={this.handleRemove}>Yes</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     );
   }
 }

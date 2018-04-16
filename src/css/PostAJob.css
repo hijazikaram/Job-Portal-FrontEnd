@@ -1,3 +1,38 @@
 .notification li {
   padding: 5px 0;
 }
+
+.company-information .upload-image {
+  float: right;
+  background-color: #0072bc;
+  color: #fff;
+  width: 29%;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  padding: 12px 10px 10px;
+  border-radius: 30px;
+}
+
+.company-information .upload-image input {
+  display: none;
+}
+
+.company-information .time-period input {
+  width: 47%;
+  display: inline-block;
+}
+
+.company-information .time-period span {
+  margin-left: 13px;
+}
+
+img.company-logo {
+  width: 80px;
+  margin-left: 70px;
+}
+
+.caption {
+  background-color: #fff !important;
+  color: #000 !important;
+}
