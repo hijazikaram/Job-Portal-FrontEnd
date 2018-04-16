@@ -58,7 +58,7 @@ class InstitutionPostedJobs extends Component {
                       <span><a href={'/InstitutionProfile/Job/' + job._id} className="title">{job.job_title}</a> @ <a href="#">{job.company_name}</a></span>
                       <div className="ad-meta">
                         <ul>
-                          <li><a href="#"><i className="fa fa-map-marker" aria-hidden="true"></i>{job.company_address}</a></li>
+                          <li><a href="#"><i className="fa fa-map-marker" aria-hidden="true"></i>{job.location_state}, {job.location_country}</a></li>
                           <li><a href="#"><i className="fa fa-clock-o" aria-hidden="true"></i>{job.job_type}</a></li>
                           <li><a href="#"><i className="fa fa-money" aria-hidden="true"></i>
                             {job.salary_negotiable ? 'Negotiable' : '$'+(job.salary_min) + '-' + '$'+(job.salary_max)}
