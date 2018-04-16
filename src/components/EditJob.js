@@ -107,12 +107,6 @@ class EditJob extends Component {
     }
   }
 
-  getFile(file){
-    if(file.base64) {
-      this.setState({ company_logo : file.base64 });
-    }
-  }
-
   onChangeJobCategory(e) {
     this.setState({ job_category : e.target.value });
   }
@@ -484,18 +478,6 @@ class EditJob extends Component {
 
                     <div className="section company-information">
                       <h4>Company Information</h4>
-                      <div className="row form-group">
-                        <label className="upload-image caption">Max 20MB</label>
-                        <label className="upload-image">
-                          <FileBase64 onDone={ this.getFile.bind(this) }/>
-                          Upload Photo
-                        </label>
-                        { this.state.company_logo ? (
-                          <img className="company-logo" src={this.state.company_logo} />
-                        ) : (
-                          <div></div>
-                        )}
-                      </div>
                       <div className="row form-group">
                         <label className="col-sm-3 label-title">Industry<span className="required">*</span></label>
                         <div className="col-sm-9">

@@ -18,7 +18,8 @@ class InstitutionPostedJobs extends Component {
     this.state = {
       jobs: [],
       show : false,
-      job_index : 0
+      job_index : 0,
+      company_logo : ''
     };
 
     var id = localStorage.getItem('user_id');
@@ -26,14 +27,22 @@ class InstitutionPostedJobs extends Component {
     
     var self = this;
     if(id && user_type) {
-      axios.get('http://localhost:5000/api/jobs/' + id).then(function (response) {
+      axios.get('http://localhost:5000/api/institution/' + id).then(function (response) {
+        console.log(response);
         if(response.data.success) {
-          var jobs = response.data.jobs;
-          self.setState({ jobs : jobs });
+          self.setState({ company_logo : response.data.institution.logo });
+          axios.get('http://localhost:5000/api/jobs/' + id).then(function (response) {
+            if(response.data.success) {
+              var jobs = response.data.jobs;
+              self.setState({ jobs : jobs });
+            }
+          }, function (error) {
+            console.log(error);
+          });
         }
       }, function (error) {
         console.log(error);
-      })
+      });
     }
   }
 
@@ -90,7 +99,7 @@ class InstitutionPostedJobs extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href={'/InstitutionProfile/Job/' + job._id}><img src={jobIcon} alt="Image" className="img-responsive"/></a>
+                        <a href={'/InstitutionProfile/Job/' + job._id}><img src={this.state.company_logo ? this.state.company_logo : jobIcon} alt="Image" className="img-responsive"/></a>
                       </div>
                     </div>
 

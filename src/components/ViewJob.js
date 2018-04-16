@@ -8,18 +8,28 @@ class ViewJob extends Component {
     super(props);
 
     this.state ={
-      job: {}
+      job: {},
+      job_logo : ''
     }
 
     var job_id = this.props.match.params.job_id;
+    var id = localStorage.getItem('user_id');
 
     var self = this;
-    axios.get("http://localhost:5000/api/jobsWithId/" + job_id).then(function (response) {
+    axios.get('http://localhost:5000/api/institution/' + id).then(function (response) {
+      console.log(response);
       if(response.data.success) {
-        self.setState({ job : response.data.job });
+        self.setState({ job_logo : response.data.institution.logo });
+        axios.get("http://localhost:5000/api/jobsWithId/" + job_id).then(function (response) {
+          if(response.data.success) {
+            self.setState({ job : response.data.job });
+          }
+        }, function (error) {
+          console.log(error);
+        });
       }
     }, function (error) {
-      console.log(error);
+      console.log(error)
     });
   }
 
@@ -70,7 +80,7 @@ class ViewJob extends Component {
                     <div className="item-info">
                       <div className="item-image-box">
                         <div className="item-image">
-                          <img src={jobIcon} alt="Image" className="img-responsive" />
+                          <img src={this.state.job_logo ? this.state.job_logo : jobIcon} alt="Image" className="img-responsive" />
                         </div>
                       </div>
 
