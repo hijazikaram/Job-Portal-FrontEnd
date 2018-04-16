@@ -2573,16 +2573,23 @@ input:-moz-placeholder {
 	margin-right: 10px;
 }
 
-.close-icon {
-	color: #a0a0a0;
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	line-height: 0;
-	font-size: 14px;
+.action-icon {
+  color: #a0a0a0;
+  position: absolute;
+  top: 15px;
+  line-height: 0;
+  font-size: 25px;
 }
 
-.close-icon:hover {
+.close-icon {
+	right: 15px;
+}
+
+.edit-icon {
+  right: 60px;
+}
+
+.action-icon:hover {
 	cursor: pointer;
 	color: red;
 }

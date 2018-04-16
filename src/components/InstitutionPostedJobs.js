@@ -22,7 +22,6 @@ class InstitutionPostedJobs extends Component {
         if(response.data.success) {
           var jobs = response.data.jobs;
           self.setState({ jobs : jobs });
-          console.log(self.state);
         }
       }, function (error) {
         console.log(error);
@@ -38,13 +37,33 @@ class InstitutionPostedJobs extends Component {
       window.location.href = '/SignIn';
     }
   }
-  
+
+  removeJob(index){
+    var self = this;
+    var job_id = self.state.jobs[index]["_id"];
+
+    var confirm = window.confirm('Do you really want to remove this job post?');
+    if(confirm) {
+      axios.delete('http://localhost:5000/api/jobs/' + job_id).then(function (response) {
+        if(response.data.success) {
+          var jobs = self.state.jobs;
+          jobs.splice(index , 1);
+          self.setState({ jobs : jobs });
+        }
+      }, function (error) {
+        console.log(error);
+      })
+    }
+  }
+
   render() {
     return (
         <div className="section trending-ads latest-jobs-ads">
           <h4>Posted Jobs</h4>
           {  
-            this.state.jobs.map(function (job , index) {
+            this.state.jobs.map((job , index) => {
+
+              let removeClick = this.removeJob.bind(this, index);
               return (
                 <div className="job-ad-item" key={index}>
                   <div className="item-info">
@@ -68,7 +87,12 @@ class InstitutionPostedJobs extends Component {
                         </ul>
                       </div>
                     </div>
-                    <div className="close-icon">
+
+                    <a href = {'/InstitutionProfile/editJob/' + job._id}  className="action-icon edit-icon">
+                      <i className="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                   
+                    <div className="action-icon close-icon" onClick={removeClick}>
                       <i className="fa fa-window-close" aria-hidden="true"></i>
                     </div>
                   </div>
