@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import userImg from '../img/user.jpg';
 import axios from 'axios';
 
+import FileBase64 from 'react-file-base64';
+
+import '../css/PostAJob.css';
+
 class UserHomePage extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +14,7 @@ class UserHomePage extends Component {
     };
 
     this.state = {
+      logo: '',
       name : '',
       email : '',
       phoneNumber: '',
@@ -33,7 +38,7 @@ class UserHomePage extends Component {
 
     axios.get('http://localhost:5000/api/institution/' + this.id).then(res => {
       var institution = res.data.institution;
-      this.setState({ name : institution.name, email : institution.email ,phoneNumber : institution.phoneNumber, comments_enable: institution.comments_enable, receive_newsletter: institution.receive_newsletter, receive_advice: institution.receive_advice});
+      this.setState({ logo : institution.logo, name : institution.name, email : institution.email ,phoneNumber : institution.phoneNumber, comments_enable: institution.comments_enable, receive_newsletter: institution.receive_newsletter, receive_advice: institution.receive_advice});
 
       if(!institution.address) {
         this.setState({ address : '' });
@@ -43,6 +48,7 @@ class UserHomePage extends Component {
 
       this.temp = this.state;
 
+      this.logoChanged = false;
       this.nameChanged = false;
       this.emailChanged = false;
       this.mobileChanged = false;
@@ -51,6 +57,13 @@ class UserHomePage extends Component {
       this.receiveNewsletterChanged = false;
       this.receiveAdviceChanged = false;
     });
+  }
+
+  getFile(file){
+    if(file.base64) {
+      this.setState({ logo : file.base64 });
+      this.setState({ logoChanged : true });
+    }
   }
 
   componentWillMount() {
@@ -220,6 +233,18 @@ class UserHomePage extends Component {
                 {notification}
 
     						<form action="#">
+                  <div className="form-group">
+                    <label className="upload-image caption">Max 20MB</label>
+                    <label className="upload-image">
+                      <FileBase64 onDone={ this.getFile.bind(this) }/>
+                      Upload Photo
+                    </label>
+                    { this.state.logo ? (
+                      <img className="company-logo" src={this.state.logo} />
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
     							<div className="form-group">
     								<label>Username</label>
     								<input type="text" className="form-control" placeholder="Jhon Doe" value={this.state.name} onChange={userNameChange}/>
@@ -290,7 +315,7 @@ class UserHomePage extends Component {
                 </div>
 
                 <div className="buttons">
-                  <a href="javascript:void(0)" className="btn" onClick={updateProfile} disabled = {!this.nameChanged && !this.emailChanged && !this.mobileChanged && !this.addressChanged && !this.commentsEnableChanged && !this.receiveNewsletterChanged && !this.receiveAdviceChanged }>Update Profile</a>
+                  <a href="javascript:void(0)" className="btn" onClick={updateProfile} disabled = {!this.nameChanged && !this.emailChanged && !this.mobileChanged && !this.addressChanged && !this.commentsEnableChanged && !this.receiveNewsletterChanged && !this.receiveAdviceChanged && !this.state.logoChanged }>Update Profile</a>
                   <a href="#" className="btn cancle">Cancel</a>
                 </div>
               </div>
