@@ -2270,9 +2270,8 @@ input:-moz-placeholder {
 }
 
 .job-ad-item .item-image {
-    width: 95px;
-    height: 85px;
-    border: 1px solid #f3f3f3;
+    width: 100px;
+    height: 100px;
     overflow: hidden;
 }
 
