@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import logo from '../img/Islamic_Jobs_0701 copy.png';
 import '../css/NavBar.css';
+import {Link} from 'react-router-dom';
 
 class NavBar extends Component {
   render() {
@@ -21,53 +22,11 @@ class NavBar extends Component {
             <div className="navbar-left">
               <div className="collapse navbar-collapse" id="navbar-collapse">
                 <ul className="nav navbar-nav">
-                  <li className="active">
-                    <a href="/">Home</a>
+                  <li className="">
+                    <Link to="/" activeclassname="active">Home</Link>
                   </li>
                   <li>
-                    <a href="job-list.html">Job list</a>
-                  </li>
-                  <li>
-                    <a href="details.html">Job Details</a>
-                  </li>
-                  <li>
-                    <a href="resume.html">Resume</a>
-                  </li>
-                  <li className="dropdown">
-                    <a href="javascript:void(0)" className="dropdown-toggle" data-toggle="dropdown">Pages<span className="caret"></span>
-                    </a>
-                    <ul className="dropdown-menu">
-                      <li>
-                        <a href="profile.html">Profile</a>
-                      </li>
-                      <li>
-                        <a href="post-resume.html">Post Resume</a>
-                      </li>
-                      <li>
-                        <a href="post.html">Job Post</a>
-                      </li>
-                      <li>
-                        <a href="edit-resume.html">Edit Resume</a>
-                      </li>
-                      <li>
-                        <a href="profile-details.html">profile Details</a>
-                      </li>
-                      <li>
-                        <a href="bookmark.html">Bookmark</a>
-                      </li>
-                      <li>
-                        <a href="applied-job.html">Applied Job</a>
-                      </li>
-                      <li>
-                        <a href="delete-account.html">Close Account</a>
-                      </li>
-                      <li>
-                        <a href="signup.html">Job Signup</a>
-                      </li>
-                      <li>
-                        <a href="signin.html">Job Signin</a>
-                      </li>
-                    </ul>
+                    <Link to="/JobList" activeclassname="active">Job List</Link>
                   </li>
                 </ul>
               </div>
@@ -85,7 +44,7 @@ class NavBar extends Component {
                 </li>
               </ul>
 
-              <a href="post.html" className="btn">Post Your Job</a>
+              <Link to="/SignUp" className="btn">Post Your Job</Link>
             </div>
           </div>
         </nav>

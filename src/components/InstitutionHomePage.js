@@ -19,9 +19,6 @@ class UserHomePage extends Component {
       email : '',
       phoneNumber: '',
       address: '',
-      comments_enable : false,
-      receive_newsletter: false,
-      receive_advice: false,
 
       oldPassword: '',
       newPassword: '',
@@ -38,7 +35,7 @@ class UserHomePage extends Component {
 
     axios.get('http://localhost:5000/api/institution/' + this.id).then(res => {
       var institution = res.data.institution;
-      this.setState({ logo : institution.logo, name : institution.name, email : institution.email ,phoneNumber : institution.phoneNumber, comments_enable: institution.comments_enable, receive_newsletter: institution.receive_newsletter, receive_advice: institution.receive_advice});
+      this.setState({ logo : institution.logo, name : institution.name, email : institution.email ,phoneNumber : institution.phoneNumber});
 
       if(!institution.address) {
         this.setState({ address : '' });
@@ -53,9 +50,6 @@ class UserHomePage extends Component {
       this.emailChanged = false;
       this.mobileChanged = false;
       this.addressChanged = false;
-      this.commentsEnableChanged = false;
-      this.receiveNewsletterChanged = false;
-      this.receiveAdviceChanged = false;
     });
   }
 
@@ -69,12 +63,12 @@ class UserHomePage extends Component {
   componentWillMount() {
     var id = localStorage.getItem('user_id');
     var user_type = localStorage.getItem('user_type');
-    
+
     if(!id || !user_type) {
       window.location.href = '/SignIn';
     }
   }
-  onUserNameChange(e) {
+  onUserNameChange = (e) => {
     this.setState({ name : e.target.value });
     if(this.temp.name != e.target.value) {
       this.nameChanged = true;
@@ -84,7 +78,7 @@ class UserHomePage extends Component {
     this.forceUpdate();
   }
 
-  onEmailChange(e) {
+  onEmailChange = (e) => {
     this.setState({ email : e.target.value });
 
     if(this.temp.email != e.target.value) {
@@ -95,7 +89,7 @@ class UserHomePage extends Component {
     this.forceUpdate();
   }
 
-  onPhoneNumberChange(e) {
+  onPhoneNumberChange = (e) => {
     this.setState({ phoneNumber : e.target.value });
     if(this.temp.phoneNumber != e.target.value) {
       this.mobileChanged = true;
@@ -105,7 +99,7 @@ class UserHomePage extends Component {
     this.forceUpdate();
   }
 
-  onAddressChange(e) {
+  onAddressChange = (e) => {
     this.setState({ address : e.target.value });
     if(this.temp.address != e.target.value) {
       this.addressChanged = true;
@@ -115,7 +109,7 @@ class UserHomePage extends Component {
     this.forceUpdate();
   }
 
-  onUpdateProfile(e) {
+  onUpdateProfile = (e) => {
     e.preventDefault();
     var self = this;
 
@@ -133,7 +127,7 @@ class UserHomePage extends Component {
               if(!response.data.error) {
                 self.setState({ notificationMsg: 'Updated Successfully.' , updateProfileValid : true });
                 setTimeout(function () {
-                  window.location.reload(true);  
+                  window.location.reload(true);
                 },300);
               } else {
                 self.setState({ notificationMsg: response.data.error , updateProfileValid : false });
@@ -150,7 +144,7 @@ class UserHomePage extends Component {
         if(!response.data.error) {
           self.setState({ notificationMsg: 'Updated Successfully.' , updateProfileValid : true });
           setTimeout(function () {
-            window.location.reload(true);  
+            window.location.reload(true);
           },300);
         }
       }, function (error) {
@@ -159,63 +153,30 @@ class UserHomePage extends Component {
     }
   }
 
-  onUpdateCommentsEnable(e) {
-    this.setState({ comments_enable : e.target.checked });
-    if(this.temp.comments_enable != e.target.checked) {
-      this.commentsEnableChanged = true;
-    } else {
-      this.commentsEnableChanged = false;
-    }
-    this.forceUpdate();
-  }
 
-  onUpdateReceiveNewsletter(e) {
-    this.setState({ receive_newsletter : e.target.checked });
-    if(this.temp.receive_newsletter != e.target.checked) {
-      this.receiveNewsletterChanged = true;
-    } else {
-      this.receiveNewsletterChanged = false;
-    }
-    this.forceUpdate();
-  }
-
-  onUpdateReceiveAdvice(e) {
-    this.setState({ receive_advice : e.target.checked });
-    if(this.temp.receive_advice != e.target.checked) {
-      this.receiveAdviceChanged = true;
-    } else {
-      this.receiveAdviceChanged = false;
-    }
-    this.forceUpdate();
-  }
-
-  onOldPasswordInput(e) {
+  onOldPasswordInput= (e) => {
     this.oldPassword = e.target.value;
   }
 
-  onNewPasswordChange(e) {
-    this.newPassword = e.target.value; 
+  onNewPasswordChange= (e) => {
+    this.newPassword = e.target.value;
   }
 
-  onNewPasswordConfirmChange(e) {
+  onNewPasswordConfirmChange= (e) => {
     this.newPasswordConfirm = e.target.value;
   }
   render() {
-    var userNameChange = this.onUserNameChange.bind(this);
-    var emailChange = this.onEmailChange.bind(this);
-    var phoneNumberChange = this.onPhoneNumberChange.bind(this);
-    var addressChange = this.onAddressChange.bind(this);
+    var userNameChange = this.onUserNameChange;
+    var emailChange = this.onEmailChange;
+    var phoneNumberChange = this.onPhoneNumberChange;
+    var addressChange = this.onAddressChange;
 
-    var oldPasswordInput = this.onOldPasswordInput.bind(this);
-    var newPasswordChange = this.onNewPasswordChange.bind(this);
-    var newPasswordConfirmChange = this.onNewPasswordConfirmChange.bind(this);
+    var oldPasswordInput = this.onOldPasswordInput;
+    var newPasswordChange = this.onNewPasswordChange;
+    var newPasswordConfirmChange = this.onNewPasswordConfirmChange;
 
-    var updateCommentsEnable = this.onUpdateCommentsEnable.bind(this);
-    var updateReceiveNewsletter = this.onUpdateReceiveNewsletter.bind(this);
-    var updateReceiveAdvice = this.onUpdateReceiveAdvice.bind(this);
+    var updateProfile = this.onUpdateProfile;
 
-    var updateProfile = this.onUpdateProfile.bind(this);
-    
     var notification = this.state.notificationMsg ? (
       <div className='panel panel-default'>
         <div className={`notification ${!this.state.updateProfileValid ? 'error' : 'success'}`}>{ this.state.notificationMsg }
@@ -236,7 +197,7 @@ class UserHomePage extends Component {
                   <div className="form-group">
                     <label className="upload-image caption">Max 20MB</label>
                     <label className="upload-image">
-                      <FileBase64 onDone={ this.getFile.bind(this) }/>
+                      <FileBase64 onDone={ this.getFile }/>
                       Upload Photo
                     </label>
                     { this.state.logo ? (
@@ -278,6 +239,45 @@ class UserHomePage extends Component {
 
     						</form>
     					</div>
+              <div className="change-password section">
+                <h2>Social</h2>
+                <div className="row">
+                  <div className="col-lg-6">
+                    <div className="form-group has-feedback">
+                      <input type="text" className="form-control"/>
+                      <span className="form-control-feedback">
+                          <i className="fa fa-twitter"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-lg-6">
+                    <div className="form-group has-feedback">
+                      <input type="text" className="form-control"/>
+                      <span className="form-control-feedback">
+                          <i className="fa fa-linkedin"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-lg-6">
+                    <div className="form-group has-feedback">
+                      <input type="text" className="form-control"/>
+                      <span className="form-control-feedback">
+                          <i className="fa fa-google-plus"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="col-lg-6">
+                    <div className="form-group has-feedback">
+                      <input type="text" className="form-control"/>
+                      <span className="form-control-feedback">
+                          <i className="fa fa-facebook"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
     					<div className="change-password section">
                 <h2>Change password</h2>
                 <div className="form-group">
@@ -296,24 +296,6 @@ class UserHomePage extends Component {
                 </div>
               </div>
     					<div className="preferences-settings section">
-                <h2>Preferences Settings</h2>
-                <div className="checkbox">
-                  <label className ={`${this.state.comments_enable ? 'checked' : ''}`}>
-                    <input type="checkbox" name="logged" checked={this.state.comments_enable} onChange={updateCommentsEnable}/>
-                    Comments are enabled on my Resume
-                  </label>
-
-                  <label className ={`${this.state.receive_newsletter ? 'checked' : ''}`}>
-                    <input type="checkbox" name="receive" checked={this.state.receive_newsletter} onChange={updateReceiveNewsletter}/>
-                    I want to receive newsletter.
-                  </label>
-
-                  <label className ={`${this.state.receive_advice ? 'checked' : ''}`}>
-                    <input type="checkbox" name="want" checked={this.state.receive_advice} onChange={updateReceiveAdvice}/>
-                    I want to receive advice on portfolio
-                  </label>
-                </div>
-
                 <div className="buttons">
                   <a href="javascript:void(0)" className="btn" onClick={updateProfile} disabled = {!this.nameChanged && !this.emailChanged && !this.mobileChanged && !this.addressChanged && !this.commentsEnableChanged && !this.receiveNewsletterChanged && !this.receiveAdviceChanged && !this.state.logoChanged }>Update Profile</a>
                   <a href="#" className="btn cancle">Cancel</a>

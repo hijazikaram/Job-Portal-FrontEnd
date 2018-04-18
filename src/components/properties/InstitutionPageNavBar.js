@@ -7,21 +7,43 @@ class UserPageNavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name : ''
+      name : '',
+      jobs : ''
     };
 
-    this.id = localStorage.getItem('user_id');
-    axios.get('http://localhost:5000/api/institution/' + this.id).then(res => {
-      var institution = res.data.institution;
-      this.setState({ name : institution.name });
-    });
+
+
+    var id = localStorage.getItem('user_id');
+    var user_type = localStorage.getItem('user_type');
+
+    var self = this;
+    if(id && user_type) {
+      axios.get('http://localhost:5000/api/institution/' + id).then(res => {
+        if(res.data.success) {
+
+          var institution = res.data.institution;
+          this.setState({ name : institution.name });
+          self.setState({ company_logo : institution.logo });
+          axios.get('http://localhost:5000/api/jobs/' + id).then(res => {
+            if(res.data.success) {
+              var jobs = res.data.jobs;
+              self.setState({ jobs : jobs.length });
+            }
+          }, function (error) {
+            console.log(error);
+          });
+        }
+      }, function (error) {
+        console.log(error);
+      });
+    }
   }
 
-  onLogOut(e) {
+  onLogOut= (e) => {
     localStorage.removeItem('user_id');
   }
   render() {
-    var logout = this.onLogOut.bind(this);
+    var logout = this.onLogOut;
 
     return (
       <div>
@@ -32,15 +54,14 @@ class UserPageNavBar extends Component {
           </div>
           <div className="user">
             <h2>Hello, <a href="#">{this.state.name}</a></h2>
-            <h5>You last logged in at: 10-01-2017 6:40 AM [ USA time (GMT + 6:00hrs)]</h5>
           </div>
 
           <div className="favorites-user">
             <div className="favorites">
-              <a href="applied-job.html">29<small>Posted Job</small></a>
+              <a href="applied-job.html">{this.state.jobs}<small>Posted Job</small></a>
             </div>
             <div className="favorites">
-              <a href="bookmark.html">18<small>Favorites</small></a>
+              <a href="bookmark.html">0<small>Favorites</small></a>
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@ class InstitutionPostedJobs extends Component {
 
     var id = localStorage.getItem('user_id');
     var user_type = localStorage.getItem('user_type');
-    
+
     var self = this;
     if(id && user_type) {
       axios.get('http://localhost:5000/api/institution/' + id).then(function (response) {
@@ -34,6 +34,7 @@ class InstitutionPostedJobs extends Component {
           axios.get('http://localhost:5000/api/jobs/' + id).then(function (response) {
             if(response.data.success) {
               var jobs = response.data.jobs;
+              console.log(jobs.length);
               self.setState({ jobs : jobs });
             }
           }, function (error) {
@@ -49,7 +50,7 @@ class InstitutionPostedJobs extends Component {
   componentWillMount() {
     var id = localStorage.getItem('user_id');
     var user_type = localStorage.getItem('user_type');
-    
+
     if(!id || !user_type) {
       window.location.href = '/SignIn';
     }
@@ -90,7 +91,7 @@ class InstitutionPostedJobs extends Component {
       <div>
         <div className="section trending-ads latest-jobs-ads">
           <h4>Posted Jobs</h4>
-          {  
+          {
             this.state.jobs.map((job , index) => {
 
               let removeClick = this.removeJob.bind(this, index);
@@ -121,7 +122,7 @@ class InstitutionPostedJobs extends Component {
                     <a href = {'/InstitutionProfile/editJob/' + job._id}  className="action-icon edit-icon">
                       <i className="fa fa-pencil" aria-hidden="true"></i>
                     </a>
-                   
+
                     <div className="action-icon close-icon" onClick={removeClick}>
                       <i className="fa fa-window-close" aria-hidden="true"></i>
                     </div>

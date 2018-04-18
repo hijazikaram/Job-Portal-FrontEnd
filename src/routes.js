@@ -1,6 +1,7 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import Home from "./components/App";
+import JobList from "./components/JobList";
 import NavBar from "./components/NavBar";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
@@ -15,6 +16,7 @@ const store = configureStore();
 const BasicExample = () => (<Router>
   <div><NavBar/>
     <Route exact path="/" component={Home}/>
+    <Route exact path="/JobList" component={JobList}/>
     <Route path="/SignIn" component={SignIn}/>
     <Route path="/SignUp" component={SignUp}/>
     <Route path="/UserProfile" component={UserProfile}/>

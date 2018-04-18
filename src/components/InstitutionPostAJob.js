@@ -13,6 +13,8 @@ class InstitutionPostAJob extends Component {
       job_type: '',
       job_title: '',
       job_description : '',
+      job_key_responsibilities : '',
+      job_minimum_requirements : '',
       location_country: '',
       location_state: '',
       salary_min: '',
@@ -37,6 +39,8 @@ class InstitutionPostAJob extends Component {
       jobTypeExist : false,
       jobTitleExist : false,
       jobDescriptionExist : false,
+      jobKeyResponsibilities : false,
+      jobMinimumRequirements : false,
       salaryMinExist : false,
       salaryMaxExist : false,
       salaryNegotiableExist : false,
@@ -62,7 +66,7 @@ class InstitutionPostAJob extends Component {
   componentWillMount() {
     var id = localStorage.getItem('user_id');
     var user_type = localStorage.getItem('user_type');
-    
+
     if(!id || !user_type) {
       window.location.href = '/SignIn';
     }
@@ -77,7 +81,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeJobType(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ jobTypeExist : true });
     } else {
       this.setState({ jobTypeExist : false });
@@ -86,7 +90,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeJobTitle(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ jobTitleExist : true });
     } else {
       this.setState({ jobTitleExist : false });
@@ -95,7 +99,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeJobDescription(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ jobDescriptionExist : true });
     } else {
       this.setState({ jobDescriptionExist : false });
@@ -104,8 +108,27 @@ class InstitutionPostAJob extends Component {
     this.setState({ characters_left : (5000 - e.target.value.length ) });
   }
 
+  onChangeJobKeyResponsibilities = (e) => {
+    if(e.target.value !== ''){
+      this.setState({ jobKeyResponsibilities : true });
+    } else {
+      this.setState({ jobKeyResponsibilities : false });
+    }
+    this.setState({ job_key_responsibilities : e.target.value });
+    this.setState({ characters_left : (5000 - e.target.value.length ) });
+  }
+  onChangeJobMinimumRequirements = (e) => {
+    if(e.target.value !== ''){
+      this.setState({ jobMinimumRequirements : true });
+    } else {
+      this.setState({ jobMinimumRequirements : false });
+    }
+    this.setState({ job_minimum_requirements : e.target.value });
+    this.setState({ characters_left : (5000 - e.target.value.length ) });
+  }
+
   onChangeLocationCountry(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ locationCountryExist : true });
     } else {
       this.setState({ locationCountryExist : false });
@@ -114,7 +137,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeLocationState(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ locationStateExist : true });
     } else {
       this.setState({ locationStateExist : false });
@@ -123,7 +146,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeSalaryMin(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ salaryMinExist : true });
     } else {
       this.setState({ salaryMinExist : false });
@@ -132,7 +155,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeSalaryMax(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ salaryMaxExist : true });
     } else {
       this.setState({ salaryMaxExist : false });
@@ -142,15 +165,15 @@ class InstitutionPostAJob extends Component {
 
   onChangeSalaryNegotiable(e) {
     this.setState({ salary_negotiable : e.target.value });
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ salaryNegotiableExist : true });
     } else {
       this.setState({ salaryNegotiableExist : false });
     }
   }
-  
+
   onChangeApplicationDeadline(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ applicationDeadlineExist : true });
     } else {
       this.setState({ applicationDeadlineExist : false });
@@ -163,7 +186,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeJobFunction(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ jobFunctionExist : true });
     } else {
       this.setState({ jobFunctionExist : false });
@@ -172,7 +195,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeCompanyIndustry(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ companyIndustryExist : true });
     } else {
       this.setState({ companyIndustryExist : false });
@@ -181,7 +204,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeCompanyName(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ companyNameExist : true });
     } else {
       this.setState({ companyNameExist : false });
@@ -190,7 +213,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeCompanyEmail(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ companyEmailExist : true });
     } else {
       this.setState({ companyEmailExist : false });
@@ -199,7 +222,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeCompanyMobile(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ companyMobileExist : true });
     } else {
       this.setState({ companyMobileExist : false });
@@ -212,7 +235,7 @@ class InstitutionPostAJob extends Component {
   }
 
   onChangeCompanyAddress(e) {
-    if(e.target.value != ''){
+    if(e.target.value !== ''){
       this.setState({ companyAddressExist : true });
     } else {
       this.setState({ companyAddressExist : false });
@@ -244,6 +267,12 @@ class InstitutionPostAJob extends Component {
     if(!this.state.jobDescriptionExist) {
       error_msg.push("Job Description");
     }
+    if(!this.state.jobKeyResponsibilities) {
+      error_msg.push("Job Key Responsibilities");
+    }
+    if(!this.state.jobMinimumRequirements) {
+      error_msg.push("Job Minimum Requirements");
+    }
     if(!this.state.locationCountryExist) {
       error_msg.push("Location Country");
     }
@@ -252,7 +281,7 @@ class InstitutionPostAJob extends Component {
     }
     if(!this.state.salaryMinExist) {
       if(!this.state.salaryNegotiableExist) {
-        error_msg.push("Salary Min");  
+        error_msg.push("Salary Min");
       }
     }
     if(!this.state.salaryMaxExist) {
@@ -307,10 +336,11 @@ class InstitutionPostAJob extends Component {
   }
 
   render() {
+    console.log(this.state);
     var notification = !this.state.postValid ? (
       <div className='panel panel-default'>
         <ul className="notification error">
-        {  
+        {
           this.state.errorMsg.map(function (msg , index) {
             return <li key={index}>{msg} is required</li>
           })
@@ -368,6 +398,18 @@ class InstitutionPostAJob extends Component {
                       <label className="col-sm-3 label-title">Description<span className="required">*</span></label>
                       <div className="col-sm-9">
                         <textarea className="form-control" id="textarea" placeholder="Write few lines about your jobs" rows="8" onChange={this.onChangeJobDescription.bind(this)}></textarea>
+                      </div>
+                    </div>
+                    <div className="row form-group item-description">
+                      <label className="col-sm-3 label-title">Key Responsibilities<span className="required">*</span></label>
+                      <div className="col-sm-9">
+                        <textarea className="form-control" id="textarea" placeholder="Write few lines about your jobs" rows="8" onChange={this.onChangeJobKeyResponsibilities}></textarea>
+                      </div>
+                    </div>
+                    <div className="row form-group item-description">
+                      <label className="col-sm-3 label-title">Minimum Requirements<span className="required">*</span></label>
+                      <div className="col-sm-9">
+                        <textarea className="form-control" id="textarea" placeholder="Write few lines about your jobs" rows="8" onChange={this.onChangeJobMinimumRequirements}></textarea>
                       </div>
                     </div>
                     <div className="row characters">
@@ -490,7 +532,7 @@ class InstitutionPostAJob extends Component {
                       </li>
                       <li className="premium">
                         <input type="radio" name="premiumOption" value="day-two" id="day-two" onChange={this.onChangePostPremium.bind(this)}/>
-                        <label htmlFor="day-two">Regular Post</label>
+                        <label htmlFor="day-two">Urgent Job</label>
                         <span>$30.00</span>
                       </li>
                       <li className="premium">
