@@ -58,7 +58,7 @@ class UserPageNavBar extends Component {
 
           <div className="favorites-user">
             <div className="favorites">
-              <a href="applied-job.html">{this.state.jobs}<small>Posted Job</small></a>
+            <Link to={"/InstitutionProfile/PostedJobs"}>{this.state.jobs}<small>Posted Job</small></Link>
             </div>
             <div className="favorites">
               <a href="bookmark.html">0<small>Favorites</small></a>

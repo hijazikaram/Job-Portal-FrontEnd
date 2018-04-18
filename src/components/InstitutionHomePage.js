@@ -53,14 +53,14 @@ class UserHomePage extends Component {
     });
   }
 
-  getFile(file){
+  getFile = (file) => {
     if(file.base64) {
       this.setState({ logo : file.base64 });
       this.setState({ logoChanged : true });
     }
   }
 
-  componentWillMount() {
+  componentWillMount = (e) => {
     var id = localStorage.getItem('user_id');
     var user_type = localStorage.getItem('user_type');
 
