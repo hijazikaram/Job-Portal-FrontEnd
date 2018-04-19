@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import '../css/MyProfile.css';
 import '../css/Responsive.css';
 import '../css/Preset.css';
@@ -13,22 +13,20 @@ import InstitutionPostedJobs from "./InstitutionPostedJobs";
 
 class UserProfile extends Component {
   render() {
-    return (
-      <div>
-          <section className="job-bg ad-profile-page">
-            <div className="container">
-              <InstitutionPageNavBar/>
-              <Switch>
-                <Route exact path={this.props.match.path} component={Home}/>
-                <Route path={this.props.match.path + "/PostAJob"} component={InstitutionPostAJob} />
-                <Route path={this.props.match.path + "/EditResume"} component={EditUserResume} />
-                <Route path={this.props.match.path + "/DeleteMyProfile"} component={DeleteUserProfile} />
-                <Route path={this.props.match.path + "/PostedJobs"} component={InstitutionPostedJobs} />
-              </Switch>
-        		</div>
-          </section>
-      </div>
-    );
+    return (<div>
+      <section className="job-bg ad-profile-page">
+        <div className="container">
+          <InstitutionPageNavBar/>
+          <Switch>
+            <Route exact="exact" path={this.props.match.path} component={Home}/>
+            <Route path={this.props.match.path + "/PostAJob"} component={InstitutionPostAJob}/>
+            <Route path={this.props.match.path + "/EditResume"} component={EditUserResume}/>
+            <Route path={this.props.match.path + "/DeleteMyProfile"} component={DeleteUserProfile}/>
+            <Route path={this.props.match.path + "/PostedJobs"} component={InstitutionPostedJobs}/>
+          </Switch>
+        </div>
+      </section>
+    </div>);
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 
 import FormErrors from './properties/FormErrors';
@@ -8,81 +8,83 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notificationMsg : '',
-      loginValid: false,
+      notificationMsg: '',
+      loginValid: false
     };
   }
-  componentWillMount() {
+  componentWillMount = () => {
     var id = localStorage.getItem('user_id');
     var user_type = localStorage.getItem('user_type');
-    if(id && !user_type) {
+    if (id && !user_type) {
       window.location.href = '/UserProfile';
     }
 
-    if(id && user_type) {
+    if (id && user_type) {
       window.location.href = '/InstitutionProfile';
     }
   }
-  onLogin(e){
+  onLogin = (e) => {
     e.preventDefault();
     var self = this;
 
     /* Check if it's a normal user */
-    axios.post('http://localhost:5000/api/user', self.state).then(function (response) {
+    axios.post('http://localhost:5000/api/user', self.state).then(function(response) {
 
-      if(response.data.success) {
+      if (response.data.success) {
         // Correct credentials
-        self.setState({ notificationMsg : 'Login Successfully', loginValid : true });
-        setTimeout(function () {
+        self.setState({notificationMsg: 'Login Successfully', loginValid: true});
+        setTimeout(function() {
           localStorage.setItem('user_id', response.data.user._id);
           window.location.href = '/UserProfile';
-        },1000);
+        }, 1000);
       } else {
 
         /* Check if it's an institution account */
-        axios.post('http://localhost:5000/api/institution', self.state).then(function (response) {
+        axios.post('http://localhost:5000/api/institution', self.state).then(function(response) {
 
-          if(response.data.success) {
+          if (response.data.success) {
             // Correct credentials
-            self.setState({ notificationMsg : 'Login Successfully', loginValid : true });
-            setTimeout(function () {
+            self.setState({notificationMsg: 'Login Successfully', loginValid: true});
+            setTimeout(function() {
               localStorage.setItem('user_id', response.data.institution._id);
               localStorage.setItem('user_type', 'institution');
               window.location.href = '/InstitutionProfile';
-            },1000);
-          } else {           
-            self.setState({ notificationMsg : response.data.error, loginValid : false });
+            }, 1000);
+          } else {
+            self.setState({notificationMsg: response.data.error, loginValid: false});
           }
-        }, function (error) {
+        }, function(error) {
           console.log(error);
         });
       }
-    }, function (error) {
+    }, function(error) {
       console.log(error);
     })
   }
 
-  onEmailInput(e) {
-    this.setState({ email : e.target.value });
+  onEmailInput = (e) => {
+    this.setState({email: e.target.value});
   }
 
-  onPasswordInput(e) {
-    this.setState({ password : e.target.value });
+  onPasswordInput = (e) => {
+    this.setState({password: e.target.value});
   }
 
   render() {
-    var login = this.onLogin.bind(this);
-    var emailInput = this.onEmailInput.bind(this);
-    var passwordInput = this.onPasswordInput.bind(this);
+    var login = this.onLogin;
+    var emailInput = this.onEmailInput;
+    var passwordInput = this.onPasswordInput;
 
-    var loginNotification = this.state.notificationMsg ? (
-      <div className='panel panel-default'>
-        <div className={`notification ${!this.state.loginValid ? 'error' : 'success'}`}>{ this.state.notificationMsg }
+    var loginNotification = this.state.notificationMsg
+      ? (<div className='panel panel-default'>
+        <div className={`notification ${ !this.state.loginValid
+            ? 'error'
+            : 'success'}`}>{this.state.notificationMsg}
         </div>
-      </div>) : (<div></div>);
+      </div>)
+      : (<div></div>);
 
-    return (
-      <div>
+    return (<div>
       <section className="clearfix job-bg user-page">
         <div className="container">
           <div className="row text-center">
@@ -102,10 +104,11 @@ class SignIn extends Component {
                   <button type="submit" className="btn" onClick={login}>Login</button>
                 </form>
 
-
                 <div className="user-option">
                   <div className="checkbox pull-left">
-                    <label htmlFor="logged"><input type="checkbox" name="logged" id="logged"/> Keep me logged in </label>
+                    <label htmlFor="logged"><input type="checkbox" name="logged" id="logged"/>
+                      Keep me logged in
+                    </label>
                   </div>
                   <div className="pull-right forgot-password">
                     <a href="#">Forgot password</a>
@@ -117,8 +120,7 @@ class SignIn extends Component {
           </div>
         </div>
       </section>
-      </div>
-    );
+    </div>);
   }
 }
 

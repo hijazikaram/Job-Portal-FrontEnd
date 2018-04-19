@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import '../../css/SignUp.css';
 
 import axios from 'axios';
@@ -6,78 +6,113 @@ import FormErrors from './FormErrors';
 
 class PostAJob extends Component {
   constructor(props) {
-		super(props);
-		this.state = {
+    super(props);
+    this.state = {
       institutionName: "",
-			email: "",
+      email: "",
       password: "",
       confirmPassword: "",
       institutionPhoneNumber: "",
       checked: false,
 
-      formErrors : {Name: '', Email: '', Password: '', Phone: '', confirmPassword: '', checkbox:''},
+      formErrors: {
+        Name: '',
+        Email: '',
+        Password: '',
+        Phone: '',
+        confirmPassword: '',
+        checkbox: ''
+      },
 
       institutionNameValid: false,
       emailValid: false,
       passwordValid: false,
-      confirmPasswordValid : false,
+      confirmPasswordValid: false,
       phoneNumberValid: false,
-      checkedValid : false,
-      
+      checkedValid: false,
+
       registerErrMsg: '',
-      registerSuccess : false
-		};
-	}
-  onInstitutionNameChange(e) {
-    var value = e.target.value;
-    this.setState({ institutionName: e.target.value },() => { this.validateField('institutionName', value)});
+      registerSuccess: false
+    };
   }
-  onEmailChange(e) {
+  onInstitutionNameChange = (e) => {
     var value = e.target.value;
-    this.setState({ email: e.target.value },() => { this.validateField('email', value)});
+    this.setState({
+      institutionName: e.target.value
+    }, () => {
+      this.validateField('institutionName', value)
+    });
   }
-  onPasswordChange(e) {
+  onEmailChange = (e) => {
     var value = e.target.value;
-    this.setState({ password: e.target.value },() => { this.validateField('password', value)});
+    this.setState({
+      email: e.target.value
+    }, () => {
+      this.validateField('email', value)
+    });
   }
-  onConfirmPasswordChange(e) {
+  onPasswordChange = (e) => {
+    var value = e.target.value;
+    this.setState({
+      password: e.target.value
+    }, () => {
+      this.validateField('password', value)
+    });
+  }
+  onConfirmPasswordChange = (e) => {
     var value = e.target.value
-    this.setState({ confirmPassword: e.target.value },() => { this.validateField('confirmPassword', value)});
+    this.setState({
+      confirmPassword: e.target.value
+    }, () => {
+      this.validateField('confirmPassword', value)
+    });
   }
-  onInstitutionPhoneNumberChange(e) {
+  onInstitutionPhoneNumberChange = (e) => {
     var value = e.target.value;
     const re = /^[0-9\b]+$/;
     if (e.target.value == '' || re.test(e.target.value)) {
-       this.setState({ institutionPhoneNumber: e.target.value },() => { this.validateField('institutionPhoneNumber', value)});
+      this.setState({
+        institutionPhoneNumber: e.target.value
+      }, () => {
+        this.validateField('institutionPhoneNumber', value)
+      });
     }
   }
 
-  onAgreeTermsAndCondition(e) {
+  onAgreeTermsAndCondition = (e) => {
     var value = e.target.checked;
-    this.setState({ checked : value },() => { this.validateField('checked', value)});
+    this.setState({
+      checked: value
+    }, () => {
+      this.validateField('checked', value)
+    });
   }
 
-  onRegister(e) {
+  onRegister = (e) => {
     e.preventDefault();
-    
-    axios.post('http://localhost:5000/api/institutions', {name : this.state.institutionName, email: this.state.email, password: this.state.password, phoneNumber: this.state.institutionPhoneNumber})
-        .then(res => {
-          if(res.data.success){
-            this.setState({ registerErrMsg : "Registered Successfully.", registerSuccess : true});
 
-            setTimeout(function () {
-              localStorage.setItem('user_id', res.data.institution._id);
-              localStorage.setItem('user_type', 'institution');
-              window.location.href = '/InstitutionProfile';  
-            },1000);
-            
-          } else {
-            this.setState({ registerErrMsg : res.data.error, registerSuccess : false});
-          }
-        });
+    axios.post('http://localhost:5000/api/institutions', {
+      name: this.state.institutionName,
+      email: this.state.email,
+      password: this.state.password,
+      phoneNumber: this.state.institutionPhoneNumber
+    }).then(res => {
+      if (res.data.success) {
+        this.setState({registerErrMsg: "Registered Successfully.", registerSuccess: true});
+
+        setTimeout(function() {
+          localStorage.setItem('user_id', res.data.institution._id);
+          localStorage.setItem('user_type', 'institution');
+          window.location.href = '/InstitutionProfile';
+        }, 1000);
+
+      } else {
+        this.setState({registerErrMsg: res.data.error, registerSuccess: false});
+      }
+    });
   }
 
-  validateField(fieldName, value) {
+  validateField = (fieldName, value) => {
     let fieldValidationErrors = this.state.formErrors;
 
     let institutionNameValid = this.state.institutionNameValid;
@@ -87,113 +122,133 @@ class PostAJob extends Component {
     let phoneNumberValid = this.state.phoneNumberValid;
     let checkedValid = this.state.checkedValid;
 
-    switch(fieldName) {
+    switch (fieldName) {
       case 'institutionName':
-        if(value == '') {
+        if (value == '') {
           institutionNameValid = false;
         } else {
           institutionNameValid = true;
         }
 
-        fieldValidationErrors.Name = institutionNameValid ? '' : ' is required';
+        fieldValidationErrors.Name = institutionNameValid
+          ? ''
+          : ' is required';
         break;
       case 'email':
         var regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         emailValid = regexp.test(value);
-        fieldValidationErrors.Email = emailValid ? '' : ' is invalid';
+        fieldValidationErrors.Email = emailValid
+          ? ''
+          : ' is invalid';
         break;
       case 'password':
         passwordValid = value.length >= 6;
-        fieldValidationErrors.Password = passwordValid ? '': ' is too short';
+        fieldValidationErrors.Password = passwordValid
+          ? ''
+          : ' is too short';
         break;
       case 'confirmPassword':
         var password = this.state.password;
-        if(value != password) {
+        if (value != password) {
           confirmPasswordValid = false;
-        } else{
+        } else {
           confirmPasswordValid = true;
         }
 
-        fieldValidationErrors.confirmPassword = confirmPasswordValid ? '' : 'Password not match';
+        fieldValidationErrors.confirmPassword = confirmPasswordValid
+          ? ''
+          : 'Password not match';
         break;
       case 'institutionPhoneNumber':
         phoneNumberValid = value.length > 0;
-        fieldValidationErrors.Phone = phoneNumberValid ? '' : ' is required';
+        fieldValidationErrors.Phone = phoneNumberValid
+          ? ''
+          : ' is required';
         break;
-      case 'checked' :
+      case 'checked':
         checkedValid = value;
-        fieldValidationErrors.checked = value ? '' : 'Please check the box';
+        fieldValidationErrors.checked = value
+          ? ''
+          : 'Please check the box';
         break;
       default:
         break;
     }
-    this.setState({formErrors: fieldValidationErrors,
-                    institutionNameValid: institutionNameValid,
-                    emailValid: emailValid,
-                    passwordValid: passwordValid,
-                    confirmPasswordValid: confirmPasswordValid,
-                    phoneNumberValid : phoneNumberValid,
-                    checkedValid : checkedValid
-                  }, this.validateForm);
+    this.setState({
+      formErrors: fieldValidationErrors,
+      institutionNameValid: institutionNameValid,
+      emailValid: emailValid,
+      passwordValid: passwordValid,
+      confirmPasswordValid: confirmPasswordValid,
+      phoneNumberValid: phoneNumberValid,
+      checkedValid: checkedValid
+    }, this.validateForm);
   }
 
-  validateForm() {
-    this.setState({ formValid: this.state.institutionNameValid && this.state.emailValid && this.state.passwordValid && this.state.confirmPasswordValid && this.state.phoneNumberValid && this.state.checkedValid });
+  validateForm = () => {
+    this.setState({
+      formValid: this.state.institutionNameValid && this.state.emailValid && this.state.passwordValid && this.state.confirmPasswordValid && this.state.phoneNumberValid && this.state.checkedValid
+    });
   }
 
   render() {
-    var institutionNameChange = this.onInstitutionNameChange.bind(this);
-    var emailChange = this.onEmailChange.bind(this);
-    var passwordChange = this.onPasswordChange.bind(this);
-    var confirmPasswordChange = this.onConfirmPasswordChange.bind(this);
-    var institutionPhoneNumberChange = this.onInstitutionPhoneNumberChange.bind(this);
+    var institutionNameChange = this.onInstitutionNameChange;
+    var emailChange = this.onEmailChange;
+    var passwordChange = this.onPasswordChange;
+    var confirmPasswordChange = this.onConfirmPasswordChange;
+    var institutionPhoneNumberChange = this.onInstitutionPhoneNumberChange;
     // console.log(this.state);
-    var register = this.onRegister.bind(this);
-    var agreeTermsAndCondition = this.onAgreeTermsAndCondition.bind(this);
+    var register = this.onRegister;
+    var agreeTermsAndCondition = this.onAgreeTermsAndCondition;
 
-    var validationNotification = this.no_errors ? (<div></div>) : (
-        <div className='panel panel-default'>
-          <FormErrors formErrors={this.state.formErrors} />
+    var validationNotification = this.no_errors
+      ? (<div></div>)
+      : (<div className='panel panel-default'>
+        <FormErrors formErrors={this.state.formErrors}/>
+      </div>);
+
+    var registerNotification = this.state.registerErrMsg
+      ? (<div className='panel panel-default'>
+        <div className={`notification ${ !this.state.registerSuccess
+            ? 'error'
+            : 'success'}`}>{this.state.registerErrMsg}
         </div>
-      );
+      </div>)
+      : (<div></div>);
 
-    var registerNotification = this.state.registerErrMsg ? (
-      <div className='panel panel-default'>
-        <div className={`notification ${!this.state.registerSuccess ? 'error' : 'success'}`}>{ this.state.registerErrMsg }
+    return (<div>
+      <div role="tabpanel" className="tab-pane" id="post-job">
+
+        {validationNotification}
+
+        {registerNotification}
+
+        <div className="form-group">
+          <input type="text" className="form-control" placeholder="Institution Name" onChange={institutionNameChange}/>
         </div>
-      </div>) : (<div></div>);
-
-    return (
-      <div>
-        <div role="tabpanel" className="tab-pane" id="post-job">
-
-          {validationNotification}
-          
-          {registerNotification}
-
-          <div className="form-group">
-            <input type="text" className="form-control" placeholder="Institution Name" onChange={institutionNameChange}/>
-          </div>
-          <div className="form-group">
-            <input type="email" className="form-control" placeholder="Email" onChange={emailChange}/>
-          </div>
-          <div className="form-group">
-            <input type="password" className="form-control" placeholder="Password" onChange={passwordChange}/>
-          </div>
-          <div className="form-group">
-            <input type="password" className="form-control" placeholder="Confirm Password" onChange={confirmPasswordChange}/>
-          </div>
-          <div className="form-group">
-            <input type="text" className="form-control" placeholder="Contact Number" onChange={institutionPhoneNumberChange} value={this.state.institutionPhoneNumber}/>
-          </div>
-          <div className="checkbox">
-            <label className={`pull-left ${this.state.checked ? 'checked' : ''}`} htmlFor="signing-2"><input type="checkbox" name="signing-2" id="signing-2" onChange={agreeTermsAndCondition} /> By signing up for an account you agree to our Terms and Conditions </label>
-          </div>
-          <button type="submit" className="btn" onClick={register}  disabled={!this.state.formValid}>Registration</button>
+        <div className="form-group">
+          <input type="email" className="form-control" placeholder="Email" onChange={emailChange}/>
         </div>
+        <div className="form-group">
+          <input type="password" className="form-control" placeholder="Password" onChange={passwordChange}/>
+        </div>
+        <div className="form-group">
+          <input type="password" className="form-control" placeholder="Confirm Password" onChange={confirmPasswordChange}/>
+        </div>
+        <div className="form-group">
+          <input type="text" className="form-control" placeholder="Contact Number" onChange={institutionPhoneNumberChange} value={this.state.institutionPhoneNumber}/>
+        </div>
+        <div className="checkbox">
+          <label className={`pull-left ${this.state.checked
+              ? 'checked'
+              : ''}`} htmlFor="signing-2"><input type="checkbox" name="signing-2" id="signing-2" onChange={agreeTermsAndCondition}/>
+            By signing up for an account you agree to our Terms and Conditions
+          </label>
+        </div>
+        <button type="submit" className="btn" onClick={register} disabled={!this.state.formValid}>Registration</button>
       </div>
-    );
+    </div>);
   }
 }
 

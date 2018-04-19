@@ -55,7 +55,7 @@ class ViewResume extends Component {
     });
   }
 
-  componentWillMount() {
+  componentWillMount =  () => {
     if(!this.id) {
       window.location.href = '/SignIn';
     }
@@ -74,7 +74,7 @@ class ViewResume extends Component {
                   <address>
                     <p dangerouslySetInnerHTML={{__html: this.state.express_yourself_additional_information}}></p>
                   </address>
-                </div>          
+                </div>
               </div>
 
               <div className="photo-of-resume section">
@@ -88,23 +88,23 @@ class ViewResume extends Component {
                       <button className="btn download-resume-photo">Download Resume(The picture he saved)</button>
                     </a>
                   </p>
-                </div>                 
+                </div>
               </div>
 
               <div className="career-objective section">
                 <div className="icons">
                   <i className="fa fa-black-tie" aria-hidden="true"></i>
-                </div>   
+                </div>
                 <div className="career-info">
                   <h3>Career Objective</h3>
                   <p dangerouslySetInnerHTML={{__html: this.state.career_objective}}></p>
-                </div>                 
+                </div>
               </div>
 
               <div className="work-history section">
                 <div className="icons">
                   <i className="fa fa-briefcase" aria-hidden="true"></i>
-                </div>   
+                </div>
                 <div className="work-info">
                   <h3>Work History</h3>
                   <ul>
@@ -117,13 +117,13 @@ class ViewResume extends Component {
                         )
                       })) : (<li></li>)}
                   </ul>
-                </div>                 
+                </div>
               </div>
 
               <div className="educational-background section">
                 <div className="icons">
                   <i className="fa fa-graduation-cap" aria-hidden="true"></i>
-                </div>  
+                </div>
                 <div className="educational-info">
                   <h3>Education Background</h3>
                   <ul>
@@ -142,17 +142,17 @@ class ViewResume extends Component {
                         )
                       })) : (<li></li>)}
                   </ul>
-                </div>        
+                </div>
               </div>
 
               <div className="special-qualification: section">
                 <div className="icons">
                   <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                </div>  
+                </div>
                 <div className="qualification">
                   <h3>Special Qualification:</h3>
                   <p dangerouslySetInnerHTML={{__html: this.state.special_qualification}}></p>
-                </div>        
+                </div>
               </div>
 
               <div className="language-proficiency section">
@@ -183,7 +183,7 @@ class ViewResume extends Component {
               <div className="personal-deatils section">
                 <div className="icons">
                   <i className="fa fa-user-secret" aria-hidden="true"></i>
-                </div>  
+                </div>
                 <div className="personal-info">
                   <h3>Personal Deatils</h3>
                   <ul className="address">
@@ -195,18 +195,18 @@ class ViewResume extends Component {
                     <li><h5>Nationality </h5> <span>:</span>{this.state.personal_details_nationality}</li>
                     <li><h5>Sex </h5> <span>:</span>{this.state.personal_details_sex}</li>
                     <li><h5>Address </h5> <span>:</span>{this.state.personal_details_address}</li>
-                  </ul>   
-                </div>                 
+                  </ul>
+                </div>
               </div>
 
               <div className="declaration section">
                 <div className="icons">
                   <i className="fa fa-hand-peace-o" aria-hidden="true"></i>
-                </div>   
+                </div>
                 <div className="declaration-info">
                   <h3>Declaration</h3>
                   <p dangerouslySetInnerHTML={{__html: this.state.declaration}}></p>
-                </div>                 
+                </div>
               </div>
               <div className="buttons">
                 <a href="#" className="btn">Send Email</a>
