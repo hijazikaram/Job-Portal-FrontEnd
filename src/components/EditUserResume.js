@@ -301,7 +301,7 @@ class EditUserResume extends Component {
       : (<div></div>);
 
     return (<div>
-      <Route exact="exact" path={this.props.match.path} component={UserPageNavBar}/>
+      <Route exact path={this.props.match.path} component={UserPageNavBar}/>
 
       <div className="adpost-details post-resume">
         <div className="row">

@@ -13,22 +13,24 @@ import UserFavoriteJobs from "./UserFavoriteJobs";
 
 class UserProfile extends Component {
   render() {
-    return (<div>
-      <section className=" job-bg page  ad-profile-page">
-        <div className="container">
-          <Route exact="exact" path={this.props.match.path} component={UserPageNavBar}/>
+    return (
+      <div>
+        <section className=" job-bg page  ad-profile-page">
+          <div className="container">
+            <Route exact path={this.props.match.path} component={UserPageNavBar}/>
 
-          <Switch>
-            <Route exact="exact" path={this.props.match.path} component={Home}/>
-            <Route path={this.props.match.path + "/ViewResume"} component={ViewResume}/>
-            <Route path={this.props.match.path + "/EditResume"} component={EditUserResume}/>
-            <Route path={this.props.match.path + "/DeleteMyProfile"} component={DeleteUserProfile}/>
-            <Route path={this.props.match.path + "/AppliedJobs"} component={UserAppliedJobs}/>
-            <Route path={this.props.match.path + "/FavoriteJobs"} component={UserFavoriteJobs}/>
-          </Switch>
-        </div>
-      </section>
-    </div>);
+            <Switch>
+              <Route exact path={this.props.match.path} component={Home}/>
+              <Route path={this.props.match.path + "/ViewResume"} component={ViewResume}/>
+              <Route path={this.props.match.path + "/EditResume"} component={EditUserResume}/>
+              <Route path={this.props.match.path + "/DeleteMyProfile"} component={DeleteUserProfile}/>
+              <Route path={this.props.match.path + "/AppliedJobs"} component={UserAppliedJobs}/>
+              <Route path={this.props.match.path + "/FavoriteJobs"} component={UserFavoriteJobs}/>
+            </Switch>
+          </div>
+        </section>
+      </div>
+    );
   }
 }
 

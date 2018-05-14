@@ -1,8 +1,33 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Footer from './properties/Footer';
+import axios from 'axios';
+import Pagination from "react-js-pagination";
 
 class JobList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      jobs : [],
+      job_to_show: [],
+      activePage : 1
+    }
+  }
+
+  componentWillMount() {
+    let self = this;
+    axios.get('http://localhost:5000/api/jobs').then((jobs) => {
+      self.setState({ jobs : jobs.data, job_to_show : jobs.data.slice(0,10) });
+    });
+  }
+
+  handlePageChange(pageNumber) {
+    let jobs = this.state.jobs;
+
+    jobs = jobs.slice(10 * (pageNumber -1) , 10 * pageNumber);
+    this.setState({activePage: pageNumber, job_to_show: jobs});
+  }
+
   render() {
     return (<div>
       <section className="job-bg page job-list-page">
@@ -70,7 +95,7 @@ class JobList extends Component {
               <div className="col-sm-12 col-md-12">
                 <div className="section job-list-item">
                   <div className="featured-top">
-                    <h4>Showing 0</h4>
+                    <h4>Showing {this.state.job_to_show.length}</h4>
                     <div className="dropdown pull-right">
                       <div className="dropdown category-dropdown">
                         <h5>Sort by:</h5>
@@ -90,85 +115,65 @@ class JobList extends Component {
                     </div>
                   </div>
 
-                  <div className="job-ad-item">
-                    <div className="item-info">
-                      <div className="item-image-box">
-                        <div className="item-image">
-                          <a href="job-details.html"><img src="images/job/1.png" alt="Image" className="img-responsive"/></a>
-                        </div>
-                      </div>
+                  { this.state.job_to_show.map((job , index) =>{
+                    return(
+                      <div className="job-ad-item" key={index}>
+                        <div className="item-info">
+                          <div className="item-image-box">
+                            <div className="item-image">
+                              <a href={'JobList/'+ job._id }><img src="images/job/1.png" alt="Image" className="img-responsive"/></a>
+                            </div>
+                          </div>
 
-                      <div className="ad-info">
-                        <span>
-                          <a href="job-details.html" className="title">Project Manager</a>
-                          @
-                          <a href="#">Dominos Pizza</a>
-                        </span>
-                        <div className="ad-meta">
-                          <ul>
-                            <li>
-                              <a href="#">
-                                <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
-                            </li>
-                          </ul>
+                          <div className="ad-info">
+                            <span>
+                              <a href={'JobList/'+ job._id } className="title">{job.job_title}</a>
+                              @
+                              <a href="#">{job.company_name}</a>
+                            </span>
+                            <div className="ad-meta">
+                              <ul>
+                                <li>
+                                  <a href={'JobList/'+ job._id }>
+                                    <i className="fa fa-map-marker" aria-hidden="true"></i>{job.company_address}
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href={'JobList/'+ job._id }>
+                                    <i className="fa fa-clock-o" aria-hidden="true"></i>{job.job_type}</a>
+                                </li>
+                                <li>
+                                  <a href={'JobList/'+ job._id }>
+                                    <i className="fa fa-money" aria-hidden="true"></i>
+                                      {
+                                        job.salary_negotiable
+                                          ? 'Negotiable'
+                                          : '$' + (
+                                          job.salary_min) + '-' + '$' + (
+                                          job.salary_max)
+                                      }
+                                    </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
+                    )
+                  })}
 
                   <div className="ad-section text-center">
                     <a href="#"><img src="images/ads/3.jpg" alt="Image" className="img-responsive"/></a>
                   </div>
 
                   <div className="text-center">
-                    <ul className="pagination ">
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-chevron-left"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">1</a>
-                      </li>
-                      <li className="active">
-                        <a href="#">2</a>
-                      </li>
-                      <li>
-                        <a href="#">3</a>
-                      </li>
-                      <li>
-                        <a href="#">4</a>
-                      </li>
-                      <li>
-                        <a href="#">5</a>
-                      </li>
-                      <li>
-                        <a>...</a>
-                      </li>
-                      <li>
-                        <a href="#">10</a>
-                      </li>
-                      <li>
-                        <a href="#">20</a>
-                      </li>
-                      <li>
-                        <a href="#">30</a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-chevron-right"></i>
-                        </a>
-                      </li>
-                    </ul>
+                    <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={10}
+                      totalItemsCount={this.state.jobs.length}
+                      pageRangeDisplayed={5}
+                      onChange={this.handlePageChange.bind(this)}
+                    />
                   </div>
                 </div>
               </div>

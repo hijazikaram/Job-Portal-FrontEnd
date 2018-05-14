@@ -152,7 +152,7 @@ class InstitutionPostedJobs extends Component {
         }
       </div>
       <Modal show={this.state.show} onHide={this.handleClose}>
-        <Modal.Header closeButton="closeButton">
+        <Modal.Header closeButton>
           <Modal.Title>Be careful ?</Modal.Title>
         </Modal.Header>
         <Modal.Body>

@@ -18,7 +18,7 @@ class UserProfile extends Component {
         <div className="container">
           <InstitutionPageNavBar/>
           <Switch>
-            <Route exact="exact" path={this.props.match.path} component={Home}/>
+            <Route exact path={this.props.match.path} component={Home}/>
             <Route path={this.props.match.path + "/PostAJob"} component={InstitutionPostAJob}/>
             <Route path={this.props.match.path + "/EditResume"} component={EditUserResume}/>
             <Route path={this.props.match.path + "/DeleteMyProfile"} component={DeleteUserProfile}/>

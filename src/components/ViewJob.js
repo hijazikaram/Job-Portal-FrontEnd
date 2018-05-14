@@ -78,7 +78,7 @@ class ViewJob extends Component {
   }
 
   render() {
-    console.log(this.state.job);
+
     return (<div>
       {
         !this.isEmpty(this.state.job)
