@@ -28,6 +28,12 @@ class NavBar extends Component {
                   <li>
                     <Link to="/JobList" activeclassname="active">Job List</Link>
                   </li>
+                  <li>
+                    <Link to="/JobList" activeclassname="active">Price</Link>
+                  </li>
+                  <li>
+                    <Link to="/JobList" activeclassname="active">Contact Us</Link>
+                  </li>
                 </ul>
               </div>
             </div>

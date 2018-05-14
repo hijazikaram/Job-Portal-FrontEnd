@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 import jobIcon from '../img/4.png';
 import Footer from './properties/Footer';
 import axios from 'axios';
@@ -166,9 +167,9 @@ class ViewJob extends Component {
                         </a>
                       </li>
                       <li>
-                        <a href="#">
+                        <Link to="">
                           <i className="fa fa-tumblr-square" aria-hidden="true"></i>
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -246,22 +247,22 @@ class ViewJob extends Component {
                         </ul>
                         <ul className="share-social">
                           <li>
-                            <a href="#">
+                            <a href={this.state.job.facebook}>
                               <i className="fa fa-facebook-official" aria-hidden="true"></i>
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href={this.state.job.twitter}>
                               <i className="fa fa-twitter-square" aria-hidden="true"></i>
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href={this.state.job.google}>
                               <i className="fa fa-google-plus-square" aria-hidden="true"></i>
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href={this.state.job.linkedin}>
                               <i className="fa fa-linkedin-square" aria-hidden="true"></i>
                             </a>
                           </li>

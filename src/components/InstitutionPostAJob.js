@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 import '../css/PostAJob.css';
@@ -29,8 +29,10 @@ class InstitutionPostAJob extends Component {
       company_email: '',
       company_mobile: '',
       company_address: '',
-
-      post_premium: '',
+      company_facebook: '',
+      company_twitter: '',
+      company_google: '',
+      company_linkedin: '',
 
       agree_terms: false,
 
@@ -61,6 +63,32 @@ class InstitutionPostAJob extends Component {
       postedSuccessfully: false,
       postResultMsg: ''
     }
+    this.id = localStorage.getItem('user_id');
+    // company_name: '',
+    // company_email: '',
+    // company_mobile: '',
+    // company_address: '',
+
+    axios.get('http://localhost:5000/api/institution/' + this.id).then(res => {
+      console.log(res, "kjk");
+      var institution = res.data.institution;
+      console.log(institution);
+      console.log("somehitng");
+      this.setState({ company_name: institution.name, company_email: institution.email, company_mobile: institution.phoneNumber, company_facebook: institution.facebook, company_twitter: institution.twitter, company_google: institution.google, company_linkedin: institution.linkedin });
+
+      if (!institution.address) {
+        this.setState({ address: '' });
+      } else {
+        this.setState({ company_address: institution.address });
+      }
+
+      this.temp = this.state;
+      this.facebook = false;
+      this.twitter = false;
+      this.google = false;
+      this.linkedin = false;
+
+    });
   }
 
   componentWillMount = () => {
@@ -72,39 +100,39 @@ class InstitutionPostAJob extends Component {
     }
 
     if (id && user_type) {
-      this.setState({institution_id: id});
+      this.setState({ institution_id: id });
     }
   }
 
   onChangeJobCategory = (e) => {
-    this.setState({job_category: e.target.value});
+    this.setState({ job_category: e.target.value });
   }
 
   onChangeJobType = (e) => {
     if (e.target.value !== '') {
-      this.setState({jobTypeExist: true});
+      this.setState({ jobTypeExist: true });
     } else {
-      this.setState({jobTypeExist: false});
+      this.setState({ jobTypeExist: false });
     }
-    this.setState({job_type: e.target.value});
+    this.setState({ job_type: e.target.value });
   }
 
   onChangeJobTitle = (e) => {
     if (e.target.value !== '') {
-      this.setState({jobTitleExist: true});
+      this.setState({ jobTitleExist: true });
     } else {
-      this.setState({jobTitleExist: false});
+      this.setState({ jobTitleExist: false });
     }
-    this.setState({job_title: e.target.value});
+    this.setState({ job_title: e.target.value });
   }
 
   onChangeJobDescription = (e) => {
     if (e.target.value !== '') {
-      this.setState({jobDescriptionExist: true});
+      this.setState({ jobDescriptionExist: true });
     } else {
-      this.setState({jobDescriptionExist: false});
+      this.setState({ jobDescriptionExist: false });
     }
-    this.setState({job_description: e.target.value});
+    this.setState({ job_description: e.target.value });
     this.setState({
       characters_left: (5000 - e.target.value.length)
     });
@@ -112,22 +140,22 @@ class InstitutionPostAJob extends Component {
 
   onChangeJobKeyResponsibilities = (e) => {
     if (e.target.value !== '') {
-      this.setState({jobKeyResponsibilities: true});
+      this.setState({ jobKeyResponsibilities: true });
     } else {
-      this.setState({jobKeyResponsibilities: false});
+      this.setState({ jobKeyResponsibilities: false });
     }
-    this.setState({job_key_responsibilities: e.target.value});
+    this.setState({ job_key_responsibilities: e.target.value });
     this.setState({
       characters_left: (5000 - e.target.value.length)
     });
   }
   onChangeJobMinimumRequirements = (e) => {
     if (e.target.value !== '') {
-      this.setState({jobMinimumRequirements: true});
+      this.setState({ jobMinimumRequirements: true });
     } else {
-      this.setState({jobMinimumRequirements: false});
+      this.setState({ jobMinimumRequirements: false });
     }
-    this.setState({job_minimum_requirements: e.target.value});
+    this.setState({ job_minimum_requirements: e.target.value });
     this.setState({
       characters_left: (5000 - e.target.value.length)
     });
@@ -135,127 +163,163 @@ class InstitutionPostAJob extends Component {
 
   onChangeLocationCountry = (e) => {
     if (e.target.value !== '') {
-      this.setState({locationCountryExist: true});
+      this.setState({ locationCountryExist: true });
     } else {
-      this.setState({locationCountryExist: false});
+      this.setState({ locationCountryExist: false });
     }
-    this.setState({location_country: e.target.value});
+    this.setState({ location_country: e.target.value });
   }
 
   onChangeLocationState = (e) => {
     if (e.target.value !== '') {
-      this.setState({locationStateExist: true});
+      this.setState({ locationStateExist: true });
     } else {
-      this.setState({locationStateExist: false});
+      this.setState({ locationStateExist: false });
     }
-    this.setState({location_state: e.target.value});
+    this.setState({ location_state: e.target.value });
   }
 
   onChangeSalaryMin = (e) => {
     if (e.target.value !== '') {
-      this.setState({salaryMinExist: true});
+      this.setState({ salaryMinExist: true });
     } else {
-      this.setState({salaryMinExist: false});
+      this.setState({ salaryMinExist: false });
     }
-    this.setState({salary_min: e.target.value});
+    this.setState({ salary_min: e.target.value });
   }
 
   onChangeSalaryMax = (e) => {
     if (e.target.value !== '') {
-      this.setState({salaryMaxExist: true});
+      this.setState({ salaryMaxExist: true });
     } else {
-      this.setState({salaryMaxExist: false});
+      this.setState({ salaryMaxExist: false });
     }
-    this.setState({salary_max: e.target.value});
+    this.setState({ salary_max: e.target.value });
   }
 
   onChangeSalaryNegotiable = (e) => {
-    this.setState({salary_negotiable: e.target.value});
+    this.setState({ salary_negotiable: e.target.value });
     if (e.target.value !== '') {
-      this.setState({salaryNegotiableExist: true});
+      this.setState({ salaryNegotiableExist: true });
     } else {
-      this.setState({salaryNegotiableExist: false});
+      this.setState({ salaryNegotiableExist: false });
     }
   }
 
   onChangeApplicationDeadline = (e) => {
     if (e.target.value !== '') {
-      this.setState({applicationDeadlineExist: true});
+      this.setState({ applicationDeadlineExist: true });
     } else {
-      this.setState({applicationDeadlineExist: false});
+      this.setState({ applicationDeadlineExist: false });
     }
-    this.setState({application_deadline: e.target.value});
+    this.setState({ application_deadline: e.target.value });
   }
 
   onChangeExperience = (e) => {
-    this.setState({experience: e.target.value});
+    this.setState({ experience: e.target.value });
   }
 
   onChangeJobFunction = (e) => {
     if (e.target.value !== '') {
-      this.setState({jobFunctionExist: true});
+      this.setState({ jobFunctionExist: true });
     } else {
-      this.setState({jobFunctionExist: false});
+      this.setState({ jobFunctionExist: false });
     }
-    this.setState({job_function: e.target.value});
+    this.setState({ job_function: e.target.value });
   }
 
   onChangeCompanyIndustry = (e) => {
     if (e.target.value !== '') {
-      this.setState({companyIndustryExist: true});
+      this.setState({ companyIndustryExist: true });
     } else {
-      this.setState({companyIndustryExist: false});
+      this.setState({ companyIndustryExist: false });
     }
-    this.setState({company_industry: e.target.value});
+    this.setState({ company_industry: e.target.value });
   }
 
   onChangeCompanyName = (e) => {
     if (e.target.value !== '') {
-      this.setState({companyNameExist: true});
+      this.setState({ companyNameExist: true });
     } else {
-      this.setState({companyNameExist: false});
+      this.setState({ companyNameExist: false });
     }
-    this.setState({company_name: e.target.value});
+    this.setState({ company_name: e.target.value });
+  }
+
+  onFacebookChange = (e) => {
+    this.setState({ company_facebook: e.target.value });
+    if (this.temp.facebook != e.target.value) {
+      this.facebookChanged = true;
+    } else {
+      this.facebookChanged = false;
+    }
+    this.forceUpdate();
+  }
+
+  onTwitterChange = (e) => {
+    this.setState({ company_twitter: e.target.value });
+    if (this.temp.twitter != e.target.value) {
+      this.twitterChanged = true;
+    } else {
+      this.twitterChanged = false;
+    }
+    this.forceUpdate();
+  }
+
+  onGoogleChange = (e) => {
+    this.setState({ company_google: e.target.value });
+    if (this.temp.google != e.target.value) {
+      this.googleChanged = true;
+    } else {
+      this.googleChanged = false;
+    }
+    this.forceUpdate();
+  }
+
+  onLinkedinChange = (e) => {
+    this.setState({ company_linkedin: e.target.value });
+    if (this.temp.linkedin != e.target.value) {
+      this.linkedinChanged = true;
+    } else {
+      this.linkedinChanged = false;
+    }
+    this.forceUpdate();
   }
 
   onChangeCompanyEmail = (e) => {
     if (e.target.value !== '') {
-      this.setState({companyEmailExist: true});
+      this.setState({ companyEmailExist: true });
     } else {
-      this.setState({companyEmailExist: false});
+      this.setState({ companyEmailExist: false });
     }
-    this.setState({company_email: e.target.value});
+    this.setState({ company_email: e.target.value });
   }
 
   onChangeCompanyMobile = (e) => {
     if (e.target.value !== '') {
-      this.setState({companyMobileExist: true});
+      this.setState({ companyMobileExist: true });
     } else {
-      this.setState({companyMobileExist: false});
+      this.setState({ companyMobileExist: false });
     }
     var value = e.target.value;
     const re = /^[0-9\b]+$/;
     if (e.target.value == '' || re.test(e.target.value)) {
-      this.setState({company_mobile: e.target.value});
+      this.setState({ company_mobile: e.target.value });
     }
   }
 
   onChangeCompanyAddress = (e) => {
     if (e.target.value !== '') {
-      this.setState({companyAddressExist: true});
+      this.setState({ companyAddressExist: true });
     } else {
-      this.setState({companyAddressExist: false});
+      this.setState({ companyAddressExist: false });
     }
-    this.setState({company_address: e.target.value});
-  }
-
-  onChangePostPremium = (e) => {
-    this.setState({post_premium: e.target.value});
+    this.setState({ company_address: e.target.value });
   }
 
   onAgreeTermsAndCondition = (e) => {
     var value = e.target.checked;
-    this.setState({agree_terms: value});
+    this.setState({ agree_terms: value });
   }
 
   postJob = (e) => {
@@ -304,16 +368,16 @@ class InstitutionPostAJob extends Component {
     if (!this.state.companyIndustryExist) {
       error_msg.push("Company Industry");
     }
-    if (!this.state.companyNameExist) {
+    if (this.state.companyNameExist === '') {
       error_msg.push("Company Name");
     }
-    if (!this.state.companyEmailExist) {
+    if (this.state.companyEmailExist === '') {
       error_msg.push("Company Email");
     }
-    if (!this.state.companyMobileExist) {
+    if (this.state.companyMobileExist === '') {
       error_msg.push("Company Mobile");
     }
-    if (!this.state.companyAddressExist) {
+    if (this.state.companyAddressExist === '') {
       error_msg.push("Company Address");
     }
 
@@ -322,22 +386,22 @@ class InstitutionPostAJob extends Component {
       errorMsg: error_msg
     }, () => {
       if (self.state.errorMsg.length > 0) {
-        self.setState({postValid: false});
+        self.setState({ postValid: false });
         return false;
       } else {
-        self.setState({postValid: true});
-        axios.post("http://localhost:5000/api/jobs", self.state).then(function(response) {
+        self.setState({ postValid: true });
+        axios.post("http://localhost:5000/api/jobs", self.state).then(function (response) {
           if (response.data.success) {
-            self.setState({postedSuccessfully: true, postResultMsg: 'Posted Successfully'});
-            setTimeout(function() {
+            self.setState({ postedSuccessfully: true, postResultMsg: 'Posted Successfully' });
+            setTimeout(function () {
               window.location.href = '/InstitutionProfile/PostedJobs';
             }, 500);
           } else {
-            self.setState({postedSuccessfully: false, postResultMsg: 'Error Occured.'});
+            self.setState({ postedSuccessfully: false, postResultMsg: 'Error Occured.' });
           }
-        }, function(error) {
+        }, function (error) {
           console.log(error);
-          self.setState({postedSuccessfully: false, postResultMsg: 'Error Occured.'});
+          self.setState({ postedSuccessfully: false, postResultMsg: 'Error Occured.' });
         });
       }
     });
@@ -349,9 +413,8 @@ class InstitutionPostAJob extends Component {
       ? (<div className='panel panel-default'>
         <ul className="notification error">
           {
-            this.state.errorMsg.map(function(msg, index) {
-              return <li key={index}>{msg}
-                is required</li>
+            this.state.errorMsg.map(function (msg, index) {
+              return <li key={index}>{msg} is required</li>
             })
           }
         </ul>
@@ -360,9 +423,9 @@ class InstitutionPostAJob extends Component {
 
     var postNotification = this.state.postResultMsg
       ? (<div className='panel panel-default'>
-        <div className={`notification ${ !this.state.postedSuccessfully
-            ? 'error'
-            : 'success'}`}>{this.state.postResultMsg}
+        <div className={`notification ${!this.state.postedSuccessfully
+          ? 'error'
+          : 'success'}`}>{this.state.postResultMsg}
         </div>
       </div>)
       : (<div></div>);
@@ -395,13 +458,13 @@ class InstitutionPostAJob extends Component {
                     <label className="col-sm-3">Job Type<span className="required">*</span>
                     </label>
                     <div className="col-sm-9 user-type">
-                      <input type="radio" name="sellType" value="Full Time" id="full-time" onChange={this.onChangeJobType}/>
+                      <input type="radio" name="sellType" value="Full Time" id="full-time" onChange={this.onChangeJobType} />
                       <label htmlFor="full-time">Full Time</label>
-                      <input type="radio" name="sellType" value="Part Time" id="part-time" onChange={this.onChangeJobType}/>
+                      <input type="radio" name="sellType" value="Part Time" id="part-time" onChange={this.onChangeJobType} />
                       <label htmlFor="part-time">Part Time</label>
-                      <input type="radio" name="sellType" value="Freelance" id="freelance" onChange={this.onChangeJobType}/>
+                      <input type="radio" name="sellType" value="Freelance" id="freelance" onChange={this.onChangeJobType} />
                       <label htmlFor="freelance">Freelance</label>
-                      <input type="radio" name="sellType" value="Contract" id="contract" onChange={this.onChangeJobType}/>
+                      <input type="radio" name="sellType" value="Contract" id="contract" onChange={this.onChangeJobType} />
                       <label htmlFor="contract">Contract</label>
                     </div>
                   </div>
@@ -409,7 +472,7 @@ class InstitutionPostAJob extends Component {
                     <label className="col-sm-3 label-title">Title for your job<span className="required">*</span>
                     </label>
                     <div className="col-sm-9">
-                      <input type="text" className="form-control" placeholder="ex, Human Resource Manager" onChange={this.onChangeJobTitle}/>
+                      <input type="text" className="form-control" placeholder="ex, Human Resource Manager" onChange={this.onChangeJobTitle} />
                     </div>
                   </div>
                   <div className="row form-group item-description">
@@ -475,10 +538,10 @@ class InstitutionPostAJob extends Component {
                     </label>
                     <div className="col-sm-9">
                       <label>$USD</label>
-                      <input type="text" className="form-control" placeholder="Min" onChange={this.onChangeSalaryMin}/>
+                      <input type="text" className="form-control" placeholder="Min" onChange={this.onChangeSalaryMin} />
                       <span>-</span>
-                      <input type="text" className="form-control" placeholder="Max" onChange={this.onChangeSalaryMax}/>
-                      <input type="radio" name="price" value="negotiable" id="negotiable" onChange={this.onChangeSalaryNegotiable}/>
+                      <input type="text" className="form-control" placeholder="Max" onChange={this.onChangeSalaryMax} />
+                      <input type="radio" name="price" value="negotiable" id="negotiable" onChange={this.onChangeSalaryNegotiable} />
                       <label htmlFor="negotiable">Negotiable
                       </label>
                     </div>
@@ -487,7 +550,7 @@ class InstitutionPostAJob extends Component {
                     <label className="col-sm-3 label-title">Application Deadline<span className="required">*</span>
                     </label>
                     <div className="col-sm-9">
-                      <input type="text" className="form-control" placeholder="ex, 08-12-2018" onChange={this.onChangeApplicationDeadline}/>
+                      <input type="text" className="form-control" placeholder="ex, 08-12-2018" onChange={this.onChangeApplicationDeadline} />
                     </div>
                   </div>
                   <div className="row form-group add-title">
@@ -510,7 +573,7 @@ class InstitutionPostAJob extends Component {
                     <label className="col-sm-3 label-title">Job Function<span className="required">*</span>
                     </label>
                     <div className="col-sm-9">
-                      <input type="text" className="form-control" placeholder="human, reosurce, job, hrm" onChange={this.onChangeJobFunction}/>
+                      <input type="text" className="form-control" placeholder="human, reosurce, job, hrm" onChange={this.onChangeJobFunction} />
                     </div>
                   </div>
                 </div>
@@ -521,64 +584,75 @@ class InstitutionPostAJob extends Component {
                     <label className="col-sm-3 label-title">Industry<span className="required">*</span>
                     </label>
                     <div className="col-sm-9">
-                      <input type="text" name="name" className="form-control" placeholder="Marketing and Advertising" onChange={this.onChangeCompanyIndustry}/>
+                      <input type="text" name="name" className="form-control" placeholder="Marketing and Advertising" onChange={this.onChangeCompanyIndustry} />
                     </div>
                   </div>
                   <div className="row form-group">
                     <label className="col-sm-3 label-title">Company Name<span className="required">*</span>
                     </label>
                     <div className="col-sm-9">
-                      <input type="text" name="name" className="form-control" placeholder="ex, Jhon Doe" onChange={this.onChangeCompanyName}/>
+                      <input type="text" name="name" className="form-control" placeholder="ex, Jhon Doe" value={this.state.company_name} onChange={this.onChangeCompanyName} />
                     </div>
                   </div>
                   <div className="row form-group">
                     <label className="col-sm-3 label-title">Email ID</label>
                     <div className="col-sm-9">
-                      <input type="email" name="email" className="form-control" placeholder="ex, jhondoe@mail.com" onChange={this.onChangeCompanyEmail}/>
+                      <input type="email" name="email" className="form-control" placeholder="ex, jhondoe@mail.com" value={this.state.company_email} onChange={this.onChangeCompanyEmail} />
                     </div>
                   </div>
                   <div className="row form-group">
                     <label className="col-sm-3 label-title">Mobile Number<span className="required">*</span>
                     </label>
                     <div className="col-sm-9">
-                      <input type="text" name="mobileNumber" className="form-control" placeholder="ex, +912457895" onChange={this.onChangeCompanyMobile} value={this.state.company_mobile}/>
+                      <input type="text" name="mobileNumber" className="form-control" placeholder="ex, +912457895" onChange={this.onChangeCompanyMobile} value={this.state.company_mobile} />
                     </div>
                   </div>
                   <div className="row form-group address">
                     <label className="col-sm-3 label-title">Address<span className="required">*</span>
                     </label>
                     <div className="col-sm-9">
-                      <input type="text" name="address" className="form-control" placeholder="ex, alekdera House, coprotec, usa" onChange={this.onChangeCompanyAddress}/>
+                      <input type="text" name="address" className="form-control" placeholder="ex, alekdera House, coprotec, usa" value={this.state.company_address} onChange={this.onChangeCompanyAddress} />
                     </div>
                   </div>
                 </div>
-
-                <div className="section">
-                  <h4>Make Your Post Premium</h4>
-                  <p>More replies means more interested buyers. With lots of interested buyers, you have a better chance of selling for the price that you want.<a href="#">Learn more</a>
-                  </p>
-                  <ul className="premium-options">
-                    <li className="premium">
-                      <input type="radio" name="premiumOption" value="day-one" id="day-one" onChange={this.onChangePostPremium}/>
-                      <label htmlFor="day-one">Regular Post</label>
-                      <span>$20.00</span>
-                    </li>
-                    <li className="premium">
-                      <input type="radio" name="premiumOption" value="day-two" id="day-two" onChange={this.onChangePostPremium}/>
-                      <label htmlFor="day-two">Urgent Job</label>
-                      <span>$30.00</span>
-                    </li>
-                    <li className="premium">
-                      <input type="radio" name="premiumOption" value="day-three" id="day-three" onChange={this.onChangePostPremium}/>
-                      <label htmlFor="day-three">Top Post for 7 days</label>
-                      <span>$50.00</span>
-                    </li>
-                    <li className="premium">
-                      <input type="radio" name="premiumOption" value="day-four" id="day-four" onChange={this.onChangePostPremium}/>
-                      <label htmlFor="day-four">Daily Bump Up for 7 days</label>
-                      <span>$100.00</span>
-                    </li>
-                  </ul>
+                <div className="change-social section">
+                  <h2>Social</h2>
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <div className="form-group has-feedback">
+                        <input type="text" className="form-control" value={this.state.company_facebook} />
+                        <span className="form-control-feedback">
+                          <i className="fa fa-facebook"></i>
+                        </span>
+                      </div>
+                    </div>
+                    <div className="col-lg-6">
+                      <div className="form-group has-feedback">
+                        <input type="text" className="form-control" value={this.state.company_twitter} />
+                        <span className="form-control-feedback">
+                          <i className="fa fa-twitter"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <div className="form-group has-feedback">
+                        <input type="text" className="form-control" value={this.state.company_google} />
+                        <span className="form-control-feedback">
+                          <i className="fa fa-google-plus"></i>
+                        </span>
+                      </div>
+                    </div>
+                    <div className="col-lg-6">
+                      <div className="form-group has-feedback">
+                        <input type="text" className="form-control" value={this.state.company_linkedin} />
+                        <span className="form-control-feedback">
+                          <i className="fa fa-linkedin"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {notification}
@@ -587,8 +661,8 @@ class InstitutionPostAJob extends Component {
 
                 <div className="checkbox section agreement">
                   <label className={`pull-left ${this.state.agree_terms
-                      ? 'checked'
-                      : ''}`} htmlFor="signing-2"><input type="checkbox" name="signing-2" id="signing-2" onChange={this.onAgreeTermsAndCondition}/>
+                    ? 'checked'
+                    : ''}`} htmlFor="signing-2"><input type="checkbox" name="signing-2" id="signing-2" onChange={this.onAgreeTermsAndCondition} />
                     You agree to our
                     <a href="#">Terms of Use</a>
                     and

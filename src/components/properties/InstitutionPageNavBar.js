@@ -50,19 +50,18 @@ class UserPageNavBar extends Component {
             <img src={userIcon} alt="User Images" className="img-responsive"/>
           </div>
           <div className="user">
-            <h2>Hello,
-              <a href="#">{this.state.name}</a>
+            <h2>Salam, <a href="#">{this.state.name}</a>
             </h2>
           </div>
 
           <div className="favorites-user">
+          <div className="favorites">
+              <a href="bookmark.html">0<small>Available</small>
+              </a>
+            </div>
             <div className="favorites">
               <Link to={"/InstitutionProfile/PostedJobs"}>{this.state.jobs}<small>Posted Job</small>
               </Link>
-            </div>
-            <div className="favorites">
-              <a href="bookmark.html">0<small>Favorites</small>
-              </a>
             </div>
           </div>
         </div>
@@ -71,13 +70,13 @@ class UserPageNavBar extends Component {
             <Link to={"/InstitutionProfile"}>Account Info</Link>
           </li>
           <li>
-            <Link to={"/InstitutionProfile"}>Company Profile</Link>
-          </li>
-          <li>
             <Link to={"/InstitutionProfile/PostAJob"}>Post Your Job</Link>
           </li>
           <li>
             <Link to={"/InstitutionProfile/PostedJobs"}>Posted Jobs</Link>
+          </li>
+          <li>
+            <Link to={"/InstitutionProfile/PostedJobs"}>Transactions</Link>
           </li>
           <li>
             <Link to={"/InstitutionProfile/DeleteMyProfile"}>Close account</Link>

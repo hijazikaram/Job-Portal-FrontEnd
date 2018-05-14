@@ -65,7 +65,7 @@ class App extends Component {
               <li className="category-item">
                 <a href="job-list.html">
                   <div className="category-icon"><img src="images/icon/1.png" alt="images" className="img-responsive"/></div>
-                  <span className="category-title">Accounting/Finance</span>
+                  <span className="category-title">Imam</span>
                   <span className="category-quantity">(1298)</span>
                 </a>
               </li>
@@ -73,14 +73,14 @@ class App extends Component {
               <li className="category-item">
                 <a href="job-list.html">
                   <div className="category-icon"><img src="images/icon/2.png" alt="images" className="img-responsive"/></div>
-                  <span className="category-title">Education/Training</span>
+                  <span className="category-title">Education</span>
                   <span className="category-quantity">(76212)</span>
                 </a>
               </li>
               <li className="category-item">
                 <a href="job-list.html">
                   <div className="category-icon"><img src="images/icon/2.png" alt="images" className="img-responsive"/></div>
-                  <span className="category-title">Education/Training</span>
+                  <span className="category-title">Volunteer</span>
                   <span className="category-quantity">(76212)</span>
                 </a>
               </li>
