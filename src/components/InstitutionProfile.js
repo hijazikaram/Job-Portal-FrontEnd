@@ -11,7 +11,7 @@ import EditUserResume from "./EditUserResume";
 import DeleteUserProfile from "./DeleteUserProfile";
 import InstitutionPostedJobs from "./InstitutionPostedJobs";
 
-class UserProfile extends Component {
+class InstitutionProfile extends Component {
   render() {
     return (<div>
       <section className="job-bg ad-profile-page">
@@ -30,4 +30,4 @@ class UserProfile extends Component {
   }
 }
 
-export default UserProfile;
+export default InstitutionProfile;

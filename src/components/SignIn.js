@@ -12,7 +12,7 @@ class SignIn extends Component {
       loginValid: false
     };
   }
-  componentWillMount = () => {
+  componentWillMount() {
     var id = localStorage.getItem('user_id');
     var user_type = localStorage.getItem('user_type');
     if (id && !user_type) {

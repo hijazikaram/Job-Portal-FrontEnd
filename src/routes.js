@@ -6,17 +6,17 @@ import JobDetails from "./components/JobDetails";
 import NavBar from "./components/NavBar";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import Price from "./components/Stripe/Price";
 import UserProfile from "./components/UserProfile";
 import InstitutionProfile from "./components/InstitutionProfile";
 import ViewJob from "./components/ViewJob";
 import EditJob from "./components/EditJob";
-import configureStore from "./store/configure-store";
-const store = configureStore();
 
 
 const BasicExample = () => (<Router>
   <div><NavBar/>
     <Route exact path="/" component={Home}/>
+    <Route exact path="/Prices" component={Price}/>
     <Route exact path="/JobList" component={JobList}/>
     <Route path="/JobList/:job_id" component={JobDetails}/>
     <Route path="/SignIn" component={SignIn}/>

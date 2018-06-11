@@ -37,7 +37,7 @@ class FindAJob extends Component {
     this.no_errors = true;
   }
   onUserNameChange = (e) => {
-    var value = e.target.value;
+    const value = e.target.value;
     this.setState({
       name: e.target.value
     }, () => {
@@ -45,7 +45,7 @@ class FindAJob extends Component {
     });
   }
   onEmailChange = (e) => {
-    var value = e.target.value;
+    const value = e.target.value;
     this.setState({
       email: e.target.value
     }, () => {
@@ -53,7 +53,7 @@ class FindAJob extends Component {
     });
   }
   onPasswordChange = (e) => {
-    var value = e.target.value;
+    const value = e.target.value;
     this.setState({
       password: e.target.value
     }, () => {
@@ -61,7 +61,7 @@ class FindAJob extends Component {
     });
   }
   onConfirmPasswordChange = (e) => {
-    var value = e.target.value;
+    const value = e.target.value;
     this.setState({
       confirmPassword: e.target.value
     }, () => {
@@ -69,7 +69,7 @@ class FindAJob extends Component {
     });
   }
   onUserPhoneNumberChange = (e) => {
-    var value = e.target.value;
+    const value = e.target.value;
     const re = /^[0-9\b]+$/;
     if (e.target.value == '' || re.test(e.target.value)) {
       this.setState({
@@ -80,7 +80,7 @@ class FindAJob extends Component {
     }
   }
   onAgreeTermsAndCondition = (e) => {
-    var value = e.target.checked;
+    const value = e.target.checked;
     this.setState({
       checked: value
     }, () => {
@@ -132,7 +132,7 @@ class FindAJob extends Component {
           : ' is required';
         break;
       case 'email':
-        var regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         emailValid = regexp.test(value);
         fieldValidationErrors.Email = emailValid
@@ -146,7 +146,7 @@ class FindAJob extends Component {
           : ' is too short';
         break;
       case 'confirmPassword':
-        var password = this.state.password;
+        const password = this.state.password;
         if (value != password) {
           confirmPasswordValid = false;
         } else {
@@ -191,15 +191,15 @@ class FindAJob extends Component {
 
   render() {
 
-    var userNameChange = this.onUserNameChange;
-    var emailChange = this.onEmailChange;
-    var passwordChange = this.onPasswordChange;
-    var confirmPasswordChange = this.onConfirmPasswordChange;
-    var userPhoneNumberChange = this.onUserPhoneNumberChange;
-    var registerUser = this.onRegisterUser;
-    var agreeTermsAndCondition = this.onAgreeTermsAndCondition;
+    const userNameChange = this.onUserNameChange;
+    const emailChange = this.onEmailChange;
+    const passwordChange = this.onPasswordChange;
+    const confirmPasswordChange = this.onConfirmPasswordChange;
+    const userPhoneNumberChange = this.onUserPhoneNumberChange;
+    const registerUser = this.onRegisterUser;
+    const agreeTermsAndCondition = this.onAgreeTermsAndCondition;
 
-    for (var key in this.state.formErrors) {
+    for (const key in this.state.formErrors) {
       if (this.state.formErrors[key]) {
         this.no_errors = false;
         break;
@@ -208,13 +208,13 @@ class FindAJob extends Component {
       }
     }
 
-    var validationNotification = this.no_errors
+    const validationNotification = this.no_errors
       ? (<div></div>)
       : (<div className='panel panel-default'>
         <FormErrors formErrors={this.state.formErrors}/>
       </div>);
 
-    var registerNotification = this.state.registerErrMsg
+    const registerNotification = this.state.registerErrMsg
       ? (<div className='panel panel-default'>
         <div className={`notification ${ !this.state.registerSuccess
             ? 'error'

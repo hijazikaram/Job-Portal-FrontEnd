@@ -54,11 +54,11 @@ class EditUserResume extends Component {
 
     this.user_id = localStorage.getItem('user_id');
 
-    var self = this;
+    const self = this;
     axios.get("http://localhost:5000/api/resume/" + this.user_id).then(function(response) {
-      var resume = response.data.resume;
+      const resume = response.data.resume;
       if (resume) {
-        for (var key in resume) {
+        for (const key in resume) {
           self.setState({[key]: resume[key]});
         }
       }
@@ -67,7 +67,7 @@ class EditUserResume extends Component {
     });
   }
 
-  componentWillMount = () => {
+  componentWillMount() {
     if (!this.user_id) {
       window.location.href = '/SignIn';
     }
@@ -83,7 +83,7 @@ class EditUserResume extends Component {
   onCareerObjectiveChange = (e) => {
     this.setState({career_objective: e.target.value});
 
-    var characters_left = this.state.characters_left;
+    let characters_left = this.state.characters_left;
     characters_left = 5000 - e.target.value.length;
     this.setState({characters_left: characters_left});
   }
@@ -165,17 +165,17 @@ class EditUserResume extends Component {
   }
 
   onAddRating = (e) => {
-    var id = e.target.id;
-    var rating = (11 - parseInt(id.split("star")[1])) * 0.5;
+    const id = e.target.id;
+    const rating = (11 - parseInt(id.split("star")[1])) * 0.5;
 
     this.setState({language_rating: rating});
   }
 
   onAddNewLanguage = (e) => {
     if (this.state.language_name && this.state.language_rating) {
-      var language = this.state.language_proficiency;
+      const language = this.state.language_proficiency;
 
-      var new_language = {};
+      const new_language = {};
       new_language.name = this.state.language_name;
       new_language.rating = this.state.language_rating;
 
@@ -191,8 +191,8 @@ class EditUserResume extends Component {
     e.preventDefault();
 
     if (this.state.history_company_name || this.state.history_designation || this.state.history_time_start || this.state.history_time_end || this.state.history_job_description) {
-      var history = this.state.work_history;
-      var newHistory = {};
+      const history = this.state.work_history;
+      const newHistory = {};
       newHistory.company_name = this.state.history_company_name;
       newHistory.designation = this.state.history_designation;
       newHistory.time_start = this.state.history_time_start;
@@ -209,8 +209,8 @@ class EditUserResume extends Component {
     e.preventDefault();
 
     if (this.state.education_institute_name || this.state.education_degree || this.state.education_time_start || this.state.education_time_end || this.state.education_description) {
-      var educations = this.state.education_background;
-      var new_education = {};
+      const educations = this.state.education_background;
+      const new_education = {};
 
       new_education.institute_name = this.state.education_institute_name;
       new_education.degree = this.state.education_degree;
@@ -228,12 +228,11 @@ class EditUserResume extends Component {
   onUpdateProfile = (e) => {
     e.preventDefault();
 
-    var self = this;
+    const self = this;
     self.state.user_id = self.user_id;
     self.setState({updating: true});
 
     axios.post('http://localhost:5000/api/resume', self.state).then(function(response) {
-      console.log(response);
       self.setState({updating: false, notificationMsg: 'Updated Successfully', updateProfileValid: true});
     }, function(error) {
       console.log(error);
@@ -241,57 +240,57 @@ class EditUserResume extends Component {
   }
   render() {
     /* Adding Express Yourself Information */
-    var expressYourselfFullNameChange = this.onExpressYourSelfFullNameChange;
-    var expressYourselfAdditionInformationChange = this.onExpressYourSelfAdditionalInformationChange;
-    var getFile = this.onGetFile;
+    const expressYourselfFullNameChange = this.onExpressYourSelfFullNameChange;
+    const expressYourselfAdditionInformationChange = this.onExpressYourSelfAdditionalInformationChange;
+    const getFile = this.onGetFile;
 
     /* Adding Career Objective */
-    var careerObjectiveChange = this.onCareerObjectiveChange;
+    const careerObjectiveChange = this.onCareerObjectiveChange;
 
     /* Adding Experience */
-    var addCompanyNameChange = this.onAddCompanyNameChange;
-    var addDesignation = this.onAddDesignation;
-    var addWorkHistoryTimeStartChange = this.onAddWorkHistoryTimeStartChange;
-    var addWorkHistoryTimeEndChange = this.onAddWorkHistoryTimeEndChange;
-    var addJobDescription = this.onAddJobDescription;
+    const addCompanyNameChange = this.onAddCompanyNameChange;
+    const addDesignation = this.onAddDesignation;
+    const addWorkHistoryTimeStartChange = this.onAddWorkHistoryTimeStartChange;
+    const addWorkHistoryTimeEndChange = this.onAddWorkHistoryTimeEndChange;
+    const addJobDescription = this.onAddJobDescription;
 
-    var addNewHistory = this.onAddNewHistory;
+    const addNewHistory = this.onAddNewHistory;
 
     /* Adding Education */
-    var addInstituteName = this.add_institute_name;
-    var addDegree = this.add_degree;
-    var addStartDate = this.add_time_start;
-    var addEndDate = this.add_time_end;
-    var addDescription = this.add_description;
+    const addInstituteName = this.add_institute_name;
+    const addDegree = this.add_degree;
+    const addStartDate = this.add_time_start;
+    const addEndDate = this.add_time_end;
+    const addDescription = this.add_description;
 
-    var addEducation = this.onAddEducation;
+    const addEducation = this.onAddEducation;
 
     /* Adding Special Qualification */
-    var specialQualificationChange = this.onSpecialQualificationChange;
+    const specialQualificationChange = this.onSpecialQualificationChange;
 
     /* Adding Personal Details */
-    var personalFullNameChange = this.onPersonalFullNameChange;
-    var personalFatherNameChange = this.onPersonalFatherNameChange;
-    var personalMotherNameChange = this.onPersonalMotherNameChange;
-    var personalDOBChange = this.onPersonalDOBChange;
-    var personalBirthPlaceChange = this.onPersonalBirthPlaceChange;
-    var personalNationalityChange = this.onPersonalNationalityChange;
-    var personalSexChange = this.onPersonalSexChange;
-    var personalAddressChange = this.onPersonalAddressChange;
+    const personalFullNameChange = this.onPersonalFullNameChange;
+    const personalFatherNameChange = this.onPersonalFatherNameChange;
+    const personalMotherNameChange = this.onPersonalMotherNameChange;
+    const personalDOBChange = this.onPersonalDOBChange;
+    const personalBirthPlaceChange = this.onPersonalBirthPlaceChange;
+    const personalNationalityChange = this.onPersonalNationalityChange;
+    const personalSexChange = this.onPersonalSexChange;
+    const personalAddressChange = this.onPersonalAddressChange;
 
     /* Adding Language Proficiency */
-    var addLanguageName = this.onAddLanguageName;
-    var addRating = this.onAddRating;
-    var addNewLanguage = this.onAddNewLanguage;
+    const addLanguageName = this.onAddLanguageName;
+    const addRating = this.onAddRating;
+    const addNewLanguage = this.onAddNewLanguage;
 
     /* Adding Declaration */
-    var declarationChange = this.onDeclarationChange;
+    const declarationChange = this.onDeclarationChange;
 
     /* Update Profile Button Action */
-    var updateProfile = this.onUpdateProfile;
+    const updateProfile = this.onUpdateProfile;
 
     /* Updating Result Notification */
-    var notification = this.state.notificationMsg
+    const notification = this.state.notificationMsg
       ? (<div className='panel panel-default'>
         <div className={`notification ${ !this.state.updateProfileValid
             ? 'error'
