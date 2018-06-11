@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import FileBase64 from 'react-file-base64';
-
+import Select from 'react-select';
+import Agreement from './properties/SectionAgreement';
+import Rules from './properties/QuickRules';
+import Info from './properties/CompanyInfo';
+import config from '../config/index';
 import '../css/PostAJob.css';
 
 class EditJob extends Component {
@@ -9,9 +13,7 @@ class EditJob extends Component {
     super(props);
     this.state = {
       job_id: '',
-
       institution_id: '',
-
       job_category: '',
       job_type: '',
       job_title: '',
@@ -24,17 +26,13 @@ class EditJob extends Component {
       application_deadline: '',
       experience: '',
       job_function: '',
-
       company_industry: '',
       company_name: '',
       company_email: '',
       company_mobile: '',
       company_address: '',
-
       post_premium: '',
-
       characters_left: 5000,
-
       jobTypeExist: true,
       jobTitleExist: true,
       jobDescriptionExist: true,
@@ -45,25 +43,22 @@ class EditJob extends Component {
       locationStateExist: true,
       applicationDeadlineExist: true,
       jobFunctionExist: true,
-
       companyIndustryExist: true,
       companyNameExist: true,
       companyEmailExist: true,
       companyMobileExist: true,
       companyAddressExist: true,
-
       errorMsg: ['sample'],
       postValid: true,
-
       postedSuccessfully: false,
       postResultMsg: ''
     }
 
-    var job_id = this.props.match.params.job_id;
+    const job_id = this.props.match.params.job_id;
 
     axios.get('http://localhost:5000/api/jobsWithId/' + job_id).then((response) => {
       if (response.data.success) {
-        var job = response.data.job;
+        const job = response.data.job;
 
         this.setState({
           institution_id: job.institution_id,
@@ -100,17 +95,18 @@ class EditJob extends Component {
     })
   }
 
-  componentWillMount = () => {
-    var id = localStorage.getItem('user_id');
-    var user_type = localStorage.getItem('user_type');
+  componentWillMount() {
+    const id = localStorage.getItem('user_id');
+    const user_type = localStorage.getItem('user_type');
 
     if (!id || !user_type) {
       window.location.href = '/SignIn';
     }
   }
 
-  onChangeJobCategory = (e) => {
-    this.setState({job_category: e.target.value});
+  onChangeJobCategory = (newValue) => {
+    const value = newValue === null ? '' : newValue.value
+    this.setState({ job_category: value });
   }
 
   onChangeJobType = (e) => {
@@ -143,22 +139,24 @@ class EditJob extends Component {
     });
   }
 
-  onChangeLocationCountry = (e) => {
-    if (e.target.value != '') {
-      this.setState({locationCountryExist: true});
+  onChangeLocationCountry = (newValue) => {
+    const value = newValue === null ? '' : newValue.value;
+    if (value === '') {
+      this.setState({ locationCountryExist: false });
     } else {
-      this.setState({locationCountryExist: false});
+      this.setState({ locationCountryExist: true });
     }
-    this.setState({location_country: e.target.value});
+    this.setState({ location_country: value });
   }
 
-  onChangeLocationState = (e) => {
-    if (e.target.value != '') {
-      this.setState({locationStateExist: true});
+  onChangeLocationState = (newValue) => {
+    const value = newValue === null ? '' : newValue.value;
+    if (value === '') {
+      this.setState({ locationStateExist: false });
     } else {
-      this.setState({locationStateExist: false});
+      this.setState({ locationStateExist: true });
     }
-    this.setState({location_state: e.target.value});
+    this.setState({ location_state: value });
   }
 
   onChangeSalaryMin = (e) => {
@@ -197,8 +195,9 @@ class EditJob extends Component {
     this.setState({application_deadline: e.target.value});
   }
 
-  onChangeExperience = (e) => {
-    this.setState({experience: e.target.value});
+  onChangeExperience = (newValue) => {
+    const value = newValue === null ? '' : newValue.value
+    this.setState({ experience: value });
   }
 
   onChangeJobFunction = (e) => {
@@ -243,7 +242,7 @@ class EditJob extends Component {
     } else {
       this.setState({companyMobileExist: false});
     }
-    var value = e.target.value;
+    const value = e.target.value;
     const re = /^[0-9\b]+$/;
     if (e.target.value == '' || re.test(e.target.value)) {
       this.setState({company_mobile: e.target.value});
@@ -266,7 +265,7 @@ class EditJob extends Component {
   updateJob = (e) => {
     e.preventDefault();
 
-    var error_msg = this.state.errorMsg;
+    let error_msg = this.state.errorMsg;
     error_msg = [];
 
     if (!this.state.jobTypeExist) {
@@ -316,7 +315,7 @@ class EditJob extends Component {
       error_msg.push("Company Address");
     }
 
-    var self = this;
+    const self = this;
     self.setState({
       errorMsg: error_msg
     }, () => {
@@ -341,9 +340,8 @@ class EditJob extends Component {
       }
     });
   }
-
   render() {
-    var notification = !this.state.postValid
+    const notification = !this.state.postValid
       ? (<div className='panel panel-default'>
         <ul className="notification error">
           {
@@ -356,7 +354,7 @@ class EditJob extends Component {
       </div>)
       : (<div></div>);
 
-    var postNotification = this.state.postResultMsg
+    const postNotification = this.state.postResultMsg
       ? (<div className='panel panel-default'>
         <div className={`notification ${ !this.state.postedSuccessfully
             ? 'error'
@@ -364,7 +362,6 @@ class EditJob extends Component {
         </div>
       </div>)
       : (<div></div>);
-
     return (<div>
       <div className="container">
         <div className="job-postdetails">
@@ -379,13 +376,7 @@ class EditJob extends Component {
                       <div className="col-sm-9">
                         <div className="dropdown">
                           <div className="form-group">
-                            <select className="form-control" onChange={this.onChangeJobCategory} value={this.state.job_category}>
-                              <option value=''>Select a category</option>
-                              <option value='Software Engineer'>Software Engineer</option>
-                              <option value='Program Development'>Program Development</option>
-                              <option value='Project Manager'>Project Manager</option>
-                              <option value='Graphics Designer'>Graphics Designer</option>
-                            </select>
+                            <Select value={this.state.job_category} options={config.job_category} onChange={this.onChangeJobCategory} value={this.state.job_category} isClearable />
                           </div>
                         </div>
                       </div>
@@ -420,8 +411,7 @@ class EditJob extends Component {
                     </div>
                     <div className="row characters">
                       <div className="col-sm-9 col-sm-offset-3">
-                        <p>{this.state.characters_left}
-                          characters left</p>
+                        <p>{this.state.characters_left} characters left</p>
                       </div>
                     </div>
                     <div className="row form-group add-title location">
@@ -432,24 +422,12 @@ class EditJob extends Component {
                         <div className="row">
                           <div className="dropdown pull-left col-sm-6 col-xs-12">
                             <div className="form-group">
-                              <select className="form-control" value={this.state.location_country} onChange={this.onChangeLocationCountry}>
-                                <option value=''>Country</option>
-                                <option value='US'>US</option>
-                                <option value='Canada'>Canada</option>
-                                <option value='Australia'>Australia</option>
-                                <option value='Germany'>Germany</option>
-                              </select>
+                              <Select options={config.job_location_country} onChange={this.onChangeLocationCountry} isClearable />
                             </div>
                           </div>
                           <div className="dropdown pull-right col-sm-6 col-xs-12">
                             <div className="form-group">
-                              <select className="form-control" value={this.state.location_state} onChange={this.onChangeLocationState}>
-                                <option value=''>State</option>
-                                <option value='CA'>California</option>
-                                <option value='TX'>Texas</option>
-                                <option value='ON'>Ontario</option>
-                                <option value='Berlin'>Berlin</option>
-                              </select>
+                              <Select options={config.job_location_state} onChange={this.onChangeLocationState} isClearable />
                             </div>
                           </div>
                         </div>
@@ -481,12 +459,7 @@ class EditJob extends Component {
                       <div className="col-sm-9">
                         <div className="dropdown">
                           <div className="form-group">
-                            <select className="form-control" value={this.state.experience} onChange={this.onChangeExperience}>
-                              <option value='Entry Level'>Entry Level</option>
-                              <option value='Mid Level'>Mid Level</option>
-                              <option value='Mid-Senior Level'>Mid-Senior Level</option>
-                              <option value='Top Level'>Top Level</option>
-                            </select>
+                            <Select options={config.experience} onChange={this.onChangeExperience} isClearable />
                           </div>
                         </div>
                       </div>
@@ -500,71 +473,13 @@ class EditJob extends Component {
                     </div>
                   </div>
 
-                  <div className="section company-information">
-                    <h4>Company Information</h4>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Industry<span className="required">*</span>
-                      </label>
-                      <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="Marketing and Advertising" onChange={this.onChangeCompanyIndustry} value={this.state.company_industry}/>
-                      </div>
-                    </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Company Name<span className="required">*</span>
-                      </label>
-                      <div className="col-sm-9">
-                        <input type="text" name="name" className="form-control" placeholder="ex, Jhon Doe" onChange={this.onChangeCompanyName} value={this.state.company_name}/>
-                      </div>
-                    </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Email ID</label>
-                      <div className="col-sm-9">
-                        <input type="email" name="email" className="form-control" placeholder="ex, jhondoe@mail.com" onChange={this.onChangeCompanyEmail} value={this.state.company_email}/>
-                      </div>
-                    </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Mobile Number<span className="required">*</span>
-                      </label>
-                      <div className="col-sm-9">
-                        <input type="text" name="mobileNumber" className="form-control" placeholder="ex, +912457895" onChange={this.onChangeCompanyMobile} value={this.state.company_mobile}/>
-                      </div>
-                    </div>
-                    <div className="row form-group address">
-                      <label className="col-sm-3 label-title">Address<span className="required">*</span>
-                      </label>
-                      <div className="col-sm-9">
-                        <input type="text" name="address" className="form-control" placeholder="ex, alekdera House, coprotec, usa" onChange={this.onChangeCompanyAddress} value={this.state.company_address}/>
-                      </div>
-                    </div>
-                  </div>
+                  <Info onChangeCompanyIndustry={this.onChangeCompanyIndustry} companyIndustry={this.state.company_industry} onChangeCompanyName={this.onChangeCompanyName} companyName={this.state.company_name} onChangeCompanyEmail={this.onChangeCompanyEmail}
+                  companyEmail={this.state.company_email}
+                  onChangeCompanyMobile={this.onChangeCompanyMobile}
+                  companyMobile={this.state.company_mobile}
+                  onChangeCompanyAddress={this.onChangeCompanyAddress}
+                  companyAddress={this.state.company_address}/>
 
-                  <div className="section">
-                    <h4>Make Your Post Premium</h4>
-                    <p>More replies means more interested buyers. With lots of interested buyers, you have a better chance of selling for the price that you want.<a href="#">Learn more</a>
-                    </p>
-                    <ul className="premium-options">
-                      <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-one" id="day-one" onChange={this.onChangePostPremium} checked={this.state.post_premium == 'day-one'}/>
-                        <label htmlFor="day-one">Regular Post</label>
-                        <span>$20.00</span>
-                      </li>
-                      <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-two" id="day-two" onChange={this.onChangePostPremium} checked={this.state.post_premium == 'day-two'}/>
-                        <label htmlFor="day-two">Regular Post</label>
-                        <span>$30.00</span>
-                      </li>
-                      <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-three" id="day-three" onChange={this.onChangePostPremium} checked={this.state.post_premium == 'day-three'}/>
-                        <label htmlFor="day-three">Top Post for 7 days</label>
-                        <span>$50.00</span>
-                      </li>
-                      <li className="premium">
-                        <input type="radio" name="premiumOption" value="day-four" id="day-four" onChange={this.onChangePostPremium} checked={this.state.post_premium == 'day-four'}/>
-                        <label htmlFor="day-four">Daily Bump Up for 7 days</label>
-                        <span>$100.00</span>
-                      </li>
-                    </ul>
-                  </div>
 
                   {notification}
 
@@ -578,26 +493,7 @@ class EditJob extends Component {
               </form>
             </div>
 
-            <div className="col-md-4">
-              <div className="section quick-rules">
-                <h4>Quick rules</h4>
-                <p className="lead">Posting an ad on
-                  <a href="#">jobs.com</a>
-                  is free! However, all ads must follow our rules:</p>
-
-                <ul>
-                  <li>Make sure you post in the correct category.</li>
-                  <li>Do not post the same ad more than once or repost an ad within 48 hours.</li>
-                  <li>Do not upload pictures with watermarks.</li>
-                  <li>Do not post ads containing multiple items unless it's a package deal.</li>
-                  <li>Do not put your email or phone numbers in the title or description.</li>
-                  <li>Make sure you post in the correct category.</li>
-                  <li>Do not post the same ad more than once or repost an ad within 48 hours.</li>
-                  <li>Do not upload pictures with watermarks.</li>
-                  <li>Do not post ads containing multiple items unless it's a package deal.</li>
-                </ul>
-              </div>
-            </div>
+            <Rules/>
           </div>
         </div>
       </div>

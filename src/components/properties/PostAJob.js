@@ -36,7 +36,7 @@ class PostAJob extends Component {
     };
   }
   onInstitutionNameChange = (e) => {
-    var value = e.target.value;
+    const value = e.target.value;
     this.setState({
       institutionName: e.target.value
     }, () => {
@@ -44,7 +44,7 @@ class PostAJob extends Component {
     });
   }
   onEmailChange = (e) => {
-    var value = e.target.value;
+    const value = e.target.value;
     this.setState({
       email: e.target.value
     }, () => {
@@ -52,7 +52,7 @@ class PostAJob extends Component {
     });
   }
   onPasswordChange = (e) => {
-    var value = e.target.value;
+    const value = e.target.value;
     this.setState({
       password: e.target.value
     }, () => {
@@ -60,7 +60,7 @@ class PostAJob extends Component {
     });
   }
   onConfirmPasswordChange = (e) => {
-    var value = e.target.value
+    const value = e.target.value
     this.setState({
       confirmPassword: e.target.value
     }, () => {
@@ -68,7 +68,7 @@ class PostAJob extends Component {
     });
   }
   onInstitutionPhoneNumberChange = (e) => {
-    var value = e.target.value;
+    const value = e.target.value;
     const re = /^[0-9\b]+$/;
     if (e.target.value == '' || re.test(e.target.value)) {
       this.setState({
@@ -80,7 +80,7 @@ class PostAJob extends Component {
   }
 
   onAgreeTermsAndCondition = (e) => {
-    var value = e.target.checked;
+    const value = e.target.checked;
     this.setState({
       checked: value
     }, () => {
@@ -135,7 +135,7 @@ class PostAJob extends Component {
           : ' is required';
         break;
       case 'email':
-        var regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         emailValid = regexp.test(value);
         fieldValidationErrors.Email = emailValid
@@ -149,7 +149,7 @@ class PostAJob extends Component {
           : ' is too short';
         break;
       case 'confirmPassword':
-        var password = this.state.password;
+        const password = this.state.password;
         if (value != password) {
           confirmPasswordValid = false;
         } else {
@@ -193,22 +193,21 @@ class PostAJob extends Component {
   }
 
   render() {
-    var institutionNameChange = this.onInstitutionNameChange;
-    var emailChange = this.onEmailChange;
-    var passwordChange = this.onPasswordChange;
-    var confirmPasswordChange = this.onConfirmPasswordChange;
-    var institutionPhoneNumberChange = this.onInstitutionPhoneNumberChange;
-    // console.log(this.state);
-    var register = this.onRegister;
-    var agreeTermsAndCondition = this.onAgreeTermsAndCondition;
+    const institutionNameChange = this.onInstitutionNameChange;
+    const emailChange = this.onEmailChange;
+    const passwordChange = this.onPasswordChange;
+    const confirmPasswordChange = this.onConfirmPasswordChange;
+    const institutionPhoneNumberChange = this.onInstitutionPhoneNumberChange;
+    const register = this.onRegister;
+    const agreeTermsAndCondition = this.onAgreeTermsAndCondition;
 
-    var validationNotification = this.no_errors
+    const validationNotification = this.no_errors
       ? (<div></div>)
       : (<div className='panel panel-default'>
         <FormErrors formErrors={this.state.formErrors}/>
       </div>);
 
-    var registerNotification = this.state.registerErrMsg
+    const registerNotification = this.state.registerErrMsg
       ? (<div className='panel panel-default'>
         <div className={`notification ${ !this.state.registerSuccess
             ? 'error'

@@ -47,3 +47,15 @@ img.company-logo {
 .mrg-r-5 {
    margin-right: 5px;
 }
+.css-1aya2g8 {
+    border-color: lightgrey !important;
+    border-radius: 0px !important;
+    min-height: 44px !important;
+    background-color: white !important;
+}
+.css-2o5izw {
+  border-color: #00a651 !important;
+  border-radius: 0px !important;
+  min-height: 44px !important;
+  box-shadow: 0 0 0 1px #00a651 !important;
+}

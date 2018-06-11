@@ -91,7 +91,6 @@ class UserHomePage extends Component {
             newPassword: self.newPassword
           }, () => {
             axios.put('http://localhost:5000/api/user/' + self.id, self.state).then(function(response) {
-              console.log(response);
               if (!response.data.error) {
                 self.setState({notificationMsg: 'Updated Successfully.', updateProfileValid: true});
               } else {
@@ -105,7 +104,6 @@ class UserHomePage extends Component {
       }
     } else {
       axios.put('http://localhost:5000/api/user/' + self.id, self.state).then(function(response) {
-        console.log(response);
         if (!response.data.error) {
           self.setState({notificationMsg: 'Updated Successfully.', updateProfileValid: true});
         }

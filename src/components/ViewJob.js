@@ -18,7 +18,6 @@ class ViewJob extends Component {
 
     var self = this;
     axios.get('http://localhost:5000/api/institution/' + id).then(function(response) {
-      console.log(response);
       if (response.data.success) {
         self.setState({job_logo: response.data.institution.logo});
         axios.get("http://localhost:5000/api/jobsWithId/" + job_id).then(function(response) {
@@ -211,38 +210,32 @@ class ViewJob extends Component {
                           <li>
                             <span className="icon">
                               <i className="fa fa-industry" aria-hidden="true"></i>
-                            </span>Industry:
-                            <a href="#">{this.state.job.company_industry}</a>
+                            </span>Industry: <a href="#">{this.state.job.company_industry}</a>
                           </li>
                           <li>
                             <span className="icon">
                               <i className="fa fa-line-chart" aria-hidden="true"></i>
-                            </span>Experience:
-                            <a href="#">{this.state.job.experience}</a>
+                            </span>Experience: <a href="#">{this.state.job.experience}</a>
                           </li>
                           <li>
                             <span className="icon">
                               <i className="fa fa-key" aria-hidden="true"></i>
-                            </span>Job function: {this.state.job.job_function}</li>
+                            </span>Job Funciton: {this.state.job.job_function}</li>
                         </ul>
                       </div>
                       <div className="section company-info">
                         <h1>Company Info</h1>
                         <ul>
-                          <li>Compnay Name:
-                            <a href="#">{this.state.job.company_name}</a>
+                          <li>Compnay Name: <a href="#">{this.state.job.company_name}</a>
                           </li>
                           <li>Address: {this.state.job.company_address}</li>
                           <li>Compnay SIze: 2k Employee</li>
-                          <li>Industry:
-                            <a href="#">{this.state.job.company_industry}</a>
+                          <li>Industry: <a href="#">{this.state.job.company_industry}</a>
                           </li>
                           <li>Phone: {this.state.job.company_mobile}</li>
-                          <li>Email:
-                            <a href="#">{this.state.job.company_email}</a>
+                          <li>Email: <a href="#">{this.state.job.company_email}</a>
                           </li>
-                          <li>Website:
-                            <a href="#">www.dropbox.com</a>
+                          <li>Website: <a href="#">www.dropbox.com</a>
                           </li>
                         </ul>
                         <ul className="share-social">

@@ -21,19 +21,17 @@ class InstitutionPostedJobs extends Component {
       company_logo: ''
     };
 
-    var id = localStorage.getItem('user_id');
-    var user_type = localStorage.getItem('user_type');
+    const id = localStorage.getItem('user_id');
+    const user_type = localStorage.getItem('user_type');
 
-    var self = this;
+    const self = this;
     if (id && user_type) {
       axios.get('http://localhost:5000/api/institution/' + id).then(function(response) {
-        console.log(response);
         if (response.data.success) {
           self.setState({company_logo: response.data.institution.logo});
           axios.get('http://localhost:5000/api/jobs/' + id).then(function(response) {
             if (response.data.success) {
-              var jobs = response.data.jobs;
-              console.log(jobs.length);
+              const jobs = response.data.jobs;
               self.setState({jobs: jobs});
             }
           }, function(error) {
@@ -46,9 +44,9 @@ class InstitutionPostedJobs extends Component {
     }
   }
 
-  componentWillMount = () => {
-    var id = localStorage.getItem('user_id');
-    var user_type = localStorage.getItem('user_type');
+  componentWillMount() {
+    const id = localStorage.getItem('user_id');
+    const user_type = localStorage.getItem('user_type');
 
     if (!id || !user_type) {
       window.location.href = '/SignIn';
@@ -64,18 +62,18 @@ class InstitutionPostedJobs extends Component {
   }
 
   removeJob = (index) => {
-    var self = this;
+    const self = this;
 
-    var job_id = self.state.jobs[index]["_id"];
+    const job_id = self.state.jobs[index]["_id"];
     self.setState({show: true});
     self.setState({job_index: job_id});
   }
 
   handleRemove = () => {
-    var self = this;
+    const self = this;
     axios.delete('http://localhost:5000/api/jobs/' + self.state.job_index).then(function(response) {
       if (response.data.success) {
-        var jobs = self.state.jobs;
+        const jobs = self.state.jobs;
         jobs.splice(self.state.job_index, 1);
         self.setState({jobs: jobs});
       }

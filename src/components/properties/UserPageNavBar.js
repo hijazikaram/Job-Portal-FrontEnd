@@ -12,7 +12,7 @@ class UserPageNavBar extends Component {
 
     this.id = localStorage.getItem('user_id');
     axios.get('http://localhost:5000/api/user/' + this.id).then(res => {
-      var user = res.data.user;
+      const user = res.data.user;
       this.setState({name: user.name});
     });
   }
@@ -23,7 +23,7 @@ class UserPageNavBar extends Component {
   }
 
   render() {
-    var logout = this.onLogOut;
+    const logout = this.onLogOut;
     return (<div>
       <div className="job-profile section">
         <div className="user-profile">

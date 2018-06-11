@@ -38,7 +38,7 @@ class UserHomePage extends Component {
     this.id = localStorage.getItem('user_id');
 
     axios.get('http://localhost:5000/api/institution/' + this.id).then(res => {
-      var institution = res.data.institution;
+      const institution = res.data.institution;
       this.setState({ logo: institution.logo, name: institution.name, email: institution.email, phoneNumber: institution.phoneNumber, facebook: institution.facebook, twitter: institution.twitter, google: institution.google, linkedin: institution.linkedin });
 
       if (!institution.address) {
@@ -69,9 +69,9 @@ class UserHomePage extends Component {
     }
   }
 
-  componentWillMount = (e) => {
-    var id = localStorage.getItem('user_id');
-    var user_type = localStorage.getItem('user_type');
+  componentWillMount() {
+    const id = localStorage.getItem('user_id');
+    const user_type = localStorage.getItem('user_type');
 
     if (!id || !user_type) {
       window.location.href = '/SignIn';
@@ -156,7 +156,7 @@ class UserHomePage extends Component {
 
   onUpdateProfile = (e) => {
     e.preventDefault();
-    var self = this;
+    const self = this;
 
     if (self.oldPassword != '') {
       if (!self.newPassword || !self.newPasswordConfirm) {
@@ -185,7 +185,6 @@ class UserHomePage extends Component {
       }
     } else {
       axios.put('http://localhost:5000/api/institution/' + self.id, self.state).then(function (response) {
-        console.log(response);
         if (!response.data.error) {
           self.setState({ notificationMsg: 'Updated Successfully.', updateProfileValid: true });
           setTimeout(function () {
@@ -211,27 +210,26 @@ class UserHomePage extends Component {
     this.newPasswordConfirm = e.target.value;
   }
   render() {
-    var userNameChange = this.onUserNameChange;
-    var emailChange = this.onEmailChange;
-    var phoneNumberChange = this.onPhoneNumberChange;
-    var addressChange = this.onAddressChange;
-    var facebookChange = this.onFacebookChange;
-    var twitterChange = this.onTwitterChange;
-    var googleChange = this.onGoogleChange;
-    var linkedinChange = this.onLinkedinChange;
+    const userNameChange = this.onUserNameChange;
+    const emailChange = this.onEmailChange;
+    const phoneNumberChange = this.onPhoneNumberChange;
+    const addressChange = this.onAddressChange;
+    const facebookChange = this.onFacebookChange;
+    const twitterChange = this.onTwitterChange;
+    const googleChange = this.onGoogleChange;
+    const linkedinChange = this.onLinkedinChange;
 
-    var oldPasswordInput = this.onOldPasswordInput;
-    var newPasswordChange = this.onNewPasswordChange;
-    var newPasswordConfirmChange = this.onNewPasswordConfirmChange;
+    const oldPasswordInput = this.onOldPasswordInput;
+    const newPasswordChange = this.onNewPasswordChange;
+    const newPasswordConfirmChange = this.onNewPasswordConfirmChange;
 
-    var updateProfile = this.onUpdateProfile;
+    const updateProfile = this.onUpdateProfile;
 
-    var notification = this.state.notificationMsg ? (
+    const notification = this.state.notificationMsg ? (
       <div className='panel panel-default'>
         <div className={`notification ${!this.state.updateProfileValid ? 'error' : 'success'}`}>{this.state.notificationMsg}
         </div>
       </div>) : (<div></div>);
-    console.log(this.state);
     return (
       <div>
         <div className="breadcrumb-section">

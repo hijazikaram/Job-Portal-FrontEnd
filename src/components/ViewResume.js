@@ -55,7 +55,7 @@ class ViewResume extends Component {
     });
   }
 
-  componentWillMount =  () => {
+  componentWillMount() {
     if(!this.id) {
       window.location.href = '/SignIn';
     }
