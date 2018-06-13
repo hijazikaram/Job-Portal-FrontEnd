@@ -76,7 +76,7 @@ class UserPageNavBar extends Component {
             <Link to={"/InstitutionProfile/PostedJobs"}>Posted Jobs</Link>
           </li>
           <li>
-            <Link to={"/InstitutionProfile/PostedJobs"}>Transactions</Link>
+            <Link to={"/InstitutionProfile/Transactions"}>Transactions</Link>
           </li>
           <li>
             <Link to={"/InstitutionProfile/DeleteMyProfile"}>Close account</Link>

@@ -24,6 +24,46 @@
 }
 
 
+.table thead tr {
+	background: #F2F2F2;
+    color: #000;
+	border: 0px;
+}
+
+table {
+	border: 0px;
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    padding: 15px;
+    line-height: 1.42857143;
+    vertical-align: top;
+	color: #000;
+    border-top: 1px solid #dddddd;
+}
+
+.table-active {
+	background: #FAFCFC;
+}
+
+
+.dot-active {
+ height: 10px;
+    width: 10px;
+    background-color: #3DC04E;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+
+.dot-inactive {
+ height: 10px;
+    width: 10px;
+    background-color: #EC971F;
+    border-radius: 50%;
+    display: inline-block;
+}
+
 
 .price-box {
 	border-radius: 3px;
