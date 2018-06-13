@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  font-family: 'Source Code Pro', monospace;
+  font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
 }
 
 .App-logo {
@@ -22,6 +22,38 @@
 .App-intro {
   font-size: large;
 }
+
+
+
+.price-box {
+	border-radius: 3px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
+    margin-right: 20px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
+    top: 84px;
+    width: 500px;
+    margin: auto;
+    margin-top: 35px;
+    margin-bottom: 50px;
+    border-top: 1px solid #d8d8d8;
+}
+
+
+.pay-button {
+	margin: auto;
+    display: block;
+    padding: 10px 14px !important;
+    font-size: 1em !important;
+    -webkit-box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px, rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
+    box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px, rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
+    border: 0;
+    outline: 0;
+    border-radius: 4px;
+}
+
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
