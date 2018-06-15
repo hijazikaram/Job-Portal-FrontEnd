@@ -2,13 +2,31 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Footer from './properties/Footer';
 import jobIcon from '../img/4.png';
-
+import Dropdown from "react-dropdown";
 import axios from 'axios';
+import '../css/MyDropdown.css'
+import { Redirect } from 'react-router'
+
 class JobDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      job : {}
+      job : {},
+      toJobList : false,
+      jobCategoryOptions : [
+       'Job Category', 
+       'Customer Service', 
+       'Software Engineer', 
+       'Program Development', 
+       'Project Manager', 
+       'Graphics Designer'],
+      jobLocationOptions : [
+       'Location 1', 
+       'Location 2', 
+       'Location 3'],
+      selectedJobCategory : "Job Category", 
+      selectedJobLocation : "Job Location", 
+      keyword : ""
     }
   }
 
@@ -18,6 +36,9 @@ class JobDetails extends Component {
 
     axios.get('http://localhost:5000/api/job/' + job_id ).then((job) => {
       self.setState({ job : job.data });
+    });
+    axios.get('http://localhost:5000/api/job_search_options').then((job_search_options) => {
+      self.setState({ jobCategoryOptions : job_search_options.data.jobCategoryOptions, jobLocationOptions : job_search_options.data.jobLocationOptions });
     });
   }
   
@@ -46,7 +67,31 @@ class JobDetails extends Component {
       return monthNames[monthIndex] + ' ' + day + ', ' + year;
     }
   }
+
+  _onSelectJobCategory(selectedJobCategory) {
+    this.setState({selectedJobCategory : selectedJobCategory.value === "none"?"Job Category":selectedJobCategory.value});
+  }
+  _onSelectJobLocation(selectedJobLocation) {
+    this.setState({selectedJobLocation : selectedJobLocation.value === "none"?"Job Location":selectedJobLocation.value});
+  }
+  _onKeyword(event) {
+    this.setState({keyword:event.target.value});
+  }
+  _onSearch(event) {
+    this.setState({toJobList:true});
+  }
+
   render() {
+    if (this.state.toJobList) {
+      return (
+        <Redirect to={{
+          pathname: '/JobList',
+          state: { selectedJobCategory_param: this.state.selectedJobCategory, 
+            selectedJobLocation_param: this.state.selectedJobLocation, keyword_param: this.state.keyword }
+        }} />
+      );
+    }
+
     return (<div>
       <section className="job-bg page job-list-page">
         <div className="container">
@@ -58,53 +103,35 @@ class JobDetails extends Component {
               <li>Engineer/Architects</li>
             </ol>
             <h2 className="title">Software Engineer</h2>
-          </div>
-
+          </div>              
           <div className="banner-form banner-form-full job-list-form">
             <form action="#">
-              <div className="dropdown category-dropdown">
-                <a data-toggle="dropdown" href="#">
-                  <span className="change-text">Job Category</span>
-                  <i className="fa fa-angle-down"></i>
-                </a>
-                <ul className="dropdown-menu category-change">
-                  <li>
-                    <a href="#">Customer Service</a>
-                  </li>
-                  <li>
-                    <a href="#">Software Engineer</a>
-                  </li>
-                  <li>
-                    <a href="#">Program Development</a>
-                  </li>
-                  <li>
-                    <a href="#">Project Manager</a>
-                  </li>
-                  <li>
-                    <a href="#">Graphics Designer</a>
-                  </li>
-                </ul>
+              <div className='mydropdown-div'>
+                <Dropdown
+                  options={this.state.jobCategoryOptions}
+                  onChange={this._onSelectJobCategory.bind(this)}
+                  value={this.state.selectedJobCategory}
+                  className='mydropdown' 
+                  controlClassName='mydropdown-control' 
+                  placeholderClassName='mydropdown-placeholder'
+                  menuClassName='mydropdown-menu' 
+                  arrowClassName='mydropdown-arrow'
+                />
               </div>
-              <div className="dropdown category-dropdown language-dropdown">
-                <a data-toggle="dropdown" href="#">
-                  <span className="change-text">Job Location</span>
-                  <i className="fa fa-angle-down"></i>
-                </a>
-                <ul className="dropdown-menu category-change language-change">
-                  <li>
-                    <a href="#">Location 1</a>
-                  </li>
-                  <li>
-                    <a href="#">Location 2</a>
-                  </li>
-                  <li>
-                    <a href="#">Location 3</a>
-                  </li>
-                </ul>
+              <div className='mydropdown-div'>
+                <Dropdown
+                  options={this.state.jobLocationOptions}
+                  onChange={this._onSelectJobLocation.bind(this)}
+                  value={this.state.selectedJobLocation}
+                  className='mydropdown' 
+                  controlClassName='mydropdown-control' 
+                  placeholderClassName='mydropdown-placeholder'
+                  menuClassName='mydropdown-menu' 
+                  arrowClassName='mydropdown-arrow'
+                />
               </div>
-
-              <input type="text" className="form-control" placeholder="Type your key word"/>
-              <button type="submit" className="btn btn-primary" value="Search">Search</button>
+              <input type="text" className="form-control" onChange={this._onKeyword.bind(this)} value={this.state.keyword} placeholder="Type your key word" />
+              <button type="submit" className="btn btn-primary" onClick={this._onSearch.bind(this)} value="Search">Search</button>
             </form>
           </div>
 

@@ -1,0 +1,16 @@
+.mydropdown-div {
+	display: inline-block!important;
+	vertical-align: middle!important;
+	font-size: 16px;
+	font-family: 'MyriadPro-Regular', sans-serif;
+}
+.mydropdown-control {
+	border: none!important;
+	padding-right: 26px!important;
+}
+.mydropdown-arrow {
+	top: 16px!important;
+}
+.mydropdown-menu {
+	width: 203px!important;
+}

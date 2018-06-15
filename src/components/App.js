@@ -1,9 +1,52 @@
 import React, {Component} from 'react';
 import '../css/App.css';
+import '../css/MyDropdown.css'
 import Footer from './properties/Footer';
+import Dropdown from "react-dropdown";
+import axios from 'axios';
+import { Redirect } from 'react-router'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      toJobList : false,
+      jobLocationOptions : [
+       'Location 1', 
+       'Location 2', 
+       'Location 3'],
+      selectedJobLocation : "Job Location", 
+      keyword : ""
+    }
+  }
+
+  componentWillMount() {
+    let self = this;
+    axios.get('http://localhost:5000/api/job_search_options').then((job_search_options) => {
+      self.setState({ jobLocationOptions : job_search_options.data.jobLocationOptions });
+    });
+  }
+
+  _onSelectJobLocation(selectedJobLocation) {
+    this.setState({selectedJobLocation : selectedJobLocation.value === "none"?"Job Location":selectedJobLocation.value});
+  }
+  _onKeyword(event) {
+    this.setState({keyword:event.target.value});
+  }
+  _onSearch(event) {
+    this.setState({toJobList:true});
+  }
+
   render() {
+    if (this.state.toJobList) {
+      return (
+        <Redirect to={{
+          pathname: '/JobList',
+          state: { selectedJobLocation_param: this.state.selectedJobLocation, keyword_param: this.state.keyword}
+        }} />
+      );
+    }
+
     return (<div className="App">
       <div className="banner-job">
         <div className="banner-overlay"></div>
@@ -12,25 +55,20 @@ class App extends Component {
           <h3>We offer 12000 jobs vacation right now</h3>
           <div className="banner-form">
             <form action="#">
-              <input type="text" className="form-control" placeholder="Type your key word"/>
-              <div className="dropdown category-dropdown">
-                <a data-toggle="dropdown" href="#">
-                  <span className="change-text">Job Location</span>
-                  <i className="fa fa-angle-down"></i>
-                </a>
-                <ul className="dropdown-menu category-change">
-                  <li>
-                    <a href="#">Location 1</a>
-                  </li>
-                  <li>
-                    <a href="#">Location 2</a>
-                  </li>
-                  <li>
-                    <a href="#">Location 3</a>
-                  </li>
-                </ul>
+              <input type="text" className="form-control" onChange={this._onKeyword.bind(this)} value={this.state.keyword} placeholder="Type your key word" />
+              <div className='mydropdown-div'>
+                <Dropdown
+                  options={this.state.jobLocationOptions}
+                  onChange={this._onSelectJobLocation.bind(this)}
+                  value={this.state.selectedJobLocation}
+                  className='mydropdown' 
+                  controlClassName='mydropdown-control' 
+                  placeholderClassName='mydropdown-placeholder'
+                  menuClassName='mydropdown-menu' 
+                  arrowClassName='mydropdown-arrow'
+                />
               </div>
-              <button type="submit" className="btn btn-primary" value="Search">Search</button>
+              <button type="submit" className="btn btn-primary" onClick={this._onSearch.bind(this)} value="Search">Search</button>
             </form>
           </div>
 

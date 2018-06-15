@@ -140,9 +140,7 @@ class Price extends Component {
                   
                 </div>
               </div>
-
               
-
               
             </div>
           </div>
@@ -202,7 +200,6 @@ class Price extends Component {
     </div>);
   }
 }
-
 export default Price;
 			
 			

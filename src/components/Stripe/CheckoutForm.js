@@ -30,8 +30,7 @@ class CheckoutForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div>
           <CardSection />
-		
-          <button class="btn btn-primary pay-button" disabled={!this.props.stripe}>Pay Now</button>
+          <button disabled={!this.props.stripe}>Pay</button>
         </div>
       </form>
     );
