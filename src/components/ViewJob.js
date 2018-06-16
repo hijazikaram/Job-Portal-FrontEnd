@@ -10,7 +10,9 @@ class ViewJob extends Component {
 
     this.state = {
       job: {},
-      job_logo: ''
+      job_logo: '',
+      postedDays : "",
+      applyjob : false
     }
 
     var job_id = this.props.match.params.job_id;
@@ -23,6 +25,19 @@ class ViewJob extends Component {
         axios.get("http://localhost:5000/api/jobsWithId/" + job_id).then(function(response) {
           if (response.data.success) {
             self.setState({job: response.data.job});
+            let created = new Date(response.data.job.created_at);
+            let now = new Date;
+            let postedDays = parseInt((now - created) / (1000 * 60 * 60 * 24), 10);
+            self.setState({applyjob : (postedDays <= 30 && postedDays >= 0)});
+            if (postedDays == 0) {
+              postedDays = "Today";
+            } else if (postedDays == 1){
+              postedDays = "Yesterday";
+              // postedDays = postedDays.toString() + " day ago";
+            } else {
+              postedDays = postedDays.toString() + " days ago";
+            }
+            self.setState({ postedDays : postedDays });
           }
         }, function(error) {
           console.log(error);
@@ -133,7 +148,7 @@ class ViewJob extends Component {
                   </div>
                   <div className="social-media">
                     <div className="button">
-                      <a href="#" className="btn btn-primary">
+                      <a href="#" className="btn btn-primary" disabled={!this.state.applyjob}>
                         <i className="fa fa-briefcase" aria-hidden="true"></i>Apply For This Job</a>
                       <a href="#" className="btn btn-primary bookmark">
                         <i className="fa fa-bookmark-o" aria-hidden="true"></i>Bookmark</a>
@@ -199,7 +214,7 @@ class ViewJob extends Component {
                           <li>
                             <span className="icon">
                               <i className="fa fa-bolt" aria-hidden="true"></i>
-                            </span>Posted: 1 day ago</li>
+                            </span>Posted: {this.state.postedDays} </li>
                           <li>
                             <span className="icon">
                               <i className="fa fa-user-plus" aria-hidden="true"></i>
