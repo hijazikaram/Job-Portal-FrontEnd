@@ -38,10 +38,10 @@ class JobDetails extends Component {
 
     axios.get('http://localhost:5000/api/job/' + job_id ).then((job) => {
       self.setState({ job : job.data });
-      var created = new Date(job.data.created_at);
-      var now = new Date;
-      var postedDays = parseInt((now - created) / (1000 * 60 * 60 * 24), 10);
-      self.setState({applyjob : (postedDays <= 30 && postedDays >= 0)})
+      let created = new Date(job.data.created_at);
+      let now = new Date;
+      let postedDays = parseInt((now - created) / (1000 * 60 * 60 * 24), 10);
+      self.setState({applyjob : (postedDays <= 30 && postedDays >= 0)});
       if (postedDays == 0) {
         postedDays = "Today";
       } else if (postedDays == 1){
