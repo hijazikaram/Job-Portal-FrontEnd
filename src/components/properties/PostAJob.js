@@ -89,6 +89,7 @@ class PostAJob extends Component {
   }
 
   onRegister = (e) => {
+    console.log("lol");
     e.preventDefault();
 
     axios.post('http://localhost:5000/api/institutions', {
@@ -107,6 +108,7 @@ class PostAJob extends Component {
         }, 1000);
 
       } else {
+        console.log("hitting error");
         this.setState({registerErrMsg: res.data.error, registerSuccess: false});
       }
     });

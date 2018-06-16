@@ -12,22 +12,22 @@ class JobDetails extends Component {
     super(props);
     this.state = {
       job : {},
-      postedDays : "", 
+      postedDays : "",
       applyjob : false,
       toJobList : false,
       jobCategoryOptions : [
-       'Job Category', 
-       'Customer Service', 
-       'Software Engineer', 
-       'Program Development', 
-       'Project Manager', 
+       'Job Category',
+       'Customer Service',
+       'Software Engineer',
+       'Program Development',
+       'Project Manager',
        'Graphics Designer'],
       jobLocationOptions : [
-       'Location 1', 
-       'Location 2', 
+       'Location 1',
+       'Location 2',
        'Location 3'],
-      selectedJobCategory : "Job Category", 
-      selectedJobLocation : "Job Location", 
+      selectedJobCategory : "Job Category",
+      selectedJobLocation : "Job Location",
       keyword : ""
     }
   }
@@ -51,13 +51,13 @@ class JobDetails extends Component {
         postedDays = postedDays.toString() + " days ago";
       }
       self.setState({ postedDays : postedDays });
-      
+
       axios.get('http://localhost:5000/api/job_search_options').then((job_search_options) => {
         self.setState({ jobCategoryOptions : job_search_options.data.jobCategoryOptions, jobLocationOptions : job_search_options.data.jobLocationOptions });
       });
     });
   }
-  
+
   formatData(string) {
     if (string) {
       var date = new Date(string);
@@ -102,7 +102,7 @@ class JobDetails extends Component {
       return (
         <Redirect to={{
           pathname: '/JobList',
-          state: { selectedJobCategory_param: this.state.selectedJobCategory, 
+          state: { selectedJobCategory_param: this.state.selectedJobCategory,
             selectedJobLocation_param: this.state.selectedJobLocation, keyword_param: this.state.keyword }
         }} />
       );
@@ -119,7 +119,7 @@ class JobDetails extends Component {
               <li>Engineer/Architects</li>
             </ol>
             <h2 className="title">Software Engineer</h2>
-          </div>              
+          </div>
           <div className="banner-form banner-form-full job-list-form">
             <form action="#">
               <div className='mydropdown-div'>
@@ -127,10 +127,10 @@ class JobDetails extends Component {
                   options={this.state.jobCategoryOptions}
                   onChange={this._onSelectJobCategory.bind(this)}
                   value={this.state.selectedJobCategory}
-                  className='mydropdown' 
-                  controlClassName='mydropdown-control' 
+                  className='mydropdown'
+                  controlClassName='mydropdown-control'
                   placeholderClassName='mydropdown-placeholder'
-                  menuClassName='mydropdown-menu' 
+                  menuClassName='mydropdown-menu'
                   arrowClassName='mydropdown-arrow'
                 />
               </div>
@@ -139,10 +139,10 @@ class JobDetails extends Component {
                   options={this.state.jobLocationOptions}
                   onChange={this._onSelectJobLocation.bind(this)}
                   value={this.state.selectedJobLocation}
-                  className='mydropdown' 
-                  controlClassName='mydropdown-control' 
+                  className='mydropdown'
+                  controlClassName='mydropdown-control'
                   placeholderClassName='mydropdown-placeholder'
-                  menuClassName='mydropdown-menu' 
+                  menuClassName='mydropdown-menu'
                   arrowClassName='mydropdown-arrow'
                 />
               </div>
@@ -291,7 +291,8 @@ class JobDetails extends Component {
                         <li>
                           <span className="icon">
                             <i className="fa fa-key" aria-hidden="true"></i>
-                          </span>Job function: {this.state.job.job_function}</li>
+                          </span>Job functio: {this.state.job.job_function}
+                        </li>
                       </ul>
                     </div>
                     <div className="section company-info">
