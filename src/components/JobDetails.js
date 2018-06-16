@@ -12,6 +12,8 @@ class JobDetails extends Component {
     super(props);
     this.state = {
       job : {},
+      postedDays : "", 
+      applyjob : false,
       toJobList : false,
       jobCategoryOptions : [
        'Job Category', 
@@ -36,9 +38,23 @@ class JobDetails extends Component {
 
     axios.get('http://localhost:5000/api/job/' + job_id ).then((job) => {
       self.setState({ job : job.data });
-    });
-    axios.get('http://localhost:5000/api/job_search_options').then((job_search_options) => {
-      self.setState({ jobCategoryOptions : job_search_options.data.jobCategoryOptions, jobLocationOptions : job_search_options.data.jobLocationOptions });
+      var created = new Date(job.data.created_at);
+      var now = new Date;
+      var postedDays = parseInt((now - created) / (1000 * 60 * 60 * 24), 10);
+      self.setState({applyjob : (postedDays <= 30 && postedDays >= 0)})
+      if (postedDays == 0) {
+        postedDays = "Today";
+      } else if (postedDays == 1){
+        postedDays = "Yesterday";
+        // postedDays = postedDays.toString() + " day ago";
+      } else {
+        postedDays = postedDays.toString() + " days ago";
+      }
+      self.setState({ postedDays : postedDays });
+      
+      axios.get('http://localhost:5000/api/job_search_options').then((job_search_options) => {
+        self.setState({ jobCategoryOptions : job_search_options.data.jobCategoryOptions, jobLocationOptions : job_search_options.data.jobLocationOptions });
+      });
     });
   }
   
@@ -186,7 +202,7 @@ class JobDetails extends Component {
                 </div>
                 <div className="social-media">
                   <div className="button">
-                    <a href="#" className="btn btn-primary">
+                    <a href="#" className="btn btn-primary" disabled={!this.state.applyjob}>
                       <i className="fa fa-briefcase" aria-hidden="true"></i>Apply For This Job</a>
                     <a href="#" className="btn btn-primary bookmark">
                       <i className="fa fa-bookmark-o" aria-hidden="true"></i>Bookmark</a>
@@ -252,7 +268,7 @@ class JobDetails extends Component {
                         <li>
                           <span className="icon">
                             <i className="fa fa-bolt" aria-hidden="true"></i>
-                          </span>Posted: 1 day ago</li>
+                          </span>Posted: {this.state.postedDays} </li>
                         <li>
                           <span className="icon">
                             <i className="fa fa-user-plus" aria-hidden="true"></i>

@@ -12,7 +12,8 @@ class JobList extends Component {
     super(props);
     this.state = {
       jobs : [],
-      job_to_show: [],
+      jobs_count : 0,
+      job_to_show : [],
       activePage : 1, 
       jobCategoryOptions : [
        'Job Category', 
@@ -86,6 +87,7 @@ class JobList extends Component {
                 });
     }
 
+    this.setState({jobs_count: jobs.length});
     jobs = jobs.slice(10 * (pageNumber -1) , 10 * pageNumber);
     this.setState({activePage: pageNumber, job_to_show: jobs});
   }
@@ -227,7 +229,7 @@ class JobList extends Component {
                     <Pagination
                       activePage={this.state.activePage}
                       itemsCountPerPage={10}
-                      totalItemsCount={this.state.job_to_show.length}
+                      totalItemsCount={this.state.jobs_count}
                       pageRangeDisplayed={5}
                       onChange={this.handlePageChange.bind(this)}
                     />
