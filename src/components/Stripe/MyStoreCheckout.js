@@ -7,7 +7,9 @@ class MyStoreCheckout extends React.Component {
   render() {
     return (
       <Elements>
-        <InjectedCheckoutForm />
+        <InjectedCheckoutForm 
+        	onSuccess={this.props.onSuccess}
+          	onModalToggle={this.props.onModalToggle}/>
       </Elements>
     );
   }

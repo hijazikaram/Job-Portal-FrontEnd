@@ -17,7 +17,7 @@ class App extends Component {
        'Location 3'],
       selectedJobLocation : "Job Location", 
       keyword : ""
-    }
+    };
   }
 
   componentWillMount() {
