@@ -8,7 +8,8 @@ class UserPageNavBar extends Component {
     super(props);
     this.state = {
       name: '',
-      jobs: ''
+      jobs: '0',
+      availableJobs: 0
     };
 
     var id = localStorage.getItem('user_id');
@@ -20,7 +21,7 @@ class UserPageNavBar extends Component {
         if (res.data.success) {
 
           var institution = res.data.institution;
-          this.setState({name: institution.name});
+          self.setState({name: institution.name, availableJobs: institution.availableJobs});
           self.setState({company_logo: institution.logo});
           axios.get('http://localhost:5000/api/jobs/' + id).then(res => {
             if (res.data.success) {
@@ -56,7 +57,7 @@ class UserPageNavBar extends Component {
 
           <div className="favorites-user">
           <div className="favorites">
-              <a href="bookmark.html">0<small>Available</small>
+              <a href="bookmark.html">{this.state.availableJobs}<small>Available</small>
               </a>
             </div>
             <div className="favorites">

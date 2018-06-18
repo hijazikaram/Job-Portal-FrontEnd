@@ -12,7 +12,6 @@ class CardSection extends React.Component {
         Card details
         <CardElement style={{base: {fontSize: '18px'}}} />
       </label>
-
     );
   }
 }

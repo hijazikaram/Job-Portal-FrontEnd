@@ -14,3 +14,27 @@
 .mydropdown-menu {
 	width: 203px!important;
 }
+
+.job-quantity-mydropdown-div {
+	margin-top: 6px;
+	height: 46px;
+	font-size: 16px;
+	font-family: 'MyriadPro-Regular', sans-serif;
+}
+.job-quantity-mydropdown-control {
+	height: 46px;
+	padding-right: 26px!important;
+}
+.job-quantity-mydropdown-arrow {
+	top: 20px!important;
+}
+.job-quantity-mydropdown-placeholder {
+	padding-top: 7px;
+}
+.job-quantity-mydropdown-menu {
+}
+.job-quantity-h3 {
+	color: #00a651!important;
+	margin-top: 35;
+	margin-bottom: 30px;
+}

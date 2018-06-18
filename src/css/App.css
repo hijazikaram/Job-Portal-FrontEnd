@@ -99,3 +99,47 @@ table {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.modal-header {
+  margin-top: 40px;
+}
+.modal-dialog {
+  top: 80px;
+}
+.modal.fade.show {
+  opacity: 100;
+  top: 209px;
+}
+
+body.modal-open{
+  padding-right:0px!important;
+}
+.modal-content {
+  height: 200px;
+}
+.modal-body{
+  margin-top: 15px;
+}
+.modal-body .btn-primary{
+  width: 100px;
+  height: 44px;
+  font-size: 16px!important;
+  font-family: 'MyriadPro-Regular', sans-serif!important;
+  border: none!important;
+  float: right;
+  margin-right: 10px;
+}
+.modal-body .btn-danger{
+  width: 100px;
+  height: 44px;
+  font-size: 16px!important;
+  font-family: 'MyriadPro-Regular', sans-serif!important;
+  border: none!important;
+  float: right;
+}
+.price-notification {
+  margin-top: 15px;
+}
+.stripe-modal-token-error {
+  color: red;
+}
