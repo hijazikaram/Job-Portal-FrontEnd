@@ -91,7 +91,11 @@ class Price extends Component {
       if (response.data.message) {
         self.setState({ notificationMsg: response.data.message, notificationSuccess: false });
       } else {
-        self.setState({ notificationMsg: self.state.selectedJobQuantity.value.toString()+' '+self.state.selectedJobQuantity.value>1?'jobs':'job'+' added successfully.', notificationSuccess: true });
+        let msg = self.state.selectedJobQuantity.value.toString();
+        msg += ' ';
+        msg += self.state.selectedJobQuantity.value>1?'jobs':'job';
+        msg += ' added successfully.';
+        self.setState({ notificationMsg: msg, notificationSuccess: true });
       }
     }, function (error) {
       console.log(error);
