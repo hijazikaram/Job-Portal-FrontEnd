@@ -3,31 +3,107 @@ import {Link} from 'react-router-dom';
 import Footer from './properties/Footer';
 import axios from 'axios';
 import Pagination from "react-js-pagination";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
+import "../css/MyDropdown.css"
 
 class JobList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       jobs : [],
-      job_to_show: [],
-      activePage : 1
+      jobs_count : 0,
+      job_to_show : [],
+      activePage : 1, 
+      jobCategoryOptions : [
+       'Job Category', 
+       'Customer Service', 
+       'Software Engineer', 
+       'Program Development', 
+       'Project Manager', 
+       'Graphics Designer'],
+      jobLocationOptions : [
+       'Location 1', 
+       'Location 2', 
+       'Location 3'],
+      selectedJobCategory : "Job Category", 
+      selectedJobLocation : "Job Location", 
+      keyword : ""
     }
   }
 
   componentWillMount() {
+    if (this.props.location.state && this.props.location.state.selectedJobCategory_param)
+      this.setState({selectedJobCategory : this.props.location.state.selectedJobCategory_param});
+    if (this.props.location.state && this.props.location.state.selectedJobLocation_param)
+      this.setState({selectedJobLocation : this.props.location.state.selectedJobLocation_param});
+    if (this.props.location.state && this.props.location.state.keyword_param)
+      this.setState({keyword : this.props.location.state.keyword_param});
+
     let self = this;
     axios.get('http://localhost:5000/api/jobs').then((jobs) => {
-      self.setState({ jobs : jobs.data, job_to_show : jobs.data.slice(0,10) });
+      self.setState({ jobs : jobs.data});
+
+      let jobCategoryOptions = ["Job Category"], jobLocationOptions = ["Job Location"];
+      jobs.data.map(function (job) {
+        if (job.job_category && !jobCategoryOptions.includes(job.job_category)) {
+          jobCategoryOptions.push(job.job_category);
+        }
+        let job_location = job.location_state;
+        if (job_location)
+          job_location += ", ";
+        job_location += job.location_country;
+        if (job_location && !jobLocationOptions.includes(job_location)) {
+          jobLocationOptions.push(job_location);
+        }
+      });
+      self.setState({jobCategoryOptions, jobLocationOptions});
+      self.handlePageChange(1);
     });
   }
 
   handlePageChange(pageNumber) {
+    let {selectedJobCategory, selectedJobLocation, keyword} = this.state;
     let jobs = this.state.jobs;
 
+    if (keyword) {
+      jobs = jobs.filter(function (job) {
+                  return job.job_description.toLowerCase().includes(keyword.toLowerCase()) 
+                      || job.job_title.toLowerCase().includes(keyword.toLowerCase());
+                });
+    }
+    if (selectedJobCategory != "Job Category") {
+      jobs = jobs.filter(function (job) {
+                  return job.job_category === selectedJobCategory;
+                });
+    }
+    if (selectedJobLocation != "Job Location") {
+      jobs = jobs.filter(function (job) {
+                  let job_location = job.location_state;
+                  if (job_location)
+                    job_location += ", ";
+                  job_location += job.location_country;
+                  return job_location === selectedJobLocation;
+                });
+    }
+
+    this.setState({jobs_count: jobs.length});
     jobs = jobs.slice(10 * (pageNumber -1) , 10 * pageNumber);
     this.setState({activePage: pageNumber, job_to_show: jobs});
   }
 
+  _onSelectJobCategory(selectedJobCategory) {
+    this.setState({selectedJobCategory : selectedJobCategory.value === "none"?"Job Category":selectedJobCategory.value});
+  }
+  _onSelectJobLocation(selectedJobLocation) {
+    this.setState({selectedJobLocation : selectedJobLocation.value === "none"?"Job Location":selectedJobLocation.value});
+  }
+  _onKeyword(event) {
+    this.setState({keyword:event.target.value});
+  }
+  _onSearch(event) {
+    this.handlePageChange(1);
+  }
   render() {
     return (<div>
       <section className="job-bg page job-list-page">
@@ -44,49 +120,32 @@ class JobList extends Component {
 
           <div className="banner-form banner-form-full job-list-form">
             <form action="#">
-              <div className="dropdown category-dropdown">
-                <a data-toggle="dropdown" href="#">
-                  <span className="change-text">Job Category</span>
-                  <i className="fa fa-angle-down"></i>
-                </a>
-                <ul className="dropdown-menu category-change">
-                  <li>
-                    <a href="#">Customer Service</a>
-                  </li>
-                  <li>
-                    <a href="#">Software Engineer</a>
-                  </li>
-                  <li>
-                    <a href="#">Program Development</a>
-                  </li>
-                  <li>
-                    <a href="#">Project Manager</a>
-                  </li>
-                  <li>
-                    <a href="#">Graphics Designer</a>
-                  </li>
-                </ul>
+              <div className='mydropdown-div'>
+                <Dropdown
+                  options={this.state.jobCategoryOptions}
+                  onChange={this._onSelectJobCategory.bind(this)}
+                  value={this.state.selectedJobCategory}
+                  className='mydropdown' 
+                  controlClassName='mydropdown-control' 
+                  placeholderClassName='mydropdown-placeholder'
+                  menuClassName='mydropdown-menu' 
+                  arrowClassName='mydropdown-arrow'
+                />
               </div>
-              <div className="dropdown category-dropdown language-dropdown">
-                <a data-toggle="dropdown" href="#">
-                  <span className="change-text">Job Location</span>
-                  <i className="fa fa-angle-down"></i>
-                </a>
-                <ul className="dropdown-menu category-change language-change">
-                  <li>
-                    <a href="#">Location 1</a>
-                  </li>
-                  <li>
-                    <a href="#">Location 2</a>
-                  </li>
-                  <li>
-                    <a href="#">Location 3</a>
-                  </li>
-                </ul>
+              <div className='mydropdown-div'>
+                <Dropdown
+                  options={this.state.jobLocationOptions}
+                  onChange={this._onSelectJobLocation.bind(this)}
+                  value={this.state.selectedJobLocation}
+                  className='mydropdown' 
+                  controlClassName='mydropdown-control' 
+                  placeholderClassName='mydropdown-placeholder'
+                  menuClassName='mydropdown-menu' 
+                  arrowClassName='mydropdown-arrow'
+                />
               </div>
-
-              <input type="text" className="form-control" placeholder="Type your key word"/>
-              <button type="submit" className="btn btn-primary" value="Search">Search</button>
+              <input type="text" className="form-control" onChange={this._onKeyword.bind(this)} value={this.state.keyword} placeholder="Type your key word" />
+              <button type="submit" className="btn btn-primary" onClick={this._onSearch.bind(this)} value="Search">Search</button>
             </form>
           </div>
 
@@ -170,7 +229,7 @@ class JobList extends Component {
                     <Pagination
                       activePage={this.state.activePage}
                       itemsCountPerPage={10}
-                      totalItemsCount={this.state.jobs.length}
+                      totalItemsCount={this.state.jobs_count}
                       pageRangeDisplayed={5}
                       onChange={this.handlePageChange.bind(this)}
                     />

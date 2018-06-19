@@ -38,6 +38,7 @@ class InstitutionPostAJob extends Component {
       company_twitter: '',
       company_google: '',
       company_linkedin: '',
+      availableJobs: 0, 
 
       agree_terms: false,
 
@@ -69,7 +70,7 @@ class InstitutionPostAJob extends Component {
 
     axios.get('http://localhost:5000/api/institution/' + this.id).then(res => {
       const institution = res.data.institution;
-      this.setState({ company_name: institution.name, company_email: institution.email, company_mobile: institution.phoneNumber, company_facebook: institution.facebook, company_twitter: institution.twitter, company_google: institution.google, company_linkedin: institution.linkedin });
+      this.setState({ company_name: institution.name, company_email: institution.email, company_mobile: institution.phoneNumber, company_facebook: institution.facebook, company_twitter: institution.twitter, company_google: institution.google, company_linkedin: institution.linkedin, availableJobs: institution.availableJobs });
 
       if (!institution.address) {
         this.setState({ address: '' });
@@ -391,10 +392,16 @@ class InstitutionPostAJob extends Component {
         self.setState({ postValid: true });
         axios.post("http://localhost:5000/api/jobs", self.state).then(function (response) {
           if (response.data.success) {
-            self.setState({ postedSuccessfully: true, postResultMsg: 'Posted Successfully' });
-            setTimeout(function () {
-              window.location.href = '/InstitutionProfile/PostedJobs';
-            }, 500);
+            axios.put("http://localhost:5000/api/institutionMinusJobs/" + self.state.institution_id).then(function (response) {
+              if (response.data.message) {
+                self.setState({ postedSuccessfully: false, postResultMsg: 'Error Occured.' });
+              } else {
+                self.setState({ postedSuccessfully: true, postResultMsg: 'Posted Successfully' });
+                setTimeout(function () {
+                  window.location.href = '/InstitutionProfile/PostedJobs';
+                }, 500);
+              }
+            });
           } else {
             self.setState({ postedSuccessfully: false, postResultMsg: 'Error Occured.' });
           }
@@ -407,6 +414,16 @@ class InstitutionPostAJob extends Component {
   }
 
   render() {
+    if (parseInt(this.state.availableJobs, 0) <= 0) {
+      return (<div>
+        <div className="job-postdetails">
+          <div className="section postdetails">
+              <h4>You have to buy jobs on Price page</h4>
+          </div>
+        </div>
+      </div>);
+    }
+
     const notification = !this.state.postValid
       ? (<div className='panel panel-default'>
         <ul className="notification error">

@@ -5,6 +5,7 @@ import {Modal, Button} from 'react-bootstrap';
 
 import ViewJob from "./ViewJob";
 import jobIcon from '../img/4.png';
+import "../css/InstitutionPostedJobs.css"
 
 class InstitutionPostedJobs extends Component {
   constructor(props) {
@@ -89,6 +90,10 @@ class InstitutionPostedJobs extends Component {
         <h4>Posted Jobs</h4>
         {
           this.state.jobs.map((job, index) => {
+            let created = new Date(job.created_at);
+            let now = new Date;
+            let postedDays = parseInt((now - created) / (1000 * 60 * 60 * 24), 10);
+            let job_status = (postedDays <= 30 && postedDays >= 0);
 
             let removeClick = this.removeJob.bind(this, index);
             return (<div className="job-ad-item" key={index}>
@@ -141,9 +146,13 @@ class InstitutionPostedJobs extends Component {
                   <i className="fa fa-pencil" aria-hidden="true"></i>
                 </a>
 
-                <div className="action-icon close-icon" onClick={removeClick}>
+                <a className="action-icon close-icon" onClick={removeClick}>
                   <i className="fa fa-window-close" aria-hidden="true"></i>
-                </div>
+                </a>
+
+                <span className={job_status ? 'job-status job-status-active' : 'job-status job-status-removed'}>
+                  {job_status ? 'Job Active' : 'Job Removed'}
+                </span>
               </div>
             </div>)
           })

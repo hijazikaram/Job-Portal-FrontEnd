@@ -1,0 +1,19 @@
+.job-status {
+	float: right;
+    margin-top: 40px;
+    border-radius: 10px;
+    padding: 0px 7px 0px 7px;
+}
+.job-status-active {
+    color: #fff!important;
+    background-color: #16c16a!important;
+    margin-right: 12px;
+}
+.job-status-removed {
+    color: #fff!important;
+    background-color: #f44336!important;
+    margin-right: 0px;
+}
+.action-icon {
+	margin-right: 19px!important;
+}
