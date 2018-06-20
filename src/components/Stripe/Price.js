@@ -15,12 +15,12 @@ class Price extends Component {
     this.state = {
       toJobList : false,
       jobLocationOptions : [
-       'Location 1', 
-       'Location 2', 
+       'Location 1',
+       'Location 2',
        'Location 3'],
-      selectedJobLocation : "Job Location", 
-      keyword : "", 
-      selectedJobQuantity : 1, 
+      selectedJobLocation : "Job Location",
+      keyword : "",
+      selectedJobQuantity : 1,
       selectedJobQuantityText: "1 Job for 30 Days - $150 USD",
       jobQuantityOptions : [
         {value:1, label:'1 Job - $150 per Job', text:'1 Job for 30 Days - $150 USD', className:'job-quantity-mydropdown-item'},
@@ -33,9 +33,9 @@ class Price extends Component {
         {value:8, label:'8 Jobs - $150 per Job', text:'8 Jobs for 30 Days - $1200 USD', className:'job-quantity-mydropdown-item'},
         {value:9, label:'9 Jobs - $150 per Job', text:'9 Jobs for 30 Days - $1350 USD', className:'job-quantity-mydropdown-item'},
         {value:10, label:'10 Jobs - $150 per Job', text:'10 Jobs for 30 Days - $1500 USD', className:'job-quantity-mydropdown-item'}
-      ], 
-      modal: false, 
-      notificationMsg: null, 
+      ],
+      modal: false,
+      notificationMsg: null,
       notificationSuccess: false
     };
   }
@@ -48,22 +48,22 @@ class Price extends Component {
     this.setState({selectedJobQuantity:this.state.jobQuantityOptions[0]});
   }
 
-  _onSelectJobLocation(selectedJobLocation) {
+  _onSelectJobLocation = (selectedJobLocation) => {
     this.setState({selectedJobLocation : selectedJobLocation.value === "none"?"Job Location":selectedJobLocation.value});
   }
-  _onKeyword(event) {
+  _onKeyword = (event) => {
     this.setState({keyword:event.target.value});
   }
-  _onSearch(event) {
+  _onSearch = (event) => {
     this.setState({toJobList:true});
   }
 
-  _onSelectJobQuantity(selectedJobQuantity) {
+  _onSelectJobQuantity = (selectedJobQuantity) => {
     let index = selectedJobQuantity.value - 1;
     let text = this.state.jobQuantityOptions[index].text;
     this.setState({selectedJobQuantity : selectedJobQuantity, selectedJobQuantityText: text, notificationMsg: null});
   }
-  _onProcced(event) {
+  _onProcced = (event) => {
     this.setState({ notificationMsg: null });
 
     let id = localStorage.getItem('user_id');
@@ -78,16 +78,15 @@ class Price extends Component {
       this._onModalToggle();
     }
   }
-  _onModalToggle() {
+  _onModalToggle = () => {
     this.setState({modal: !this.state.modal});
   }
-  _onStripeSuccess(token) {
+  _onStripeSuccess = (token) => {
     this._onModalToggle();
 
     let self = this;
     let id = localStorage.getItem('user_id');
     axios.put('http://localhost:5000/api/institutionPlusJobs/' + id, {token: token.id, count:self.state.selectedJobQuantity.value}).then(function (response) {
-      console.log(response.data);
       if (response.data.message) {
         self.setState({ notificationMsg: response.data.message, notificationSuccess: false });
       } else {
@@ -119,13 +118,13 @@ class Price extends Component {
       </div>) : (<div></div>);
 
     return (
-		<div>          
+		<div>
       <Modal isOpen={this.state.modal}>
         <ModalBody>
           <StripeProvider apiKey="pk_test_RYl7CgOIy7aA1BSTJhoFl1sP">
-            <MyStoreCheckout 
-              onSuccess={this._onStripeSuccess.bind(this)}
-              onModalToggle={this._onModalToggle.bind(this)} />
+            <MyStoreCheckout
+              onSuccess={this._onStripeSuccess}
+              onModalToggle={this._onModalToggle} />
           </StripeProvider>
         </ModalBody>
       </Modal>
@@ -137,20 +136,20 @@ class Price extends Component {
           <h3>We offer 12000 jobs vacation right now</h3>
           <div className="banner-form">
             <form action="#">
-              <input type="text" className="form-control" onChange={this._onKeyword.bind(this)} value={this.state.keyword} placeholder="Type your key word" />
+              <input type="text" className="form-control" onChange={this._onKeyword} value={this.state.keyword} placeholder="Type your key word" />
               <div className='mydropdown-div'>
                 <Dropdown
                   options={this.state.jobLocationOptions}
-                  onChange={this._onSelectJobLocation.bind(this)}
+                  onChange={this._onSelectJobLocation}
                   value={this.state.selectedJobLocation}
-                  className='mydropdown' 
-                  controlClassName='mydropdown-control' 
+                  className='mydropdown'
+                  controlClassName='mydropdown-control'
                   placeholderClassName='mydropdown-placeholder'
-                  menuClassName='mydropdown-menu' 
+                  menuClassName='mydropdown-menu'
                   arrowClassName='mydropdown-arrow'
                 />
               </div>
-              <button type="submit" className="btn btn-primary" onClick={this._onSearch.bind(this)} value="Search">Search</button>
+              <button type="submit" className="btn btn-primary" onClick={this._onSearch} value="Search">Search</button>
             </form>
           </div>
 
@@ -196,18 +195,18 @@ class Price extends Component {
                           <div className='job-quantity-mydropdown-div'>
                             <Dropdown
                               options={this.state.jobQuantityOptions}
-                              onChange={this._onSelectJobQuantity.bind(this)}
+                              onChange={this._onSelectJobQuantity}
                               value={this.state.selectedJobQuantity}
-                              className='job-quantity-mydropdown' 
-                              controlClassName='job-quantity-mydropdown-control' 
+                              className='job-quantity-mydropdown'
+                              controlClassName='job-quantity-mydropdown-control'
                               placeholderClassName='job-quantity-mydropdown-placeholder'
-                              menuClassName='job-quantity-mydropdown-menu' 
+                              menuClassName='job-quantity-mydropdown-menu'
                               arrowClassName='job-quantity-mydropdown-arrow'
                             />
                           </div>
                           <h3 className="job-quantity-h3">{this.state.selectedJobQuantityText}</h3>
                         </div>
-             		        <button type="submit" className="btn btn-primary" onClick={this._onProcced.bind(this)} value="Procced">Procced</button>
+             		        <button type="submit" className="btn btn-primary" onClick={this._onProcced} value="Procced">Procced</button>
                         {notification}
               				</div>
                     </div>
@@ -222,7 +221,3 @@ class Price extends Component {
   }
 }
 export default Price;
-			
-			
-			
-			

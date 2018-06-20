@@ -85,6 +85,7 @@ class InstitutionPostedJobs extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (<div>
       <div className="section trending-ads latest-jobs-ads">
         <h4>Posted Jobs</h4>
