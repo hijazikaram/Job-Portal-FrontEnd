@@ -13,9 +13,16 @@ class SignIn extends Component {
     };
   }
   componentWillMount() {
-    var id = localStorage.getItem('user_id');
-    var user_type = localStorage.getItem('user_type');
-    if (id && !user_type) {
+    const id = localStorage.getItem('user_id');
+    let user_type;
+    if(localStorage.getItem('user_type') === "null"){
+      user_type = JSON.parse(localStorage.getItem('user_type'));
+    }else {
+      user_type = localStorage.getItem('user_type');
+    }
+
+
+    if (id && user_type === null) {
       window.location.href = '/UserProfile';
     }
 
@@ -29,12 +36,12 @@ class SignIn extends Component {
 
     /* Check if it's a normal user */
     axios.post('http://localhost:5000/api/user', self.state).then(function(response) {
-
       if (response.data.success) {
         // Correct credentials
         self.setState({notificationMsg: 'Login Successfully', loginValid: true});
         setTimeout(function() {
           localStorage.setItem('user_id', response.data.user._id);
+          localStorage.setItem('user_type', 'null');
           window.location.href = '/UserProfile';
         }, 1000);
       } else {

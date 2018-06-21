@@ -5,6 +5,25 @@ import {Link} from 'react-router-dom';
 
 class NavBar extends Component {
   render() {
+    let id = localStorage.getItem('user_id');
+    let user_type = localStorage.getItem('user_type');
+    const navbar = id && user_type
+      ? (<ul className="navBarBtn">
+        <li>
+          <button>test</button>
+        </li>
+      </ul>)
+      : (<ul className="sign-in">
+        <li>
+          <i className="fa fa-user"></i>
+        </li>
+        <li>
+          <a href="/SignIn">Sign In</a>
+        </li>
+        <li>
+          <a href="/SignUp">Register</a>
+        </li>
+      </ul>);
     return (<div>
       <header id="header" className="clearfix">
         <nav className="navbar navbar-default">

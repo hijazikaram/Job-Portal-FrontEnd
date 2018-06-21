@@ -53,12 +53,6 @@ class UserPageNavBar extends Component {
             <Link to={"/UserProfile"}>Profile Details</Link>
           </li>
           <li>
-            <Link to={"/UserProfile/ViewResume"}>View Resume</Link>
-          </li>
-          <li>
-            <Link to={"/UserProfile/EditResume"}>Edit Resume</Link>
-          </li>
-          <li>
             <Link to={"/UserProfile/FavoriteJobs"}>Bookmark</Link>
           </li>
           <li>

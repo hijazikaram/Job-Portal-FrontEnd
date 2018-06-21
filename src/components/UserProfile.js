@@ -21,8 +21,6 @@ class UserProfile extends Component {
 
             <Switch>
               <Route exact path={this.props.match.path} component={Home}/>
-              <Route path={this.props.match.path + "/ViewResume"} component={ViewResume}/>
-              <Route path={this.props.match.path + "/EditResume"} component={EditUserResume}/>
               <Route path={this.props.match.path + "/DeleteMyProfile"} component={DeleteUserProfile}/>
               <Route path={this.props.match.path + "/AppliedJobs"} component={UserAppliedJobs}/>
               <Route path={this.props.match.path + "/FavoriteJobs"} component={UserFavoriteJobs}/>
