@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import Footer from './properties/Footer';
 import jobIcon from '../img/4.png';
 import Dropdown from "react-dropdown";
+import {Modal, Button, FormControl} from 'react-bootstrap';
 import axios from 'axios';
 import '../css/MyDropdown.css'
 import { Redirect } from 'react-router'
@@ -13,6 +14,7 @@ class JobDetails extends Component {
     this.state = {
       job : {},
       postedDays : "",
+      modal: false,
       applyjob : false,
       toJobList : false,
       jobCategoryOptions : [
@@ -57,7 +59,6 @@ class JobDetails extends Component {
       });
     });
   }
-
   formatData(string) {
     if (string) {
       var date = new Date(string);
@@ -83,7 +84,6 @@ class JobDetails extends Component {
       return monthNames[monthIndex] + ' ' + day + ', ' + year;
     }
   }
-
   _onSelectJobCategory(selectedJobCategory) {
     this.setState({selectedJobCategory : selectedJobCategory.value === "none"?"Job Category":selectedJobCategory.value});
   }
@@ -96,7 +96,15 @@ class JobDetails extends Component {
   _onSearch(event) {
     this.setState({toJobList:true});
   }
+  _onModalToggle = () => {
+    this.setState({modal: !this.state.modal});
+  }
+  _onFileChange = (event) => {
+    console.log(event.target.file[0]);
+  }
+  _onApplyJob = () => {
 
+  }
   render() {
     if (this.state.toJobList) {
       return (
@@ -111,15 +119,6 @@ class JobDetails extends Component {
     return (<div>
       <section className="job-bg page job-list-page">
         <div className="container">
-          <div className="breadcrumb-section">
-            <ol className="breadcrumb">
-              <li>
-                <a href="index.html">Home</a>
-              </li>
-              <li>Engineer/Architects</li>
-            </ol>
-            <h2 className="title">Software Engineer</h2>
-          </div>
           <div className="banner-form banner-form-full job-list-form">
             <form action="#">
               <div className='mydropdown-div'>
@@ -202,8 +201,8 @@ class JobDetails extends Component {
                 </div>
                 <div className="social-media">
                   <div className="button">
-                    <a href="#" className="btn btn-primary" disabled={!this.state.applyjob}>
-                      <i className="fa fa-briefcase" aria-hidden="true"></i>Apply For This Job</a>
+                    <span onClick={this._onModalToggle} className="btn btn-primary" disabled={!this.state.applyjob}>
+                      <i className="fa fa-briefcase" aria-hidden="true"></i>Apply For This Job</span>
                     <a href="#" className="btn btn-primary bookmark">
                       <i className="fa fa-bookmark-o" aria-hidden="true"></i>Bookmark</a>
                   </div>
@@ -357,6 +356,22 @@ class JobDetails extends Component {
           </div>
         </div>
       </section>
+
+      <Modal show={this.state.modal} onHide={this._onModalToggle}>
+        <Modal.Header closeButton>
+          <Modal.Title>Apply</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <input type="text" className="form-control applyInfo" placeholder="Name" />
+          <input type="text" className="form-control applyInfo" placeholder="Email" />
+          <input type="text" className="form-control applyInfo" placeholder="Phone Number" />
+          <FormControl type="file" className="applyInfo" onChange={this._onFileChange}/>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button>Close</Button>
+          <Button>Submit Application</Button>
+        </Modal.Footer>
+      </Modal>
       <Footer/>
     </div>);
   }

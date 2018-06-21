@@ -2,7 +2,7 @@ import React from 'react';
 import {CardElement} from 'react-stripe-elements';
 const styles = {
   label: {
-    width: '500px'
+    width: '100%'
   }
 }
 class CardSection extends React.Component {

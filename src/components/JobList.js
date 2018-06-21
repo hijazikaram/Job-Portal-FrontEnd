@@ -105,7 +105,6 @@ class JobList extends Component {
     this.handlePageChange(1);
   }
   render() {
-    console.log(this.props);
     return (<div>
       <section className="job-bg page job-list-page">
         <div className="container">

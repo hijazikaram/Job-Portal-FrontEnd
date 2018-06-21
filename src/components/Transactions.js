@@ -54,14 +54,13 @@ class Transactions extends Component {
         );
     }
 
-    return (<div>
-      <section className="job-bg ad-profile-page">
+    return (
         <div className="container">
           <div className="breadcrumb-section">
             <div className="profile job-profile">
               <div className="user-pro-section">
                 <div className="profile-details section">
-                  <h2>Transactions</h2>		
+                  <h2>Transactions</h2>
                   <table className="table table-hover">
                     <thead>
                       <tr>
@@ -76,14 +75,12 @@ class Transactions extends Component {
                     <tbody>
                       {this.state.transactions.map(renderTransaction)}
                     </tbody>
-                  </table>		
+                  </table>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>);
+        </div>);
   }
 }
 

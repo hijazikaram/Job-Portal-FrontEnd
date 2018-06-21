@@ -4,7 +4,7 @@ import MyStoreCheckout from './MyStoreCheckout';
 import axios from 'axios';
 import Dropdown from "react-dropdown";
 import { Redirect } from 'react-router';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {Modal, Button} from 'react-bootstrap';
 import '../../css/Stripe.css';
 import '../../css/App.css';
 import '../../css/MyDropdown.css'
@@ -116,19 +116,20 @@ class Price extends Component {
         <div className={`notification ${!this.state.notificationSuccess ? 'error' : 'success'}`}>{this.state.notificationMsg}
         </div>
       </div>) : (<div></div>);
-
     return (
 		<div>
-      <Modal isOpen={this.state.modal}>
-        <ModalBody>
+      <Modal show={this.state.modal} onHide={this._onModalToggle}>
+        <Modal.Header closeButton>
+          <Modal.Title>{this.state.selectedJobQuantity.value * 150}$</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="paymentModal">
           <StripeProvider apiKey="pk_test_RYl7CgOIy7aA1BSTJhoFl1sP">
             <MyStoreCheckout
               onSuccess={this._onStripeSuccess}
               onModalToggle={this._onModalToggle} />
           </StripeProvider>
-        </ModalBody>
+        </Modal.Body>
       </Modal>
-
 			<div className="banner-job">
         <div className="banner-overlay"></div>
         <div className="container text-center">
@@ -186,7 +187,7 @@ class Price extends Component {
                   <div className="col-sm-12">
                     <div className="single-cta">
                       <h3>Post Jobs</h3>
-                      <p align="center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                      <p align="center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500's, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960's with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
             					<div className="price-box">
               					<h4>Buy Job Postings Online</h4>
               					<p>Job Postings go live for one calendar month and are available for use within 12 months of purchase.</p>

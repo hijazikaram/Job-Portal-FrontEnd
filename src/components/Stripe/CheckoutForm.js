@@ -35,7 +35,7 @@ class CheckoutForm extends React.Component {
     } else {
       console.log("Stripe.js hasn't loaded yet.");
     }
-    
+
     // However, this line of code will do the same thing:
     //
     // this.props.stripe.createToken({type: 'card', name: 'Jenny Rosen'});
@@ -51,10 +51,10 @@ class CheckoutForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div>
           <CardSection />
-        </div>
         {this.state.tokenError?<label className="stripe-modal-token-error">Invalid values</label>:""}
         <Button color="danger" onClick={this.props.onModalToggle}>Cancel</Button>
         <Button type="submit" color="primary" disabled={!this.props.stripe}>Pay</Button>
+        </div>
       </form>
     );
   }
