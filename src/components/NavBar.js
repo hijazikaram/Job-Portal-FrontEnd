@@ -50,7 +50,7 @@ class NavBar extends Component {
                 </li>
               </ul>
 
-              <Link to="/SignUp" className="btn">Post Your Job</Link>
+              <Link to="/SignIn" className="btn">Post Your Job</Link>
             </div>
           </div>
         </nav>

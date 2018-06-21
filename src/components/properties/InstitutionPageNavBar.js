@@ -12,20 +12,20 @@ class UserPageNavBar extends Component {
       availableJobs: 0
     };
 
-    var id = localStorage.getItem('user_id');
-    var user_type = localStorage.getItem('user_type');
+    const id = localStorage.getItem('user_id');
+    const user_type = localStorage.getItem('user_type');
 
-    var self = this;
+    const self = this;
     if (id && user_type) {
       axios.get('http://localhost:5000/api/institution/' + id).then(res => {
         if (res.data.success) {
 
-          var institution = res.data.institution;
+          const institution = res.data.institution;
           self.setState({name: institution.name, availableJobs: institution.availableJobs});
           self.setState({company_logo: institution.logo});
           axios.get('http://localhost:5000/api/jobs/' + id).then(res => {
             if (res.data.success) {
-              var jobs = res.data.jobs;
+              const jobs = res.data.jobs;
               self.setState({jobs: jobs.length});
             }
           }, function(error) {
@@ -38,13 +38,13 @@ class UserPageNavBar extends Component {
     }
   }
 
-  onLogOut = (e) => {
+  onLogOut = () => {
     localStorage.removeItem('user_id');
   }
   render() {
-    var logout = this.onLogOut;
+    const logout = this.onLogOut;
 
-    return (<div>
+    return (
       <div className="job-profile section">
         <div className="user-profile">
           <div className="user-images">
@@ -86,8 +86,7 @@ class UserPageNavBar extends Component {
             <Link to={"/SignIn"} onClick={logout}>Logout</Link>
           </li>
         </ul>
-      </div>
-    </div>);
+      </div>);
   }
 }
 

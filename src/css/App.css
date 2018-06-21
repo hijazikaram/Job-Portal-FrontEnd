@@ -7,7 +7,9 @@
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
 }
-
+.applyInfo {
+  margin-bottom: 10px;
+}
 .App-header {
   background-color: #222;
   height: 150px;
@@ -100,26 +102,8 @@ table {
   to { transform: rotate(360deg); }
 }
 
-.modal-header {
-  margin-top: 40px;
-}
-.modal-dialog {
-  top: 80px;
-}
-.modal.fade.show {
-  opacity: 100;
-  top: 209px;
-}
 
-body.modal-open{
-  padding-right:0px!important;
-}
-.modal-content {
-  height: 200px;
-}
-.modal-body{
-  margin-top: 15px;
-}
+
 .modal-body .btn-primary{
   width: 100px;
   height: 44px;

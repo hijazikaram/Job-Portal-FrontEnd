@@ -38,7 +38,7 @@ class InstitutionPostAJob extends Component {
       company_twitter: '',
       company_google: '',
       company_linkedin: '',
-      availableJobs: 0, 
+      availableJobs: 0,
 
       agree_terms: false,
 
@@ -64,13 +64,14 @@ class InstitutionPostAJob extends Component {
       errorMsg: ['sample'],
       postValid: true,
       postedSuccessfully: false,
-      postResultMsg: ''
+      postResultMsg: '',
+      company_logo: ''
     }
     this.id = localStorage.getItem('user_id');
 
     axios.get('http://localhost:5000/api/institution/' + this.id).then(res => {
       const institution = res.data.institution;
-      this.setState({ company_name: institution.name, company_email: institution.email, company_mobile: institution.phoneNumber, company_facebook: institution.facebook, company_twitter: institution.twitter, company_google: institution.google, company_linkedin: institution.linkedin, availableJobs: institution.availableJobs });
+      this.setState({ company_logo: institution.logo, company_name: institution.name, company_email: institution.email, company_mobile: institution.phoneNumber, company_facebook: institution.facebook, company_twitter: institution.twitter, company_google: institution.google, company_linkedin: institution.linkedin, availableJobs: institution.availableJobs });
 
       if (!institution.address) {
         this.setState({ address: '' });
@@ -444,6 +445,7 @@ class InstitutionPostAJob extends Component {
         </div>
       </div>)
       : (<div></div>);
+      console.log(this.state);
     return (<div>
       <div className="job-postdetails">
         <div className="row">

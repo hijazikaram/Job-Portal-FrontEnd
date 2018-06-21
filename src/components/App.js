@@ -12,10 +12,10 @@ class App extends Component {
     this.state = {
       toJobList : false,
       jobLocationOptions : [
-       'Location 1', 
-       'Location 2', 
+       'Location 1',
+       'Location 2',
        'Location 3'],
-      selectedJobLocation : "Job Location", 
+      selectedJobLocation : "Job Location",
       keyword : ""
     };
   }
@@ -38,6 +38,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state);
     if (this.state.toJobList) {
       return (
         <Redirect to={{
@@ -61,10 +62,10 @@ class App extends Component {
                   options={this.state.jobLocationOptions}
                   onChange={this._onSelectJobLocation.bind(this)}
                   value={this.state.selectedJobLocation}
-                  className='mydropdown' 
-                  controlClassName='mydropdown-control' 
+                  className='mydropdown'
+                  controlClassName='mydropdown-control'
                   placeholderClassName='mydropdown-placeholder'
-                  menuClassName='mydropdown-menu' 
+                  menuClassName='mydropdown-menu'
                   arrowClassName='mydropdown-arrow'
                 />
               </div>

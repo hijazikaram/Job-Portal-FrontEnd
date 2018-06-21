@@ -14,20 +14,20 @@ class JobList extends Component {
       jobs : [],
       jobs_count : 0,
       job_to_show : [],
-      activePage : 1, 
+      activePage : 1,
       jobCategoryOptions : [
-       'Job Category', 
-       'Customer Service', 
-       'Software Engineer', 
-       'Program Development', 
-       'Project Manager', 
+       'Job Category',
+       'Customer Service',
+       'Software Engineer',
+       'Program Development',
+       'Project Manager',
        'Graphics Designer'],
       jobLocationOptions : [
-       'Location 1', 
-       'Location 2', 
+       'Location 1',
+       'Location 2',
        'Location 3'],
-      selectedJobCategory : "Job Category", 
-      selectedJobLocation : "Job Location", 
+      selectedJobCategory : "Job Category",
+      selectedJobLocation : "Job Location",
       keyword : ""
     }
   }
@@ -68,7 +68,7 @@ class JobList extends Component {
 
     if (keyword) {
       jobs = jobs.filter(function (job) {
-                  return job.job_description.toLowerCase().includes(keyword.toLowerCase()) 
+                  return job.job_description.toLowerCase().includes(keyword.toLowerCase())
                       || job.job_title.toLowerCase().includes(keyword.toLowerCase());
                 });
     }
@@ -108,15 +108,6 @@ class JobList extends Component {
     return (<div>
       <section className="job-bg page job-list-page">
         <div className="container">
-          <div className="breadcrumb-section">
-            <ol className="breadcrumb">
-              <li>
-                <a href="index.html">Home</a>
-              </li>
-              <li>Engineer/Architects</li>
-            </ol>
-            <h2 className="title">Software Engineer</h2>
-          </div>
 
           <div className="banner-form banner-form-full job-list-form">
             <form action="#">
@@ -125,10 +116,10 @@ class JobList extends Component {
                   options={this.state.jobCategoryOptions}
                   onChange={this._onSelectJobCategory.bind(this)}
                   value={this.state.selectedJobCategory}
-                  className='mydropdown' 
-                  controlClassName='mydropdown-control' 
+                  className='mydropdown'
+                  controlClassName='mydropdown-control'
                   placeholderClassName='mydropdown-placeholder'
-                  menuClassName='mydropdown-menu' 
+                  menuClassName='mydropdown-menu'
                   arrowClassName='mydropdown-arrow'
                 />
               </div>
@@ -137,10 +128,10 @@ class JobList extends Component {
                   options={this.state.jobLocationOptions}
                   onChange={this._onSelectJobLocation.bind(this)}
                   value={this.state.selectedJobLocation}
-                  className='mydropdown' 
-                  controlClassName='mydropdown-control' 
+                  className='mydropdown'
+                  controlClassName='mydropdown-control'
                   placeholderClassName='mydropdown-placeholder'
-                  menuClassName='mydropdown-menu' 
+                  menuClassName='mydropdown-menu'
                   arrowClassName='mydropdown-arrow'
                 />
               </div>
@@ -155,23 +146,6 @@ class JobList extends Component {
                 <div className="section job-list-item">
                   <div className="featured-top">
                     <h4>Showing {this.state.job_to_show.length}</h4>
-                    <div className="dropdown pull-right">
-                      <div className="dropdown category-dropdown">
-                        <h5>Sort by:</h5>
-                        <a data-toggle="dropdown" href="#">
-                          <span className="change-text">Most Relevant</span>
-                          <i className="fa fa-caret-square-o-down"></i>
-                        </a>
-                        <ul className="dropdown-menu category-change">
-                          <li>
-                            <a href="#">Most Relevant</a>
-                          </li>
-                          <li>
-                            <a href="#">Most Popular</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
                   </div>
 
                   { this.state.job_to_show.map((job , index) =>{
@@ -188,7 +162,7 @@ class JobList extends Component {
                             <span>
                               <a href={'JobList/'+ job._id } className="title">{job.job_title}</a>
                               @
-                              <a href="#">{job.company_name}</a>
+                              <a href={'JobList/'+ job._id }>{job.company_name}</a>
                             </span>
                             <div className="ad-meta">
                               <ul>
