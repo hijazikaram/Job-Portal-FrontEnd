@@ -106,6 +106,7 @@ class JobDetails extends Component {
 
   }
   render() {
+    console.log(this.state.job);
     if (this.state.toJobList) {
       return (
         <Redirect to={{
@@ -356,21 +357,24 @@ class JobDetails extends Component {
           </div>
         </div>
       </section>
-
+                          
       <Modal show={this.state.modal} onHide={this._onModalToggle}>
-        <Modal.Header closeButton>
-          <Modal.Title>Apply</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <input type="text" className="form-control applyInfo" placeholder="Name" />
-          <input type="text" className="form-control applyInfo" placeholder="Email" />
-          <input type="text" className="form-control applyInfo" placeholder="Phone Number" />
-          <FormControl type="file" className="applyInfo" onChange={this._onFileChange}/>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button>Close</Button>
-          <Button>Submit Application</Button>
-        </Modal.Footer>
+        <form enctype="multipart/form-data" action={`http://localhost:5000/api/jobs/${this.state.job._id}/apply`} method="post" >
+          <Modal.Header closeButton>
+            <Modal.Title>Apply</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            
+              <input type="text" name='name' className="form-control applyInfo" placeholder="Name" />
+              <input type="text" name='email' className="form-control applyInfo" placeholder="Email" />
+              <input type="text" name='phoneNumber' className="form-control applyInfo" placeholder="Phone Number" />
+              <FormControl type="file" name='resume' className="applyInfo"/>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button>Close</Button>
+            <Button type="submit">Submit Application</Button>
+          </Modal.Footer>
+        </form>
       </Modal>
       <Footer/>
     </div>);
