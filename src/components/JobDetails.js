@@ -106,7 +106,6 @@ class JobDetails extends Component {
 
   }
   render() {
-    console.log(this.state.job);
     if (this.state.toJobList) {
       return (
         <Redirect to={{
