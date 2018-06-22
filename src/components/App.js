@@ -55,7 +55,7 @@ class App extends Component {
           <h1 className="title">The Easiest Way to Find your Masjid</h1>
           <h3>We offer 12000 jobs vacation right now</h3>
           <div className="banner-form">
-            <form action="#">
+            <form action="">
               <input type="text" className="form-control" onChange={this._onKeyword.bind(this)} value={this.state.keyword} placeholder="Type your key word" />
               <div className='mydropdown-div'>
                 <Dropdown
@@ -75,22 +75,22 @@ class App extends Component {
 
           <ul className="banner-socail list-inline">
             <li>
-              <a href="#" title="Facebook">
+              <a href="" title="Facebook">
                 <i className="fa fa-facebook"></i>
               </a>
             </li>
             <li>
-              <a href="#" title="Twitter">
+              <a href="" title="Twitter">
                 <i className="fa fa-twitter"></i>
               </a>
             </li>
             <li>
-              <a href="#" title="Google Plus">
+              <a href="" title="Google Plus">
                 <i className="fa fa-google-plus"></i>
               </a>
             </li>
             <li>
-              <a href="#" title="Youtube">
+              <a href="" title="Youtube">
                 <i className="fa fa-youtube"></i>
               </a>
             </li>
@@ -211,7 +211,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/3.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/3.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -219,32 +219,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">CTO</a>
                         @
-                        <a href="#">Volja Events & Entertainment</a>
+                        <a href="">Volja Events & Entertainment</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -253,7 +253,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/1.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/1.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -261,32 +261,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">Project Manager</a>
                         @
-                        <a href="#">Dominos Pizza</a>
+                        <a href="">Dominos Pizza</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -295,7 +295,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/2.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/2.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -303,32 +303,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">Graphics Designer</a>
                         @
-                        <a href="#">AOK Security</a>
+                        <a href="">AOK Security</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -337,7 +337,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/4.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/4.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -345,32 +345,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">Human Resource Manager</a>
                         @
-                        <a href="#">Dropbox Inc</a>
+                        <a href="">Dropbox Inc</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -382,7 +382,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/2.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/2.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -390,32 +390,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">Graphics Designer</a>
                         @
-                        <a href="#">AOK Security</a>
+                        <a href="">AOK Security</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -424,7 +424,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/1.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/1.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -432,32 +432,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">Project Manager</a>
                         @
-                        <a href="#">Dominos Pizza</a>
+                        <a href="">Dominos Pizza</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -466,7 +466,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/4.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/4.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -474,32 +474,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">Human Resource Manager</a>
                         @
-                        <a href="#">Dropbox Inc</a>
+                        <a href="">Dropbox Inc</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -508,7 +508,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/3.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/3.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -516,32 +516,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">CTO</a>
                         @
-                        <a href="#">Volja Events & Entertainment</a>
+                        <a href="">Volja Events & Entertainment</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -552,7 +552,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/1.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/1.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -560,32 +560,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">Project Manager</a>
                         @
-                        <a href="#">Dominos Pizza</a>
+                        <a href="">Dominos Pizza</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -594,7 +594,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/2.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/2.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -602,32 +602,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">Graphics Designer</a>
                         @
-                        <a href="#">AOK Security</a>
+                        <a href="">AOK Security</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -636,7 +636,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/3.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/3.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -644,32 +644,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">CTO</a>
                         @
-                        <a href="#">Volja Events & Entertainment</a>
+                        <a href="">Volja Events & Entertainment</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -678,7 +678,7 @@ class App extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <a href="job-details.html"><img src="images/job/4.png" alt="Image" className="img-responsive"/></a>
+                        <a href="job-details.html"><img src="images/job/4.png" alt="" className="img-responsive"/></a>
                       </div>
                     </div>
 
@@ -686,32 +686,32 @@ class App extends Component {
                       <span>
                         <a href="job-details.html" className="title">Human Resource Manager</a>
                         @
-                        <a href="#">Dropbox Inc</a>
+                        <a href="">Dropbox Inc</a>
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href="">
                               <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="button">
-                      <a href="#" className="btn btn-primary">Apply Now</a>
+                      <a href="" className="btn btn-primary">Apply Now</a>
                     </div>
                   </div>
                 </div>
@@ -720,20 +720,20 @@ class App extends Component {
           </div>
 
           <div className="ad-section text-center">
-            <a href="#"><img src="images/ads/3.jpg" alt="Image" className="img-responsive"/></a>
+            <a href=""><img src="images/ads/3.jpg" alt="" className="img-responsive"/></a>
           </div>
 
           <div className="section workshop-traning">
             <div className="section-title">
               <h4>Workshop Traning</h4>
-              <a href="#" className="btn btn-primary">See all</a>
+              <a href="" className="btn btn-primary">See all</a>
             </div>
             <div className="row">
               <div className="col-sm-6">
                 <div className="workshop">
-                  <img src="images/job/5.png" alt="Image" className="img-responsive"/>
+                  <img src="images/job/5.png" alt="" className="img-responsive"/>
                   <h3>
-                    <a href="#">Business Process Management Training</a>
+                    <a href="">Business Process Management Training</a>
                   </h3>
                   <h4>Course Duration: 3 Month ( Sat, Mon, Fri)</h4>
                   <div className="workshop-price">
@@ -743,12 +743,12 @@ class App extends Component {
                   <div className="ad-meta">
                     <div className="meta-content">
                       <span className="dated">
-                        <a href="#">7 Jan 10:10 pm
+                        <a href="">7 Jan 10:10 pm
                         </a>
                       </span>
                     </div>
                     <div className="user-option pull-right">
-                      <a href="#">
+                      <a href="">
                         <i className="fa fa-map-marker"></i>
                       </a>
                     </div>
@@ -757,9 +757,9 @@ class App extends Component {
               </div>
               <div className="col-sm-6">
                 <div className="workshop">
-                  <img src="images/job/6.png" alt="Image" className="img-responsive"/>
+                  <img src="images/job/6.png" alt="" className="img-responsive"/>
                   <h3>
-                    <a href="#">Employee Motivation and Engagement</a>
+                    <a href="">Employee Motivation and Engagement</a>
                   </h3>
                   <h4>Course Duration: 3 Month ( Sat, Mon, Fri)</h4>
                   <div className="workshop-price">
@@ -769,12 +769,12 @@ class App extends Component {
                   <div className="ad-meta">
                     <div className="meta-content">
                       <span className="dated">
-                        <a href="#">7 Jan 10:10 pm
+                        <a href="">7 Jan 10:10 pm
                         </a>
                       </span>
                     </div>
                     <div className="user-option pull-right">
-                      <a href="#">
+                      <a href="">
                         <i className="fa fa-map-marker"></i>
                       </a>
                     </div>
@@ -833,8 +833,8 @@ class App extends Component {
 
           <div className="row">
             <div className="col-sm-4">
-              <a href="#" className="download-app">
-                <img src="images/icon/16.png" alt="Image" className="img-responsive"/>
+              <a href="" className="download-app">
+                <img src="images/icon/16.png" alt="" className="img-responsive"/>
                 <span className="pull-left">
                   <span>available on</span>
                   <strong>Google Play</strong>
@@ -843,8 +843,8 @@ class App extends Component {
             </div>
 
             <div className="col-sm-4">
-              <a href="#" className="download-app">
-                <img src="images/icon/17.png" alt="Image" className="img-responsive"/>
+              <a href="" className="download-app">
+                <img src="images/icon/17.png" alt="" className="img-responsive"/>
                 <span className="pull-left">
                   <span>available on</span>
                   <strong>App Store</strong>
@@ -853,8 +853,8 @@ class App extends Component {
             </div>
 
             <div className="col-sm-4">
-              <a href="#" className="download-app">
-                <img src="images/icon/18.png" alt="Image" className="img-responsive"/>
+              <a href="" className="download-app">
+                <img src="images/icon/18.png" alt="" className="img-responsive"/>
                 <span className="pull-left">
                   <span>available on</span>
                   <strong>Windows Store</strong>

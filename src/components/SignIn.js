@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import FormErrors from './properties/FormErrors';
 import '../css/SignIn.css';
 
 class SignIn extends Component {
@@ -14,12 +13,7 @@ class SignIn extends Component {
   }
   componentWillMount() {
     const id = localStorage.getItem('user_id');
-    let user_type;
-    if(localStorage.getItem('user_type') === "null"){
-      user_type = JSON.parse(localStorage.getItem('user_type'));
-    }else {
-      user_type = localStorage.getItem('user_type');
-    }
+    let user_type = localStorage.getItem('user_type');
 
 
     if (id && user_type === null) {
@@ -41,7 +35,7 @@ class SignIn extends Component {
         self.setState({notificationMsg: 'Login Successfully', loginValid: true});
         setTimeout(function() {
           localStorage.setItem('user_id', response.data.user._id);
-          localStorage.setItem('user_type', 'null');
+          localStorage.removeItem('user_type');
           window.location.href = '/UserProfile';
         }, 1000);
       } else {
@@ -118,7 +112,7 @@ class SignIn extends Component {
                     </label>
                   </div>
                   <div className="pull-right forgot-password">
-                    <a href="#">Forgot password</a>
+                    <a href="">Forgot password</a>
                   </div>
                 </div>
               </div>

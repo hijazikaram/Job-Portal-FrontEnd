@@ -4,7 +4,7 @@ import MyStoreCheckout from './MyStoreCheckout';
 import axios from 'axios';
 import Dropdown from "react-dropdown";
 import { Redirect } from 'react-router';
-import {Modal, Button} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import '../../css/Stripe.css';
 import '../../css/App.css';
 import '../../css/MyDropdown.css'
@@ -136,42 +136,41 @@ class Price extends Component {
           <h1 className="title">The Easiest Way to Find your Masjid</h1>
           <h3>We offer 12000 jobs vacation right now</h3>
           <div className="banner-form">
-            <form action="#">
-              <input type="text" className="form-control" onChange={this._onKeyword} value={this.state.keyword} placeholder="Type your key word" />
-              <div className='mydropdown-div'>
-                <Dropdown
-                  options={this.state.jobLocationOptions}
-                  onChange={this._onSelectJobLocation}
-                  value={this.state.selectedJobLocation}
-                  className='mydropdown'
-                  controlClassName='mydropdown-control'
-                  placeholderClassName='mydropdown-placeholder'
-                  menuClassName='mydropdown-menu'
-                  arrowClassName='mydropdown-arrow'
-                />
-              </div>
-              <button type="submit" className="btn btn-primary" onClick={this._onSearch} value="Search">Search</button>
-            </form>
+            <input type="text" className="form-control" onChange={this._onKeyword} value={this.state.keyword} placeholder="Type your key word" />
+            <div className='mydropdown-div'>
+              <Dropdown
+                options={this.state.jobLocationOptions}
+                onChange={this._onSelectJobLocation}
+                value={this.state.selectedJobLocation}
+                className='mydropdown'
+                controlClassName='mydropdown-control'
+                placeholderClassName='mydropdown-placeholder'
+                menuClassName='mydropdown-menu'
+                arrowClassName='mydropdown-arrow'
+              />
+            </div>
+            <button type="submit" className="btn btn-primary" onClick={this._onSearch} value="Search">Search</button>
+
           </div>
 
           <ul className="banner-socail list-inline">
             <li>
-              <a href="#" title="Facebook">
+              <a href="" title="Facebook">
                 <i className="fa fa-facebook"></i>
               </a>
             </li>
             <li>
-              <a href="#" title="Twitter">
+              <a href="" title="Twitter">
                 <i className="fa fa-twitter"></i>
               </a>
             </li>
             <li>
-              <a href="#" title="Google Plus">
+              <a href="" title="Google Plus">
                 <i className="fa fa-google-plus"></i>
               </a>
             </li>
             <li>
-              <a href="#" title="Youtube">
+              <a href="" title="Youtube">
                 <i className="fa fa-youtube"></i>
               </a>
             </li>

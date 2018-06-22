@@ -9,7 +9,7 @@ class UserFavoriteJobs extends Component {
         <div className="item-info">
           <div className="item-image-box">
             <div className="item-image">
-              <a href="job-details.html"><img src={jobIcon} alt="Image" className="img-responsive"/></a>
+              <a href="job-details.html"><image src={jobIcon} alt="Image" className="img-responsive"/></a>
             </div>
           </div>
 
@@ -17,26 +17,26 @@ class UserFavoriteJobs extends Component {
             <span>
               <a href="job-details.html" className="title">Human Resource Manager</a>
               @
-              <a href="#">Dropbox Inc</a>
+              Dropbox Inc
             </span>
             <div className="ad-meta">
               <ul>
                 <li>
-                  <a href="#">
+
                     <i className="fa fa-map-marker" aria-hidden="true"></i>San Francisco, CA, US
-                  </a>
+                  
                 </li>
                 <li>
-                  <a href="#">
-                    <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time</a>
+
+                    <i className="fa fa-clock-o" aria-hidden="true"></i>Full Time
                 </li>
                 <li>
-                  <a href="#">
-                    <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000</a>
+
+                    <i className="fa fa-money" aria-hidden="true"></i>$25,000 - $35,000
                 </li>
                 <li>
-                  <a href="#">
-                    <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a>
+
+                    <i className="fa fa-tags" aria-hidden="true"></i>HR/Org. Development
                 </li>
               </ul>
             </div>

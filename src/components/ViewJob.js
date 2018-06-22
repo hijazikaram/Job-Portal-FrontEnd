@@ -26,12 +26,12 @@ class ViewJob extends Component {
           if (response.data.success) {
             self.setState({job: response.data.job});
             let created = new Date(response.data.job.created_at);
-            let now = new Date;
+            let now = new Date();
             let postedDays = parseInt((now - created) / (1000 * 60 * 60 * 24), 10);
             self.setState({applyjob : (postedDays <= 30 && postedDays >= 0)});
-            if (postedDays == 0) {
+            if (postedDays === 0) {
               postedDays = "Today";
-            } else if (postedDays == 1){
+            } else if (postedDays === 1){
               postedDays = "Yesterday";
               // postedDays = postedDays.toString() + " day ago";
             } else {
@@ -103,7 +103,7 @@ class ViewJob extends Component {
                   <div className="item-info">
                     <div className="item-image-box">
                       <div className="item-image">
-                        <img src={this.state.job_logo
+                        <image src={this.state.job_logo
                             ? this.state.job_logo
                             : jobIcon} alt="Image" className="img-responsive"/>
                       </div>
@@ -112,21 +112,19 @@ class ViewJob extends Component {
                     <div className="ad-info">
                       <span>
                         <span>
-                          <a href="#" className="title">{this.state.job.job_title}</a>
+                          <Link to="" className="title">{this.state.job.job_title}</Link>
                         </span>
                         @
-                        <a href="#">
-                          {this.state.job.company_name}</a>
+                          {this.state.job.company_name}
                       </span>
                       <div className="ad-meta">
                         <ul>
                           <li>
-                            <a href="#">
-                              <i className="fa fa-map-marker" aria-hidden="true"></i>{this.state.job.location_state}, {this.state.job.location_country}</a>
+                              <i className="fa fa-map-marker" aria-hidden="true"></i>{this.state.job.location_state}, {this.state.job.location_country}
                           </li>
                           <li>
-                            <a href="#">
-                              <i className="fa fa-clock-o" aria-hidden="true"></i>{this.state.job.job_type}</a>
+
+                              <i className="fa fa-clock-o" aria-hidden="true"></i>{this.state.job.job_type}
                           </li>
                           <li>
                             <i className="fa fa-money" aria-hidden="true"></i>{
@@ -137,8 +135,8 @@ class ViewJob extends Component {
                                 this.state.job.salary_max)
                             }</li>
                           <li>
-                            <a href="#">
-                              <i className="fa fa-tags" aria-hidden="true"></i>{this.state.job.job_category}</a>
+
+                              <i className="fa fa-tags" aria-hidden="true"></i>{this.state.job.job_category}
                           </li>
                           <li>
                             <i className="fa fa-hourglass-start" aria-hidden="true"></i>Application Deadline : {this.formatData(this.state.job.application_deadline)}</li>
@@ -148,37 +146,27 @@ class ViewJob extends Component {
                   </div>
                   <div className="social-media">
                     <div className="button">
-                      <a href="#" className="btn btn-primary" disabled={!this.state.applyjob}>
+                      <a href="" className="btn btn-primary" disabled={!this.state.applyjob}>
                         <i className="fa fa-briefcase" aria-hidden="true"></i>Apply For This Job</a>
-                      <a href="#" className="btn btn-primary bookmark">
+                      <a href="" className="btn btn-primary bookmark">
                         <i className="fa fa-bookmark-o" aria-hidden="true"></i>Bookmark</a>
                     </div>
                     <ul className="share-social">
                       <li>Share this ad</li>
                       <li>
-                        <a href="#">
                           <i className="fa fa-facebook-official" aria-hidden="true"></i>
-                        </a>
                       </li>
                       <li>
-                        <a href="#">
                           <i className="fa fa-twitter-square" aria-hidden="true"></i>
-                        </a>
                       </li>
                       <li>
-                        <a href="#">
                           <i className="fa fa-google-plus-square" aria-hidden="true"></i>
-                        </a>
                       </li>
                       <li>
-                        <a href="#">
-                          <i className="fa fa-linkedin-square" aria-hidden="true"></i>
-                        </a>
+                        ß<i className="fa fa-linkedin-square" aria-hidden="true"></i>
                       </li>
                       <li>
-                        <a href="#">
-                          <i className="fa fa-pinterest-square" aria-hidden="true"></i>
-                        </a>
+                        <i className="fa fa-pinterest-square" aria-hidden="true"></i>
                       </li>
                       <li>
                         <Link to="">
@@ -220,17 +208,17 @@ class ViewJob extends Component {
                               <i className="fa fa-user-plus" aria-hidden="true"></i>
                             </span>
                             Job poster:
-                            <a href="#">Lance Ladaga</a>
+                            Lance Ladaga
                           </li>
                           <li>
                             <span className="icon">
                               <i className="fa fa-industry" aria-hidden="true"></i>
-                            </span>Industry: <a href="#">{this.state.job.company_industry}</a>
+                            </span>Industry: {this.state.job.company_industry}
                           </li>
                           <li>
                             <span className="icon">
                               <i className="fa fa-line-chart" aria-hidden="true"></i>
-                            </span>Experience: <a href="#">{this.state.job.experience}</a>
+                            </span>Experience: {this.state.job.experience}
                           </li>
                           <li>
                             <span className="icon">
@@ -241,16 +229,16 @@ class ViewJob extends Component {
                       <div className="section company-info">
                         <h1>Company Info</h1>
                         <ul>
-                          <li>Compnay Name: <a href="#">{this.state.job.company_name}</a>
+                          <li>Compnay Name: {this.state.job.company_name}
                           </li>
                           <li>Address: {this.state.job.company_address}</li>
                           <li>Compnay SIze: 2k Employee</li>
-                          <li>Industry: <a href="#">{this.state.job.company_industry}</a>
+                          <li>Industry: {this.state.job.company_industry}
                           </li>
                           <li>Phone: {this.state.job.company_mobile}</li>
-                          <li>Email: <a href="#">{this.state.job.company_email}</a>
+                          <li>Email: {this.state.job.company_email}
                           </li>
-                          <li>Website: <a href="#">www.dropbox.com</a>
+                          <li>Website: www.dropbox.com
                           </li>
                         </ul>
                         <ul className="share-social">
@@ -287,7 +275,7 @@ class ViewJob extends Component {
                   <div className="col-sm-12 text-center">
                     <h2 className="title">Add your resume and let your next job find you.</h2>
                     <h4>Post your Resume for free on
-                      <a href="#">Jobs.com</a>
+                      Jobs.com
                     </h4>
                     <a href="post-resume.html" className="btn btn-primary">Add Your Resume</a>
                   </div>

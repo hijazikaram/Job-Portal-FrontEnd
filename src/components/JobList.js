@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import Footer from './properties/Footer';
 import axios from 'axios';
 import Pagination from "react-js-pagination";
@@ -72,12 +71,12 @@ class JobList extends Component {
                       || job.job_title.toLowerCase().includes(keyword.toLowerCase());
                 });
     }
-    if (selectedJobCategory != "Job Category") {
+    if (selectedJobCategory !== "Job Category") {
       jobs = jobs.filter(function (job) {
                   return job.job_category === selectedJobCategory;
                 });
     }
-    if (selectedJobLocation != "Job Location") {
+    if (selectedJobLocation !== "Job Location") {
       jobs = jobs.filter(function (job) {
                   let job_location = job.location_state;
                   if (job_location)
@@ -105,7 +104,6 @@ class JobList extends Component {
     this.handlePageChange(1);
   }
   render() {
-    console.log(this.state.job_to_show);
     return (<div>
       <section className="job-bg page job-list-page">
         <div className="container">
@@ -155,7 +153,7 @@ class JobList extends Component {
                         <div className="item-info">
                           <div className="item-image-box">
                             <div className="item-image">
-                              <a href={'JobList/'+ job._id }><img src="images/job/1.png" alt="Image" className="img-responsive"/></a>
+                              <a href={'JobList/'+ job._id }><img src="images/job/1.png" alt="" className="img-responsive"/></a>
                             </div>
                           </div>
 
@@ -195,10 +193,6 @@ class JobList extends Component {
                       </div>
                     )
                   })}
-
-                  <div className="ad-section text-center">
-                    <a href="#"><img src="images/ads/3.jpg" alt="Image" className="img-responsive"/></a>
-                  </div>
 
                   <div className="text-center">
                     <Pagination

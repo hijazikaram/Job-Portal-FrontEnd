@@ -5,9 +5,8 @@ import jobIcon from '../img/4.png';
 import Dropdown from "react-dropdown";
 import {Modal, Button, FormControl} from 'react-bootstrap';
 import axios from 'axios';
-import '../css/MyDropdown.css'
-import { Redirect } from 'react-router'
-
+import '../css/MyDropdown.css';
+import { Redirect } from 'react-router';
 class JobDetails extends Component {
   constructor(props) {
     super(props);
@@ -41,12 +40,12 @@ class JobDetails extends Component {
     axios.get('http://localhost:5000/api/job/' + job_id ).then((job) => {
       self.setState({ job : job.data });
       let created = new Date(job.data.created_at);
-      let now = new Date;
+      let now = new Date();
       let postedDays = parseInt((now - created) / (1000 * 60 * 60 * 24), 10);
       self.setState({applyjob : (postedDays <= 30 && postedDays >= 0)});
-      if (postedDays == 0) {
+      if (postedDays === 0) {
         postedDays = "Today";
-      } else if (postedDays == 1){
+      } else if (postedDays === 1){
         postedDays = "Yesterday";
         // postedDays = postedDays.toString() + " day ago";
       } else {
@@ -61,8 +60,8 @@ class JobDetails extends Component {
   }
   formatData(string) {
     if (string) {
-      var date = new Date(string);
-      var monthNames = [
+      const date = new Date(string);
+      const monthNames = [
         "Jan",
         "Feb",
         "Mar",
@@ -77,9 +76,9 @@ class JobDetails extends Component {
         "Dec"
       ];
 
-      var day = date.getDate();
-      var monthIndex = date.getMonth();
-      var year = date.getFullYear();
+      const day = date.getDate();
+      const monthIndex = date.getMonth();
+      const year = date.getFullYear();
 
       return monthNames[monthIndex] + ' ' + day + ', ' + year;
     }
@@ -98,12 +97,6 @@ class JobDetails extends Component {
   }
   _onModalToggle = () => {
     this.setState({modal: !this.state.modal});
-  }
-  _onFileChange = (event) => {
-    console.log(event.target.file[0]);
-  }
-  _onApplyJob = () => {
-
   }
   render() {
     if (this.state.toJobList) {
@@ -158,28 +151,28 @@ class JobDetails extends Component {
                     <div className="item-image">
                       <img src={this.state.job_logo
                           ? this.state.job_logo
-                          : jobIcon} alt="Image" className="img-responsive"/>
+                          : jobIcon} alt="" className="img-responsive"/>
                     </div>
                   </div>
 
                   <div className="ad-info">
                     <span>
                       <span>
-                        <a href="#" className="title">{this.state.job.job_title}</a>
+                        <Link t0="" className="title">{this.state.job.job_title}</Link>
                       </span>
                       @
-                      <a href="#">
-                        {this.state.job.company_name}</a>
+                      <Link to="">
+                        {this.state.job.company_name}</Link>
                     </span>
                     <div className="ad-meta">
                       <ul>
                         <li>
-                          <a href="#">
-                            <i className="fa fa-map-marker" aria-hidden="true"></i>{this.state.job.location_state}, {this.state.job.location_country}</a>
+                          <Link to="">
+                            <i className="fa fa-map-marker" aria-hidden="true"></i>{this.state.job.location_state}, {this.state.job.location_country}</Link>
                         </li>
                         <li>
-                          <a href="#">
-                            <i className="fa fa-clock-o" aria-hidden="true"></i>{this.state.job.job_type}</a>
+                          <Link to="">
+                            <i className="fa fa-clock-o" aria-hidden="true"></i>{this.state.job.job_type}</Link>
                         </li>
                         <li>
                           <i className="fa fa-money" aria-hidden="true"></i>{
@@ -190,8 +183,8 @@ class JobDetails extends Component {
                               this.state.job.salary_max)
                           }</li>
                         <li>
-                          <a href="#">
-                            <i className="fa fa-tags" aria-hidden="true"></i>{this.state.job.job_category}</a>
+                          <Link to="">
+                            <i className="fa fa-tags" aria-hidden="true"></i>{this.state.job.job_category}</Link>
                         </li>
                         <li>
                           <i className="fa fa-hourglass-start" aria-hidden="true"></i>Application Deadline : {this.formatData(this.state.job.application_deadline)}</li>
@@ -203,35 +196,35 @@ class JobDetails extends Component {
                   <div className="button">
                     <span onClick={this._onModalToggle} className="btn btn-primary" disabled={!this.state.applyjob}>
                       <i className="fa fa-briefcase" aria-hidden="true"></i>Apply For This Job</span>
-                    <a href="#" className="btn btn-primary bookmark">
-                      <i className="fa fa-bookmark-o" aria-hidden="true"></i>Bookmark</a>
+                    <Link to="" className="btn btn-primary bookmark">
+                      <i className="fa fa-bookmark-o" aria-hidden="true"></i>Bookmark</Link>
                   </div>
                   <ul className="share-social">
                     <li>Share this ad</li>
                     <li>
-                      <a href="#">
+                      <Link to="">
                         <i className="fa fa-facebook-official" aria-hidden="true"></i>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#">
+                      <Link to="">
                         <i className="fa fa-twitter-square" aria-hidden="true"></i>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#">
+                      <Link to="">
                         <i className="fa fa-google-plus-square" aria-hidden="true"></i>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#">
+                      <Link to="">
                         <i className="fa fa-linkedin-square" aria-hidden="true"></i>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#">
+                      <Link to="">
                         <i className="fa fa-pinterest-square" aria-hidden="true"></i>
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <Link to="">
@@ -273,19 +266,19 @@ class JobDetails extends Component {
                             <i className="fa fa-user-plus" aria-hidden="true"></i>
                           </span>
                           Job poster:
-                          <a href="#">Lance Ladaga</a>
+                          <Link to="">Lance Ladaga</Link>
                         </li>
                         <li>
                           <span className="icon">
                             <i className="fa fa-industry" aria-hidden="true"></i>
                           </span>Industry:
-                          <a href="#">{this.state.job.company_industry}</a>
+                          <Link to="">{this.state.job.company_industry}</Link>
                         </li>
                         <li>
                           <span className="icon">
                             <i className="fa fa-line-chart" aria-hidden="true"></i>
                           </span>Experience:
-                          <a href="#">{this.state.job.experience}</a>
+                          <Link to="">{this.state.job.experience}</Link>
                         </li>
                         <li>
                           <span className="icon">
@@ -298,19 +291,19 @@ class JobDetails extends Component {
                       <h1>Company Info</h1>
                       <ul>
                         <li>Compnay Name:
-                          <a href="#">{this.state.job.company_name}</a>
+                          <Link to="">{this.state.job.company_name}</Link>
                         </li>
                         <li>Address: {this.state.job.company_address}</li>
                         <li>Compnay SIze: 2k Employee</li>
                         <li>Industry:
-                          <a href="#">{this.state.job.company_industry}</a>
+                          <Link to="">{this.state.job.company_industry}</Link>
                         </li>
                         <li>Phone: {this.state.job.company_mobile}</li>
                         <li>Email:
-                          <a href="#">{this.state.job.company_email}</a>
+                          <Link to="">{this.state.job.company_email}</Link>
                         </li>
                         <li>Website:
-                          <a href="#">www.dropbox.com</a>
+                          <Link to="">www.dropbox.com</Link>
                         </li>
                       </ul>
                       <ul className="share-social">
@@ -349,9 +342,9 @@ class JobDetails extends Component {
             <div className="col-sm-12 text-center">
               <h2 className="title">Add your resume and let your next job find you.</h2>
               <h4>Post your Resume for free on
-                <a href="#">Jobs.com</a>
+                <Link to="">Jobs.com</Link>
               </h4>
-              <a href="post-resume.html" className="btn btn-primary">Add Your Resume</a>
+              <Link to="" className="btn btn-primary">Add Your Resume</Link>
             </div>
           </div>
         </div>
@@ -369,7 +362,7 @@ class JobDetails extends Component {
         </Modal.Body>
         <Modal.Footer>
           <Button>Close</Button>
-          <Button>Submit Application</Button>
+          <Button onClick={this._onApplyJob}>Submit Application</Button>
         </Modal.Footer>
       </Modal>
       <Footer/>

@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-import {Switch, Route, Link} from "react-router-dom";
 import axios from 'axios';
 import {Modal, Button} from 'react-bootstrap';
-
-import ViewJob from "./ViewJob";
 import jobIcon from '../img/4.png';
 import "../css/InstitutionPostedJobs.css"
 
@@ -91,7 +88,7 @@ class InstitutionPostedJobs extends Component {
         {
           this.state.jobs.map((job, index) => {
             let created = new Date(job.created_at);
-            let now = new Date;
+            let now = new Date();
             let postedDays = parseInt((now - created) / (1000 * 60 * 60 * 24), 10);
             let job_status = (postedDays <= 30 && postedDays >= 0);
 
@@ -100,7 +97,7 @@ class InstitutionPostedJobs extends Component {
               <div className="item-info">
                 <div className="item-image-box">
                   <div className="item-image">
-                    <a href={'/InstitutionProfile/Job/' + job._id}><img src={this.state.company_logo
+                    <a href={'/InstitutionProfile/Job/' + job._id}><image src={this.state.company_logo
                 ? this.state.company_logo
                 : jobIcon} alt="Image" className="img-responsive"/></a>
                   </div>
@@ -110,33 +107,28 @@ class InstitutionPostedJobs extends Component {
                   <span>
                     <a href={'/InstitutionProfile/Job/' + job._id} className="title">{job.job_title}</a>
                     @
-                    <a href="#">{job.company_name}</a>
+                    <a href={'/InstitutionProfile/Job/' + job._id}>{job.company_name}</a>
                   </span>
                   <div className="ad-meta">
                     <ul>
                       <li>
-                        <a href="#">
-                          <i className="fa fa-map-marker" aria-hidden="true"></i>{job.location_state}, {job.location_country}</a>
+                          <i className="fa fa-map-marker" aria-hidden="true"></i>{job.location_state}, {job.location_country}
                       </li>
                       <li>
-                        <a href="#">
-                          <i className="fa fa-clock-o" aria-hidden="true"></i>{job.job_type}</a>
+                        <i className="fa fa-clock-o" aria-hidden="true"></i>{job.job_type}
                       </li>
                       <li>
-                        <a href="#">
-                          <i className="fa fa-money" aria-hidden="true"></i>
-                          {
-                            job.salary_negotiable
-                              ? 'Negotiable'
-                              : '$' + (
-                              job.salary_min) + '-' + '$' + (
-                              job.salary_max)
-                          }
-                        </a>
+                        <i className="fa fa-money" aria-hidden="true"></i>
+                        {
+                          job.salary_negotiable
+                            ? 'Negotiable'
+                            : '$' + (
+                            job.salary_min) + '-' + '$' + (
+                            job.salary_max)
+                        }
                       </li>
                       <li>
-                        <a href="#">
-                          <i className="fa fa-tags" aria-hidden="true"></i>{job.job_category}</a>
+                        <i className="fa fa-tags" aria-hidden="true"></i>{job.job_category}
                       </li>
                     </ul>
                   </div>

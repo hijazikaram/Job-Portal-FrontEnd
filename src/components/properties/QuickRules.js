@@ -6,7 +6,7 @@ class QuickRules extends Component {
         <div className="section quick-rules">
           <h4>Quick rules</h4>
           <p className="lead">Posting an ad on
-            <a href="#">jobs.com</a>
+            <a href="">jobs.com</a>
             is free! However, all ads must follow our rules:</p>
 
           <ul>

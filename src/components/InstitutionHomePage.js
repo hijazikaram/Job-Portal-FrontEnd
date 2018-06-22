@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import userImg from '../img/user.jpg';
 import axios from 'axios';
 
 import FileBase64 from 'react-file-base64';
@@ -9,9 +8,6 @@ import '../css/PostAJob.css';
 class UserHomePage extends Component {
   constructor(props) {
     super(props);
-    this.temp = {
-
-    };
 
     this.state = {
       logo: '',
@@ -79,7 +75,7 @@ class UserHomePage extends Component {
   }
   onUserNameChange = (e) => {
     this.setState({ name: e.target.value });
-    if (this.temp.name != e.target.value) {
+    if (this.temp.name !== e.target.value) {
       this.nameChanged = true;
     } else {
       this.nameChanged = false;
@@ -90,7 +86,7 @@ class UserHomePage extends Component {
   onEmailChange = (e) => {
     this.setState({ email: e.target.value });
 
-    if (this.temp.email != e.target.value) {
+    if (this.temp.email !== e.target.value) {
       this.emailChanged = true;
     } else {
       this.emailChanged = false;
@@ -100,7 +96,7 @@ class UserHomePage extends Component {
 
   onPhoneNumberChange = (e) => {
     this.setState({ phoneNumber: e.target.value });
-    if (this.temp.phoneNumber != e.target.value) {
+    if (this.temp.phoneNumber !== e.target.value) {
       this.mobileChanged = true;
     } else {
       this.mobileChanged = false;
@@ -110,7 +106,7 @@ class UserHomePage extends Component {
 
   onAddressChange = (e) => {
     this.setState({ address: e.target.value });
-    if (this.temp.address != e.target.value) {
+    if (this.temp.address !== e.target.value) {
       this.addressChanged = true;
     } else {
       this.addressChanged = false;
@@ -119,7 +115,7 @@ class UserHomePage extends Component {
   }
   onFacebookChange = (e) => {
     this.setState({ facebook: e.target.value });
-    if (this.temp.facebook != e.target.value) {
+    if (this.temp.facebook !== e.target.value) {
       this.facebookChanged = true;
     } else {
       this.facebookChanged = false;
@@ -128,7 +124,7 @@ class UserHomePage extends Component {
   }
   onTwitterChange = (e) => {
     this.setState({ twitter: e.target.value });
-    if (this.temp.twitter != e.target.value) {
+    if (this.temp.twitter !== e.target.value) {
       this.twitterChanged = true;
     } else {
       this.twitterChanged = false;
@@ -137,7 +133,7 @@ class UserHomePage extends Component {
   }
   onGoogleChange = (e) => {
     this.setState({ google: e.target.value });
-    if (this.temp.google != e.target.value) {
+    if (this.temp.google !== e.target.value) {
       this.googleChanged = true;
     } else {
       this.googleChanged = false;
@@ -146,7 +142,7 @@ class UserHomePage extends Component {
   }
   onLinkedinChange = (e) => {
     this.setState({ linkedin: e.target.value });
-    if (this.temp.linkedin != e.target.value) {
+    if (this.temp.linkedin !== e.target.value) {
       this.linkedinChanged = true;
     } else {
       this.linkedinChanged = false;
@@ -158,13 +154,13 @@ class UserHomePage extends Component {
     e.preventDefault();
     const self = this;
 
-    if (self.oldPassword != '') {
+    if (self.oldPassword !== '') {
       if (!self.newPassword || !self.newPasswordConfirm) {
         // Must input new password & confirm password
         self.setState({ notificationMsg: 'Please input new Password', updateProfileValid: false });
       } else {
         // New Password request here.
-        if (self.newPassword != self.newPasswordConfirm) {
+        if (self.newPassword !== self.newPasswordConfirm) {
           self.setState({ notificationMsg: 'New Password doesnt match', updateProfileValid: false });
         } else {
           self.setState({ notificationMsg: '', updateProfileValid: false, oldPassword: self.oldPassword, newPassword: self.newPassword }, () => {
@@ -248,7 +244,7 @@ class UserHomePage extends Component {
                       Upload Photo
                     </label>
                     {this.state.logo ? (
-                      <img className="company-logo" src={this.state.logo} />
+                      <img className="company-logo" alt="profileImg"src={this.state.logo} />
                     ) : (
                         <div></div>
                       )}
@@ -333,8 +329,7 @@ class UserHomePage extends Component {
               </div>
               <div className="preferences-settings section">
                 <div className="buttons">
-                  <a href="javascript:void(0)" className="btn" onClick={updateProfile} disabled={!this.nameChanged && !this.emailChanged && !this.mobileChanged && !this.addressChanged && !this.facebookChanged && !this.twitterChanged && !this.googleChanged&& !this.linkedinChanged }>Update Profile</a>
-                  <a href="#" className="btn cancle">Cancel</a>
+                  <a href="" className="btn" onClick={updateProfile} disabled={!this.nameChanged && !this.emailChanged && !this.mobileChanged && !this.addressChanged && !this.facebookChanged && !this.twitterChanged && !this.googleChanged&& !this.linkedinChanged }>Update Profile</a>
                 </div>
               </div>
             </div>

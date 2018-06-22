@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import userImg from '../img/user.jpg';
 
 class UserHomePage extends Component {
   constructor(props) {
@@ -75,13 +74,13 @@ class UserHomePage extends Component {
     e.preventDefault();
     var self = this;
 
-    if (self.oldPassword != '') {
+    if (self.oldPassword !== '') {
       if (!self.newPassword || !self.newPasswordConfirm) {
         // Must input new password & confirm password
         self.setState({notificationMsg: 'Please input new Password', updateProfileValid: false});
       } else {
         // New Password request here.
-        if (self.newPassword != self.newPasswordConfirm) {
+        if (self.newPassword !== self.newPasswordConfirm) {
           self.setState({notificationMsg: 'New Password doesnt match', updateProfileValid: false});
         } else {
           self.setState({
@@ -238,7 +237,6 @@ class UserHomePage extends Component {
 
               <div className="buttons">
                 <a href="javascript:void(0)" className="btn" onClick={updateProfile}>Update Profile</a>
-                <a href="#" className="btn cancle">Cancel</a>
               </div>
             </div>
           </div>
