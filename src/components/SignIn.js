@@ -26,7 +26,7 @@ class SignIn extends Component {
   }
   onLogin = (e) => {
     e.preventDefault();
-    var self = this;
+    const self = this;
 
     /* Check if it's a normal user */
     axios.post('http://localhost:5000/api/user', self.state).then(function(response) {
@@ -72,11 +72,11 @@ class SignIn extends Component {
   }
 
   render() {
-    var login = this.onLogin;
-    var emailInput = this.onEmailInput;
-    var passwordInput = this.onPasswordInput;
+    const login = this.onLogin;
+    const emailInput = this.onEmailInput;
+    const passwordInput = this.onPasswordInput;
 
-    var loginNotification = this.state.notificationMsg
+    const loginNotification = this.state.notificationMsg
       ? (<div className='panel panel-default'>
         <div className={`notification ${ !this.state.loginValid
             ? 'error'

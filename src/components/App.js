@@ -38,7 +38,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
     if (this.state.toJobList) {
       return (
         <Redirect to={{
