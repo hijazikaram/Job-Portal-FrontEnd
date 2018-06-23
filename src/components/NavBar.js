@@ -5,6 +5,25 @@ import {Link} from 'react-router-dom';
 
 class NavBar extends Component {
   render() {
+    let id = localStorage.getItem('user_id');
+    let user_type = localStorage.getItem('user_type');
+    let url = user_type === 'institution' ? '/InstitutionProfile' : '/UserProfile';
+    console.log(id);
+    const navbar = id
+      ? (
+          <a href={url}><button>test</button></a>
+        )
+      : (<ul className="sign-in">
+        <li>
+          <i className="fa fa-user"></i>
+        </li>
+        <li>
+          <a href="/SignIn">Sign In</a>
+        </li>
+        <li>
+          <a href="/SignUp">Register</a>
+        </li>
+      </ul>);
     return (<div>
       <header id="header" className="clearfix">
         <nav className="navbar navbar-default">
@@ -38,17 +57,7 @@ class NavBar extends Component {
               </div>
             </div>
             <div className="nav-right">
-              <ul className="sign-in">
-                <li>
-                  <i className="fa fa-user"></i>
-                </li>
-                <li>
-                  <a href="/SignIn">Sign In</a>
-                </li>
-                <li>
-                  <a href="/SignUp">Register</a>
-                </li>
-              </ul>
+              {navbar}
 
               <Link to="/SignIn" className="btn">Post Your Job</Link>
             </div>

@@ -1,17 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import '../css/MyProfile.css';
-import '../css/Responsive.css';
-import '../css/Preset.css';
-import '../css/index.css';
-import InstitutionPageNavBar from './properties/InstitutionPageNavBar';
-
-
-import Home from "./InstitutionHomePage";
-import InstitutionPostAJob from "./InstitutionPostAJob";
-import EditUserResume from "./EditUserResume";
-import DeleteUserProfile from "./DeleteUserProfile";
-import InstitutionPostedJobs from "./InstitutionPostedJobs";
 
 class Transactions extends Component {
 

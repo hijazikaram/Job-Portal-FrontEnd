@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import FormErrors from './properties/FormErrors';
 import '../css/SignIn.css';
 
 class SignIn extends Component {
@@ -13,9 +12,11 @@ class SignIn extends Component {
     };
   }
   componentWillMount() {
-    var id = localStorage.getItem('user_id');
-    var user_type = localStorage.getItem('user_type');
-    if (id && !user_type) {
+    const id = localStorage.getItem('user_id');
+    let user_type = localStorage.getItem('user_type');
+
+
+    if (id && user_type === null) {
       window.location.href = '/UserProfile';
     }
 
@@ -25,16 +26,16 @@ class SignIn extends Component {
   }
   onLogin = (e) => {
     e.preventDefault();
-    var self = this;
+    const self = this;
 
     /* Check if it's a normal user */
     axios.post('http://localhost:5000/api/user', self.state).then(function(response) {
-
       if (response.data.success) {
         // Correct credentials
         self.setState({notificationMsg: 'Login Successfully', loginValid: true});
         setTimeout(function() {
           localStorage.setItem('user_id', response.data.user._id);
+          localStorage.removeItem('user_type');
           window.location.href = '/UserProfile';
         }, 1000);
       } else {
@@ -71,11 +72,11 @@ class SignIn extends Component {
   }
 
   render() {
-    var login = this.onLogin;
-    var emailInput = this.onEmailInput;
-    var passwordInput = this.onPasswordInput;
+    const login = this.onLogin;
+    const emailInput = this.onEmailInput;
+    const passwordInput = this.onPasswordInput;
 
-    var loginNotification = this.state.notificationMsg
+    const loginNotification = this.state.notificationMsg
       ? (<div className='panel panel-default'>
         <div className={`notification ${ !this.state.loginValid
             ? 'error'
@@ -111,7 +112,7 @@ class SignIn extends Component {
                     </label>
                   </div>
                   <div className="pull-right forgot-password">
-                    <a href="#">Forgot password</a>
+                    <a href="">Forgot password</a>
                   </div>
                 </div>
               </div>

@@ -7,7 +7,6 @@ import Info from './properties/CompanyInfo';
 import Social from './properties/CompanySocial';
 import '../css/PostAJob.css';
 import config from '../config/index';
-import * as Animated from 'react-select/lib/animated';
 class InstitutionPostAJob extends Component {
   constructor(props) {
     super(props);
@@ -249,7 +248,7 @@ class InstitutionPostAJob extends Component {
 
   onFacebookChange = (e) => {
     this.setState({ company_facebook: e.target.value });
-    if (this.temp.facebook != e.target.value) {
+    if (this.temp.facebook !== e.target.value) {
       this.facebookChanged = true;
     } else {
       this.facebookChanged = false;
@@ -259,7 +258,7 @@ class InstitutionPostAJob extends Component {
 
   onTwitterChange = (e) => {
     this.setState({ company_twitter: e.target.value });
-    if (this.temp.twitter != e.target.value) {
+    if (this.temp.twitter !== e.target.value) {
       this.twitterChanged = true;
     } else {
       this.twitterChanged = false;
@@ -269,7 +268,7 @@ class InstitutionPostAJob extends Component {
 
   onGoogleChange = (e) => {
     this.setState({ company_google: e.target.value });
-    if (this.temp.google != e.target.value) {
+    if (this.temp.google !== e.target.value) {
       this.googleChanged = true;
     } else {
       this.googleChanged = false;
@@ -279,7 +278,7 @@ class InstitutionPostAJob extends Component {
 
   onLinkedinChange = (e) => {
     this.setState({ company_linkedin: e.target.value });
-    if (this.temp.linkedin != e.target.value) {
+    if (this.temp.linkedin !== e.target.value) {
       this.linkedinChanged = true;
     } else {
       this.linkedinChanged = false;
@@ -304,8 +303,8 @@ class InstitutionPostAJob extends Component {
     }
     const value = e.target.value;
     const re = /^[0-9\b]+$/;
-    if (e.target.value == '' || re.test(e.target.value)) {
-      this.setState({ company_mobile: e.target.value });
+    if (value === '' || re.test(value)) {
+      this.setState({ company_mobile: value });
     }
   }
 

@@ -71,7 +71,7 @@ class FindAJob extends Component {
   onUserPhoneNumberChange = (e) => {
     const value = e.target.value;
     const re = /^[0-9\b]+$/;
-    if (e.target.value == '' || re.test(e.target.value)) {
+    if (e.target.value === '' || re.test(e.target.value)) {
       this.setState({
         phoneNumber: e.target.value
       }, () => {
@@ -121,7 +121,7 @@ class FindAJob extends Component {
 
     switch (fieldName) {
       case 'name':
-        if (value == '') {
+        if (value === '') {
           userNameValid = false;
         } else {
           userNameValid = true;
@@ -147,7 +147,7 @@ class FindAJob extends Component {
         break;
       case 'confirmPassword':
         const password = this.state.password;
-        if (value != password) {
+        if (value !== password) {
           confirmPasswordValid = false;
         } else {
           confirmPasswordValid = true;

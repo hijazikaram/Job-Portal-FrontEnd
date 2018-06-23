@@ -70,7 +70,7 @@ class PostAJob extends Component {
   onInstitutionPhoneNumberChange = (e) => {
     const value = e.target.value;
     const re = /^[0-9\b]+$/;
-    if (e.target.value == '' || re.test(e.target.value)) {
+    if (e.target.value === '' || re.test(e.target.value)) {
       this.setState({
         institutionPhoneNumber: e.target.value
       }, () => {
@@ -126,7 +126,7 @@ class PostAJob extends Component {
 
     switch (fieldName) {
       case 'institutionName':
-        if (value == '') {
+        if (value === '') {
           institutionNameValid = false;
         } else {
           institutionNameValid = true;
@@ -152,7 +152,7 @@ class PostAJob extends Component {
         break;
       case 'confirmPassword':
         const password = this.state.password;
-        if (value != password) {
+        if (value !== password) {
           confirmPasswordValid = false;
         } else {
           confirmPasswordValid = true;

@@ -22,6 +22,27 @@ const config = {
     { value: 'Mid Level', label: 'Mid Level' },
     { value: 'Mid-Senior Level', label: 'Mid-Senior Level' },
     { value: 'Top Level', label: 'Top Level' }
-  ]
+  ],
+  jobCategoryOptions : [
+   'Job Category',
+   'Customer Service',
+   'Software Engineer',
+   'Program Development',
+   'Project Manager',
+   'Graphics Designer'
+ ],
+ jobLocationOptions : [
+  'Location 1',
+  'Location 2',
+  'Location 3'
+  ],
+  applyModal: false,
+  applyToJob: false,
+  toJobList: false,
+  job: {},
+  selectedJobCategory : "Job Category",
+  selectedJobLocation : "Job Location",
+  keyword : "",
+  postedDays : ""
 }
 export default config;

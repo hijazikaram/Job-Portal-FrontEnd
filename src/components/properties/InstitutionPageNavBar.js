@@ -51,7 +51,7 @@ class UserPageNavBar extends Component {
             <img src={userIcon} alt="User Images" className="img-responsive"/>
           </div>
           <div className="user">
-            <h2>Salam, <a href="#">{this.state.name}</a>
+            <h2>Salam, <a href="/InstitutionProfile">{this.state.name}</a>
             </h2>
           </div>
 

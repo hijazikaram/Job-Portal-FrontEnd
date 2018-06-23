@@ -22,11 +22,11 @@ class FormErrors extends Component {
         <div className={`formErrors ${this.no_errors ? "no-errors" : 'has-errors'}`}>
 
           {Object.keys(this.state).map((fieldName, i) => {
-            if((fieldName != 'confirmPassword') && (fieldName != 'checked')) {
+            if((fieldName !== 'confirmPassword') && (fieldName !== 'checked')) {
               if(this.state[fieldName].length > 0){
                 return (
                   <p key={i}>{fieldName} {this.state[fieldName]}</p>
-                )   
+                )
               } else {
                 return '';
               }

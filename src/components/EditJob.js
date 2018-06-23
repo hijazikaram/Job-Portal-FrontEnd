@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import FileBase64 from 'react-file-base64';
 import Select from 'react-select';
-import Agreement from './properties/SectionAgreement';
 import Rules from './properties/QuickRules';
 import Info from './properties/CompanyInfo';
 import config from '../config/index';
@@ -110,7 +108,7 @@ class EditJob extends Component {
   }
 
   onChangeJobType = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({jobTypeExist: true});
     } else {
       this.setState({jobTypeExist: false});
@@ -119,7 +117,7 @@ class EditJob extends Component {
   }
 
   onChangeJobTitle = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({jobTitleExist: true});
     } else {
       this.setState({jobTitleExist: false});
@@ -128,7 +126,7 @@ class EditJob extends Component {
   }
 
   onChangeJobDescription = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({jobDescriptionExist: true});
     } else {
       this.setState({jobDescriptionExist: false});
@@ -160,7 +158,7 @@ class EditJob extends Component {
   }
 
   onChangeSalaryMin = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({salaryMinExist: true});
     } else {
       this.setState({salaryMinExist: false});
@@ -169,7 +167,7 @@ class EditJob extends Component {
   }
 
   onChangeSalaryMax = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({salaryMaxExist: true});
     } else {
       this.setState({salaryMaxExist: false});
@@ -179,7 +177,7 @@ class EditJob extends Component {
 
   onChangeSalaryNegotiable = (e) => {
     this.setState({salary_negotiable: e.target.value});
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({salaryNegotiableExist: true});
     } else {
       this.setState({salaryNegotiableExist: false});
@@ -187,7 +185,7 @@ class EditJob extends Component {
   }
 
   onChangeApplicationDeadline = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({applicationDeadlineExist: true});
     } else {
       this.setState({applicationDeadlineExist: false});
@@ -201,7 +199,7 @@ class EditJob extends Component {
   }
 
   onChangeJobFunction = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({jobFunctionExist: true});
     } else {
       this.setState({jobFunctionExist: false});
@@ -210,7 +208,7 @@ class EditJob extends Component {
   }
 
   onChangeCompanyIndustry = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({companyIndustryExist: true});
     } else {
       this.setState({companyIndustryExist: false});
@@ -219,7 +217,7 @@ class EditJob extends Component {
   }
 
   onChangeCompanyName = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({companyNameExist: true});
     } else {
       this.setState({companyNameExist: false});
@@ -228,7 +226,7 @@ class EditJob extends Component {
   }
 
   onChangeCompanyEmail = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({companyEmailExist: true});
     } else {
       this.setState({companyEmailExist: false});
@@ -237,20 +235,20 @@ class EditJob extends Component {
   }
 
   onChangeCompanyMobile = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({companyMobileExist: true});
     } else {
       this.setState({companyMobileExist: false});
     }
     const value = e.target.value;
     const re = /^[0-9\b]+$/;
-    if (e.target.value == '' || re.test(e.target.value)) {
-      this.setState({company_mobile: e.target.value});
+    if (value ==='' || re.test(value)) {
+      this.setState({company_mobile: value});
     }
   }
 
   onChangeCompanyAddress = (e) => {
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       this.setState({companyAddressExist: true});
     } else {
       this.setState({companyAddressExist: false});
@@ -367,130 +365,128 @@ class EditJob extends Component {
         <div className="job-postdetails">
           <div className="row">
             <div className="col-md-8">
-              <form action="#">
-                <fieldset>
-                  <div className="section postdetails">
-                    <h4>Edit Your Job</h4>
-                    <div className="row form-group add-title">
-                      <label className="col-sm-3 label-title">Job Category</label>
-                      <div className="col-sm-9">
-                        <div className="dropdown">
-                          <div className="form-group">
-                            <Select value={this.state.job_category} options={config.job_category} onChange={this.onChangeJobCategory} value={this.state.job_category} isClearable />
-                          </div>
+              <fieldset>
+                <div className="section postdetails">
+                  <h4>Edit Your Job</h4>
+                  <div className="row form-group add-title">
+                    <label className="col-sm-3 label-title">Job Category</label>
+                    <div className="col-sm-9">
+                      <div className="dropdown">
+                        <div className="form-group">
+                          <Select value={this.state.job_category} options={config.job_category} onChange={this.onChangeJobCategory} isClearable />
                         </div>
-                      </div>
-                    </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3">Job Type<span className="required">*</span>
-                      </label>
-                      <div className="col-sm-9 user-type">
-                        <input type="radio" name="sellType" value="Full Time" id="full-time" onChange={this.onChangeJobType} checked={this.state.job_type == "Full Time"}/>
-                        <label htmlFor="full-time">Full Time</label>
-                        <input type="radio" name="sellType" value="Part Time" id="part-time" onChange={this.onChangeJobType} checked={this.state.job_type == "Part Time"}/>
-                        <label htmlFor="part-time">Part Time</label>
-                        <input type="radio" name="sellType" value="Freelance" id="freelance" onChange={this.onChangeJobType} checked={this.state.job_type == "Freelance"}/>
-                        <label htmlFor="freelance">Freelance</label>
-                        <input type="radio" name="sellType" value="Contract" id="contract" onChange={this.onChangeJobType} checked={this.state.job_type == "Contract"}/>
-                        <label htmlFor="contract">Contract</label>
-                      </div>
-                    </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Title for your job<span className="required">*</span>
-                      </label>
-                      <div className="col-sm-9">
-                        <input type="text" className="form-control" placeholder="ex, Human Resource Manager" onChange={this.onChangeJobTitle} value={this.state.job_title}/>
-                      </div>
-                    </div>
-                    <div className="row form-group item-description">
-                      <label className="col-sm-3 label-title">Description<span className="required">*</span>
-                      </label>
-                      <div className="col-sm-9">
-                        <textarea className="form-control" id="textarea" placeholder="Write few lines about your jobs" rows="8" onChange={this.onChangeJobDescription} value={this.state.job_description}></textarea>
-                      </div>
-                    </div>
-                    <div className="row characters">
-                      <div className="col-sm-9 col-sm-offset-3">
-                        <p>{this.state.characters_left} characters left</p>
-                      </div>
-                    </div>
-                    <div className="row form-group add-title location">
-                      <label className="col-sm-3 label-title">Location<span className="required">*</span>
-                      </label>
-
-                      <div className="col-sm-9">
-                        <div className="row">
-                          <div className="dropdown pull-left col-sm-6 col-xs-12">
-                            <div className="form-group">
-                              <Select options={config.job_location_country} onChange={this.onChangeLocationCountry} isClearable />
-                            </div>
-                          </div>
-                          <div className="dropdown pull-right col-sm-6 col-xs-12">
-                            <div className="form-group">
-                              <Select options={config.job_location_state} onChange={this.onChangeLocationState} isClearable />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row form-group select-price">
-                      <label className="col-sm-3 label-title">Salary<span className="required">*</span>
-                      </label>
-                      <div className="col-sm-9">
-                        <label>$USD</label>
-                        <input type="text" className="form-control" placeholder="Min" value={this.state.salary_min} onChange={this.onChangeSalaryMin}/>
-                        <span>-</span>
-                        <input type="text" className="form-control" placeholder="Max" onChange={this.onChangeSalaryMax} value={this.state.salary_max}/>
-                        <input type="radio" name="price" value="negotiable" id="negotiable" onChange={this.onChangeSalaryNegotiable} checked={this.state.salary_negotiable == 'negotiable'}/>
-                        <label htmlFor="negotiable">Negotiable
-                        </label>
-                      </div>
-                    </div>
-                    <div className="row form-group">
-                      <label className="col-sm-3 label-title">Application Deadline<span className="required">*</span>
-                      </label>
-                      <div className="col-sm-9">
-                        <input type="text" className="form-control" placeholder="ex, 08-12-2018" onChange={this.onChangeApplicationDeadline} value={this.state.application_deadline}/>
-                      </div>
-                    </div>
-                    <div className="row form-group add-title">
-                      <label className="col-sm-3 label-title">Exprience<span className="required">*</span>
-                      </label>
-                      <div className="col-sm-9">
-                        <div className="dropdown">
-                          <div className="form-group">
-                            <Select options={config.experience} onChange={this.onChangeExperience} isClearable />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row form-group brand-name">
-                      <label className="col-sm-3 label-title">Job Function<span className="required">*</span>
-                      </label>
-                      <div className="col-sm-9">
-                        <input type="text" className="form-control" placeholder="human, reosurce, job, hrm" onChange={this.onChangeJobFunction} value={this.state.job_function}/>
                       </div>
                     </div>
                   </div>
-
-                  <Info onChangeCompanyIndustry={this.onChangeCompanyIndustry} companyIndustry={this.state.company_industry} onChangeCompanyName={this.onChangeCompanyName} companyName={this.state.company_name} onChangeCompanyEmail={this.onChangeCompanyEmail}
-                  companyEmail={this.state.company_email}
-                  onChangeCompanyMobile={this.onChangeCompanyMobile}
-                  companyMobile={this.state.company_mobile}
-                  onChangeCompanyAddress={this.onChangeCompanyAddress}
-                  companyAddress={this.state.company_address}/>
-
-
-                  {notification}
-
-                  {postNotification}
-
-                  <div className="checkbox section agreement">
-                    <button type="submit" className="btn btn-primary" onClick={this.updateJob}>Update Your Job</button>
+                  <div className="row form-group">
+                    <label className="col-sm-3">Job Type<span className="required">*</span>
+                    </label>
+                    <div className="col-sm-9 user-type">
+                      <input type="radio" name="sellType" value="Full Time" id="full-time" onChange={this.onChangeJobType} checked={this.state.job_type === "Full Time"}/>
+                      <label htmlFor="full-time">Full Time</label>
+                      <input type="radio" name="sellType" value="Part Time" id="part-time" onChange={this.onChangeJobType} checked={this.state.job_type === "Part Time"}/>
+                      <label htmlFor="part-time">Part Time</label>
+                      <input type="radio" name="sellType" value="Freelance" id="freelance" onChange={this.onChangeJobType} checked={this.state.job_type === "Freelance"}/>
+                      <label htmlFor="freelance">Freelance</label>
+                      <input type="radio" name="sellType" value="Contract" id="contract" onChange={this.onChangeJobType} checked={this.state.job_type === "Contract"}/>
+                      <label htmlFor="contract">Contract</label>
+                    </div>
                   </div>
+                  <div className="row form-group">
+                    <label className="col-sm-3 label-title">Title for your job<span className="required">*</span>
+                    </label>
+                    <div className="col-sm-9">
+                      <input type="text" className="form-control" placeholder="ex, Human Resource Manager" onChange={this.onChangeJobTitle} value={this.state.job_title}/>
+                    </div>
+                  </div>
+                  <div className="row form-group item-description">
+                    <label className="col-sm-3 label-title">Description<span className="required">*</span>
+                    </label>
+                    <div className="col-sm-9">
+                      <textarea className="form-control" id="textarea" placeholder="Write few lines about your jobs" rows="8" onChange={this.onChangeJobDescription} value={this.state.job_description}></textarea>
+                    </div>
+                  </div>
+                  <div className="row characters">
+                    <div className="col-sm-9 col-sm-offset-3">
+                      <p>{this.state.characters_left} characters left</p>
+                    </div>
+                  </div>
+                  <div className="row form-group add-title location">
+                    <label className="col-sm-3 label-title">Location<span className="required">*</span>
+                    </label>
 
-                </fieldset>
-              </form>
+                    <div className="col-sm-9">
+                      <div className="row">
+                        <div className="dropdown pull-left col-sm-6 col-xs-12">
+                          <div className="form-group">
+                            <Select options={config.job_location_country} onChange={this.onChangeLocationCountry} isClearable />
+                          </div>
+                        </div>
+                        <div className="dropdown pull-right col-sm-6 col-xs-12">
+                          <div className="form-group">
+                            <Select options={config.job_location_state} onChange={this.onChangeLocationState} isClearable />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row form-group select-price">
+                    <label className="col-sm-3 label-title">Salary<span className="required">*</span>
+                    </label>
+                    <div className="col-sm-9">
+                      <label>$USD</label>
+                      <input type="text" className="form-control" placeholder="Min" value={this.state.salary_min} onChange={this.onChangeSalaryMin}/>
+                      <span>-</span>
+                      <input type="text" className="form-control" placeholder="Max" onChange={this.onChangeSalaryMax} value={this.state.salary_max}/>
+                      <input type="radio" name="price" value="negotiable" id="negotiable" onChange={this.onChangeSalaryNegotiable} checked={this.state.salary_negotiable === 'negotiable'}/>
+                      <label htmlFor="negotiable">Negotiable
+                      </label>
+                    </div>
+                  </div>
+                  <div className="row form-group">
+                    <label className="col-sm-3 label-title">Application Deadline<span className="required">*</span>
+                    </label>
+                    <div className="col-sm-9">
+                      <input type="text" className="form-control" placeholder="ex, 08-12-2018" onChange={this.onChangeApplicationDeadline} value={this.state.application_deadline}/>
+                    </div>
+                  </div>
+                  <div className="row form-group add-title">
+                    <label className="col-sm-3 label-title">Exprience<span className="required">*</span>
+                    </label>
+                    <div className="col-sm-9">
+                      <div className="dropdown">
+                        <div className="form-group">
+                          <Select options={config.experience} onChange={this.onChangeExperience} isClearable />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row form-group brand-name">
+                    <label className="col-sm-3 label-title">Job Function<span className="required">*</span>
+                    </label>
+                    <div className="col-sm-9">
+                      <input type="text" className="form-control" placeholder="human, reosurce, job, hrm" onChange={this.onChangeJobFunction} value={this.state.job_function}/>
+                    </div>
+                  </div>
+                </div>
+
+                <Info onChangeCompanyIndustry={this.onChangeCompanyIndustry} companyIndustry={this.state.company_industry} onChangeCompanyName={this.onChangeCompanyName} companyName={this.state.company_name} onChangeCompanyEmail={this.onChangeCompanyEmail}
+                companyEmail={this.state.company_email}
+                onChangeCompanyMobile={this.onChangeCompanyMobile}
+                companyMobile={this.state.company_mobile}
+                onChangeCompanyAddress={this.onChangeCompanyAddress}
+                companyAddress={this.state.company_address}/>
+
+
+                {notification}
+
+                {postNotification}
+
+                <div className="checkbox section agreement">
+                  <button type="submit" className="btn btn-primary" onClick={this.updateJob}>Update Your Job</button>
+                </div>
+
+              </fieldset>
             </div>
 
             <Rules/>

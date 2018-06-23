@@ -336,11 +336,11 @@ textarea {
     color: #333;
 }
 
-.sign-in {
+.navBarBtn {
 	display:inline;
 }
 
-.sign-in li {
+.navBarBtn li {
 	display:inline-block;
 	margin-top: 10px;
 }

@@ -32,7 +32,7 @@ class UserPageNavBar extends Component {
           </div>
           <div className="user">
             <h2>Hello,
-              <a href="#">{this.state.name}</a>
+              <a href="/UserProfile">{this.state.name}</a>
             </h2>
             <h5>You last logged in at: 10-01-2017 6:40 AM [ USA time (GMT + 6:00hrs)]</h5>
           </div>
@@ -51,12 +51,6 @@ class UserPageNavBar extends Component {
         <ul className="user-menu">
           <li>
             <Link to={"/UserProfile"}>Profile Details</Link>
-          </li>
-          <li>
-            <Link to={"/UserProfile/ViewResume"}>View Resume</Link>
-          </li>
-          <li>
-            <Link to={"/UserProfile/EditResume"}>Edit Resume</Link>
           </li>
           <li>
             <Link to={"/UserProfile/FavoriteJobs"}>Bookmark</Link>
