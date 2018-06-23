@@ -163,7 +163,7 @@ class ViewJob extends Component {
                           <i className="fa fa-google-plus-square" aria-hidden="true"></i>
                       </li>
                       <li>
-                        ß<i className="fa fa-linkedin-square" aria-hidden="true"></i>
+                        <i className="fa fa-linkedin-square" aria-hidden="true"></i>
                       </li>
                       <li>
                         <i className="fa fa-pinterest-square" aria-hidden="true"></i>
