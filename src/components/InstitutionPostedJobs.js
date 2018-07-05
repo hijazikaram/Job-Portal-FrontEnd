@@ -130,6 +130,9 @@ class InstitutionPostedJobs extends Component {
                       <li>
                         <i className="fa fa-tags" aria-hidden="true"></i>{job.job_category}
                       </li>
+                      <li>
+                          <a href={'/InstitutionProfile/Job/' + job._id + '/Applications'}>Applicants</a>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -145,6 +148,7 @@ class InstitutionPostedJobs extends Component {
                 <span className={job_status ? 'job-status job-status-active' : 'job-status job-status-removed'}>
                   {job_status ? 'Job Active' : 'Job Removed'}
                 </span>
+
               </div>
             </div>)
           })

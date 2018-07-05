@@ -60,43 +60,39 @@ class JobDescription extends Component {
             <div className="section company-info">
               <h1>Company Info</h1>
               <ul>
-                <li>Compnay Name:
-                  <Link to="">{job.company_name}</Link>
+                <li>Compnay Name: {job.company_name}
                 </li>
                 <li>Address: {job.company_address}</li>
-                <li>Compnay SIze: 2k Employee</li>
-                <li>Industry:
-                  <Link to="">{job.company_industry}</Link>
+                <li>Industry: {job.company_industry}
                 </li>
                 <li>Phone: {job.company_mobile}</li>
-                <li>Email:
-                  <Link to="">{job.company_email}</Link>
+                <li>Email: {job.company_email}
                 </li>
-                <li>Website:
-                  <Link to="">www.dropbox.com</Link>
+                <li>Website: www.dropbox.com
                 </li>
               </ul>
               <ul className="share-social">
-                <li>
-                  <a href={job.facebook}>
+                {job.company_facebook !== '' && <li>
+                  <a href={job.company_facebook} target="_blank">
                     <i className="fa fa-facebook-official" aria-hidden="true"></i>
                   </a>
-                </li>
-                <li>
-                  <a href={job.twitter}>
+                </li>}
+                {job.company_twitter !== '' && <li>
+                  <a href={'http://www.' +job.company_twitter} target="_blank">
                     <i className="fa fa-twitter-square" aria-hidden="true"></i>
                   </a>
-                </li>
-                <li>
-                  <a href={job.google}>
+                </li>}
+                {job.company_google !== '' && <li>
+                  <a href={job.company_google} target="_blank">
                     <i className="fa fa-google-plus-square" aria-hidden="true"></i>
                   </a>
-                </li>
-                <li>
-                  <a href={job.linkedin}>
+                </li>}
+                {job.company_linkedin !== '' && <li>
+                  <a href={'http://www.' + job.company_linkedin} target="_blank">
                     <i className="fa fa-linkedin-square" aria-hidden="true"></i>
                   </a>
-                </li>
+                </li>}
+
               </ul>
             </div>
           </div>

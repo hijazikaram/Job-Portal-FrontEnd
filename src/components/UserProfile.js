@@ -15,8 +15,7 @@ class UserProfile extends Component {
       <div>
         <section className=" job-bg page  ad-profile-page">
           <div className="container">
-            <Route exact path={this.props.match.path} component={UserPageNavBar}/>
-
+            <UserPageNavBar/>
             <Switch>
               <Route exact path={this.props.match.path} component={Home}/>
               <Route path={this.props.match.path + "/DeleteMyProfile"} component={DeleteUserProfile}/>

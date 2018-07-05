@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import userIcon from '../../img/user.jpg';
-import {Link} from "react-router-dom";
 import axios from 'axios';
 
 class UserPageNavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      name: '',
+      loaded1: false,
+      loaded2: false,
+      appliedJobs: 0,
+      bookmarkedJobs: 0
     };
 
     this.id = localStorage.getItem('user_id');
@@ -20,6 +23,31 @@ class UserPageNavBar extends Component {
   onLogOut = (e) => {
     localStorage.removeItem('user_id');
     localStorage.removeItem('user_type');
+  }
+  componentDidMount() {
+      const userId = localStorage.getItem('user_id');
+
+      axios.get('http://localhost:5000/api/users/' + userId + '/applications').then((response) => {
+        if (response.data.applications) {
+          this.setState({
+            loaded1: true,
+            appliedJobs: response.data.applications.length
+          });
+
+          axios.get('http://localhost:5000/api/users/' + userId + '/bookmarkedJobs').then((response) => {
+            if (response.data.bookmarkedJobs) {
+              this.setState({
+                loaded2: true,
+                bookmarkedJobs: response.data.bookmarkedJobs.length
+              });
+            }
+          }, (error) => {
+            console.log(error);
+          });
+        }
+      }, (error) => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -34,35 +62,34 @@ class UserPageNavBar extends Component {
             <h2>Hello,
               <a href="/UserProfile">{this.state.name}</a>
             </h2>
-            <h5>You last logged in at: 10-01-2017 6:40 AM [ USA time (GMT + 6:00hrs)]</h5>
           </div>
 
           <div className="favorites-user">
             <div className="favorites">
-              <a href="applied-job.html">29<small>Apply Job</small>
+              <a href="/UserProfile/AppliedJobs">{this.state.appliedJobs}<small>Apply Job</small>
               </a>
             </div>
             <div className="favorites">
-              <a href="bookmark.html">18<small>Favorites</small>
+              <a href="/UserProfile/FavoriteJobs">{this.state.bookmarkedJobs}<small>Favorites</small>
               </a>
             </div>
           </div>
         </div>
         <ul className="user-menu">
           <li>
-            <Link to={"/UserProfile"}>Profile Details</Link>
+            <a href={"/UserProfile"}>Profile Details</a>
           </li>
           <li>
-            <Link to={"/UserProfile/FavoriteJobs"}>Bookmark</Link>
+            <a href={"/UserProfile/FavoriteJobs"}>Bookmark</a>
           </li>
           <li>
-            <Link to={"/UserProfile/AppliedJobs"}>Applied Jobs</Link>
+            <a href={"/UserProfile/AppliedJobs"}>Applied Jobs</a>
           </li>
           <li>
-            <Link to={"/UserProfile/DeleteMyProfile"}>Close account</Link>
+            <a href={"/UserProfile/DeleteMyProfile"}>Close account</a>
           </li>
           <li>
-            <Link to={"/SignIn"} onClick={logout}>Logout</Link>
+            <a href={"/SignIn"} onClick={logout}>Logout</a>
           </li>
         </ul>
       </div>

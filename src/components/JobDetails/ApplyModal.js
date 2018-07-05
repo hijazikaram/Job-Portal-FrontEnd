@@ -46,8 +46,7 @@ class ApplyModal extends Component {
   }
 
   render() {
-    console.log(this.state);
-    const { modal, job } = this.props;
+    const { modal, job, _onModalToggle } = this.props;
     return (
       <form>
         <Modal show={modal} onHide={this.closeModal}>
@@ -79,7 +78,7 @@ class ApplyModal extends Component {
               />
           </Modal.Body>
           <Modal.Footer>
-            <Button>Close</Button>
+            <Button onClick={_onModalToggle}>Close</Button>
             <Button onClick={this.submit}>Submit Application</Button>
           </Modal.Footer>
         </Modal>

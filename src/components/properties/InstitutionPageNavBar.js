@@ -8,6 +8,7 @@ class UserPageNavBar extends Component {
     super(props);
     this.state = {
       name: '',
+      logoId: '',
       jobs: '0',
       availableJobs: 0
     };
@@ -21,7 +22,7 @@ class UserPageNavBar extends Component {
         if (res.data.success) {
 
           const institution = res.data.institution;
-          self.setState({name: institution.name, availableJobs: institution.availableJobs});
+          self.setState({logoId: institution.logoId, name: institution.name, availableJobs: institution.availableJobs});
           self.setState({company_logo: institution.logo});
           axios.get('http://localhost:5000/api/jobs/' + id).then(res => {
             if (res.data.success) {
@@ -48,7 +49,7 @@ class UserPageNavBar extends Component {
       <div className="job-profile section">
         <div className="user-profile">
           <div className="user-images">
-            <img src={userIcon} alt="User Images" className="img-responsive"/>
+            <img src={'http://localhost:5000/api/institution/logo/' + this.state.logoId} alt="User Images" className="img-responsive"/>
           </div>
           <div className="user">
             <h2>Salam, <a href="/InstitutionProfile">{this.state.name}</a>
@@ -57,7 +58,7 @@ class UserPageNavBar extends Component {
 
           <div className="favorites-user">
           <div className="favorites">
-              <a href="bookmark.html">{this.state.availableJobs}<small>Available</small>
+              <a href="/InstitutionProfile/PostAJob">{this.state.availableJobs}<small>Available</small>
               </a>
             </div>
             <div className="favorites">

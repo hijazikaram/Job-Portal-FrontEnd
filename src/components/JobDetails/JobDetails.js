@@ -6,22 +6,25 @@ import JobAd from './JobAd';
 import JobDescription from './JobDescription';
 import axios from 'axios';
 import config from '../../config';
-import '../../css/MyDropdown.css';
 import { Redirect } from 'react-router';
+import { Modal } from 'react-bootstrap';
+
 class JobDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
       job : config.job,
+      jobId: '',
       postedDays : config.postedDays,
-      modal: config.applyModal,
+      applyModal: config.applyModal,
+      bookmarkModal: false,
       applyjob : config.applyToJob,
       toJobList : config.toJobList,
       jobCategoryOptions : config.jobCategoryOptions,
       jobLocationOptions : config.jobLocationOptions,
       selectedJobCategory : config.selectedJobCategory,
       selectedJobLocation : config.selectedJobLocation,
-      keyword : config.keyword
+      keyword : config.keyword,
     }
   }
 
@@ -88,7 +91,32 @@ class JobDetails extends Component {
     this.setState({toJobList:true});
   }
   _onModalToggle = () => {
-    const checkAuthToApply = localStorage.getItem('user_id') ? this.setState({modal: !this.state.modal}) : window.location.href = '/SignUp'; 
+    localStorage.getItem('user_id') ? this.setState({
+      applyModal: !this.state.applyModal,
+      appliedJob: true
+    }) : window.location.href = '/SignUp';
+  }
+  _onOpenBookmarkModalToggle = () => {
+    let jobId = this.props.match.params.job_id;
+    const userId = localStorage.getItem('user_id');
+    if (userId) {
+      const bookmark = {
+        userId: userId,
+        jobId: jobId
+      };
+      axios
+      .post('http://localhost:5000/api/jobs/' + jobId + '/bookmark', bookmark)
+      .then((response) => {
+        this.setState({
+          bookmarkModal: true
+        });
+      })
+    } else {
+      window.location.href = '/SignUp';
+    }
+  }
+  _onCloseBookmarkModalToggle = () => {
+    this.setState({bookmarkModal: false});
   }
   render() {
     if (this.state.toJobList) {
@@ -110,7 +138,7 @@ class JobDetails extends Component {
           <div className="category-info">
             <div className="job-details">
 
-              <JobAd job={this.state.job} applyjob={this.state.applyjob} _onModalToggle={this._onModalToggle} formatData={this.formatData} job_logo={this.state.job_logo}/>
+              <JobAd job={this.state.job} applyjob={this.state.applyjob} _onModalToggle={this._onModalToggle} _onOpenBookmarkModalToggle={this._onOpenBookmarkModalToggle} formatData={this.formatData} job_logo={this.state.job_logo}/>
 
               <JobDescription job={this.state.job} postedDays={this.state.postedDays}/>
             </div>
@@ -118,7 +146,13 @@ class JobDetails extends Component {
         </div>
       </section>
 
-      <ApplyModal modal={this.state.modal} _onModalToggle={this._onModalToggle} job={this.state.job}/>
+      <ApplyModal modal={this.state.applyModal} _onModalToggle={this._onModalToggle} job={this.state.job}/>
+
+      <Modal show={this.state.bookmarkModal} onHide={this._onCloseBookmarkModalToggle}>
+        <Modal.Body>
+          This Job has been bookmarked!
+        </Modal.Body>
+      </Modal>
 
       <Footer/>
     </div>);

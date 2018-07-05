@@ -1,17 +1,29 @@
 import React, {Component} from 'react';
 import logo from '../img/Islamic_Jobs_0701 copy.png';
+import profilePic from '../img/user.jpg';
 import '../css/NavBar.css';
-import {Link} from 'react-router-dom';
+
+const styles = {
+  profilePic: {
+    width: 40,
+    height: 40,
+    display: 'inline-block'
+  },
+  picture: {
+    borderRadius: '50%'
+  }
+}
 
 class NavBar extends Component {
   render() {
     let id = localStorage.getItem('user_id');
     let user_type = localStorage.getItem('user_type');
     let url = user_type === 'institution' ? '/InstitutionProfile' : '/UserProfile';
-    console.log(id);
     const navbar = id
       ? (
-          <a href={url}><button>test</button></a>
+          <div style={styles.profilePic}>
+            <a href={url}><img alt="Profile Picture" style={styles.picture} src={profilePic}/></a>
+          </div>
         )
       : (<ul className="sign-in">
         <li>
@@ -42,16 +54,16 @@ class NavBar extends Component {
               <div className="collapse navbar-collapse" id="navbar-collapse">
                 <ul className="nav navbar-nav">
                   <li className="">
-                    <Link to="/" activeclassname="active">Home</Link>
+                    <a href="/" activeclassname="active">Home</a>
                   </li>
                   <li>
-                    <Link to="/JobList" activeclassname="active">Job List</Link>
+                    <a href="/JobList" activeclassname="active">Job List</a>
                   </li>
                   <li>
-                    <Link to="/Prices" activeclassname="active">Price</Link>
+                    <a href="/Prices" activeclassname="active">Price</a>
                   </li>
                   <li>
-                    <Link to="/JobList" activeclassname="active">Contact Us</Link>
+                    <a href="/JobList" activeclassname="active">Contact Us</a>
                   </li>
                 </ul>
               </div>
@@ -59,7 +71,7 @@ class NavBar extends Component {
             <div className="nav-right">
               {navbar}
 
-              <Link to="/SignIn" className="btn">Post Your Job</Link>
+              <a href="/SignIn" className="btn">Post Your Job</a>
             </div>
           </div>
         </nav>
