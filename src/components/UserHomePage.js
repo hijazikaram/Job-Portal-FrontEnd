@@ -11,9 +11,6 @@ class UserHomePage extends Component {
       phoneNumber: '',
       address: '',
       expertise: '',
-      comments_enable: false,
-      receive_newsletter: false,
-      receive_advice: false,
 
       oldPassword: '',
       newPassword: '',
@@ -29,22 +26,19 @@ class UserHomePage extends Component {
     this.id = localStorage.getItem('user_id');
 
     axios.get('http://localhost:5000/api/user/' + this.id).then(res => {
-      var user = res.data.user;
+      const user = res.data.user;
       this.setState({
         name: user.name,
         email: user.email,
         phoneNumber: user.phoneNumber,
         address: user.address,
-        expertise: user.expertise,
-        comments_enable: user.comments_enable,
-        receive_newsletter: user.receive_newsletter,
-        receive_advice: user.receive_advice
+        expertise: user.expertise
       });
     });
   }
 
   componentWillMount() {
-    var id = localStorage.getItem('user_id');
+    const id = localStorage.getItem('user_id');
     if (!id) {
       window.location.href = '/SignIn';
     }
@@ -72,7 +66,7 @@ class UserHomePage extends Component {
 
   onUpdateProfile = (e) => {
     e.preventDefault();
-    var self = this;
+    const self = this;
 
     if (self.oldPassword !== '') {
       if (!self.newPassword || !self.newPasswordConfirm) {
@@ -112,18 +106,6 @@ class UserHomePage extends Component {
     }
   }
 
-  onUpdateCommentsEnable = (e) => {
-    this.setState({comments_enable: e.target.checked});
-  }
-
-  onUpdateReceiveNewsletter = (e) => {
-    this.setState({receive_newsletter: e.target.checked});
-  }
-
-  onUpdateReceiveAdvice = (e) => {
-    this.setState({receive_advice: e.target.checked});
-  }
-
   onOldPasswordInput = (e) => {
     this.oldPassword = e.target.value;
   }
@@ -138,23 +120,17 @@ class UserHomePage extends Component {
 
   render() {
 
-    var userNameChange = this.onUserNameChange;
-    var emailChange = this.onEmailChange;
-    var phoneNumberChange = this.onPhoneNumberChange;
-    var addressChange = this.onAddressChange;
-    var expertiseChange = this.onExpertiseChange;
+    const userNameChange = this.onUserNameChange;
+    const emailChange = this.onEmailChange;
+    const phoneNumberChange = this.onPhoneNumberChange;
+    const addressChange = this.onAddressChange;
+    const expertiseChange = this.onExpertiseChange;
 
-    var oldPasswordInput = this.onOldPasswordInput;
-    var newPasswordChange = this.onNewPasswordChange;
-    var newPasswordConfirmChange = this.onNewPasswordConfirmChange;
-
-    var updateCommentsEnable = this.onUpdateCommentsEnable;
-    var updateReceiveNewsletter = this.onUpdateReceiveNewsletter;
-    var updateReceiveAdvice = this.onUpdateReceiveAdvice;
-
-    var updateProfile = this.onUpdateProfile;
-
-    var notification = this.state.notificationMsg
+    const oldPasswordInput = this.onOldPasswordInput;
+    const newPasswordChange = this.onNewPasswordChange;
+    const newPasswordConfirmChange = this.onNewPasswordConfirmChange;
+    const updateProfile = this.onUpdateProfile;
+    const notification = this.state.notificationMsg
       ? (<div className='panel panel-default'>
         <div className={`notification ${ !this.state.updateProfileValid
             ? 'error'
@@ -217,24 +193,6 @@ class UserHomePage extends Component {
               </div>
             </div>
             <div className="preferences-settings section">
-              <h2>Preferences Settings</h2>
-              <div className="checkbox">
-                <label className={`${this.state.comments_enable ? 'checked' : ''}`}>
-                  <input type="checkbox" name="logged" checked={this.state.comments_enable} onChange={updateCommentsEnable}/>
-                  Comments are enabled on my Resume
-                </label>
-
-                <label className={`${this.state.receive_newsletter ? 'checked' : ''}`}>
-                  <input type="checkbox" name="receive" checked={this.state.receive_newsletter} onChange={updateReceiveNewsletter}/>
-                  I want to receive newsletter.
-                </label>
-
-                <label className={`${this.state.receive_advice ? 'checked' : ''}`}>
-                  <input type="checkbox" name="want" checked={this.state.receive_advice} onChange={updateReceiveAdvice}/>
-                  I want to receive advice on portfolio
-                </label>
-              </div>
-
               <div className="buttons">
                 <a href="javascript:void(0)" className="btn" onClick={updateProfile}>Update Profile</a>
               </div>

@@ -10,6 +10,9 @@ import config from '../config/index';
 class InstitutionPostAJob extends Component {
   constructor(props) {
     super(props);
+    this.temp = {
+
+    }
     this.state = {
       institution_id: '',
 
@@ -321,7 +324,6 @@ class InstitutionPostAJob extends Component {
     const value = e.target.checked;
     this.setState({ agree_terms: value });
   }
-
   postJob = (e) => {
     e.preventDefault();
 
@@ -405,8 +407,7 @@ class InstitutionPostAJob extends Component {
           } else {
             self.setState({ postedSuccessfully: false, postResultMsg: 'Error Occured.' });
           }
-        }, function (error) {
-          console.log(error);
+        }, (error) => {
           self.setState({ postedSuccessfully: false, postResultMsg: 'Error Occured.' });
         });
       }
@@ -414,7 +415,7 @@ class InstitutionPostAJob extends Component {
   }
 
   render() {
-    if (parseInt(this.state.availableJobs, 0) <= 0) {
+    if (parseInt(this.state.availableJobs, 0) === 0) {
       return (<div>
         <div className="job-postdetails">
           <div className="section postdetails">
@@ -444,7 +445,6 @@ class InstitutionPostAJob extends Component {
         </div>
       </div>)
       : (<div></div>);
-      console.log(this.state);
     return (<div>
       <div className="job-postdetails">
         <div className="row">

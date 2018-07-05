@@ -3,7 +3,7 @@ import jobIcon from '../../img/4.png';
 import {Link} from 'react-router-dom';
 class JobAd extends Component {
   render() {
-    const { job, applyjob, _onModalToggle, formatData, job_logo, jobIcon } = this.props;
+    const { job, applyjob, _onModalToggle,  _onOpenBookmarkModalToggle, formatData, job_logo, jobIcon } = this.props;
     return (
       <div className="section job-ad-item">
         <div className="item-info">
@@ -18,11 +18,11 @@ class JobAd extends Component {
           <div className="ad-info">
             <span>
               <span>
-                <Link to="" className="title">{job.job_title}</Link>
+                <a href="" className="title">{job.job_title}</a>
               </span>
               @
-              <Link to="">
-                {job.company_name}</Link>
+              <a href="">
+                {job.company_name}</a>
             </span>
             <div className="ad-meta">
               <ul>
@@ -56,8 +56,8 @@ class JobAd extends Component {
           <div className="button">
             <span onClick={_onModalToggle} className="btn btn-primary" disabled={!applyjob}>
               <i className="fa fa-briefcase" aria-hidden="true"></i>Apply For This Job</span>
-            <Link to="" className="btn btn-primary bookmark">
-              <i className="fa fa-bookmark-o" aria-hidden="true"></i>Bookmark</Link>
+            <span onClick={_onOpenBookmarkModalToggle} className="btn btn-primary" disabled={!applyjob}>
+              <i className="fa fa-bookmark-o" aria-hidden="true"></i>Bookmark</span>
           </div>
           <ul className="share-social">
             <li>Share this ad</li>

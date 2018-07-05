@@ -12,7 +12,7 @@ import InstitutionProfile from "./components/InstitutionProfile";
 import Transactions from "./components/Transactions";
 import ViewJob from "./components/ViewJob";
 import EditJob from "./components/EditJob";
-
+import Applicants from "./components/InstitutionApplicants";
 
 const BasicExample = () => (<Router>
   <div><NavBar/>
@@ -24,8 +24,9 @@ const BasicExample = () => (<Router>
     <Route path="/SignUp" component={SignUp}/>
     <Route path="/UserProfile" component={UserProfile}/>
     <Route path="/InstitutionProfile" component={InstitutionProfile}/>
-    <Route path="/InstitutionProfile/Job/:job_id" component={ViewJob}/>
+    <Route path="/InstitutionProfile/Job/:job_id" component={ViewJob} exact/>
     <Route path="/InstitutionProfile/editJob/:job_id" component={EditJob}/>
+    <Route path="/InstitutionProfile/Job/:job_id/Applications" component={Applicants} exact/>
 	 <Route exact path="/InstitutionProfile/Transactions" component={Transactions}/>
   </div>
 </Router>);

@@ -92,7 +92,6 @@ class ViewJob extends Component {
   }
 
   render() {
-
     return (<div>
       {
         !this.isEmpty(this.state.job)
@@ -154,22 +153,27 @@ class ViewJob extends Component {
                     <ul className="share-social">
                       <li>Share this ad</li>
                       <li>
+                        <Link to="https://www.facebook.com" target="_blank">
                           <i className="fa fa-facebook-official" aria-hidden="true"></i>
+                        </Link>
                       </li>
                       <li>
+                        <Link to="https://www.twitter.com" target="_blank">
                           <i className="fa fa-twitter-square" aria-hidden="true"></i>
+                        </Link>
                       </li>
                       <li>
-                          <i className="fa fa-google-plus-square" aria-hidden="true"></i>
+                        <Link to="https://www.linkedin.com" target="_blank">
+                          <i className="fa fa-linkedin-square" aria-hidden="true"></i>
+                        </Link>
                       </li>
                       <li>
-                        <i className="fa fa-linkedin-square" aria-hidden="true"></i>
+                        <Link to="https://www.pinterest.com" target="_blank">
+                          <i className="fa fa-pinterest-square" aria-hidden="true"></i>
+                        </Link>
                       </li>
                       <li>
-                        <i className="fa fa-pinterest-square" aria-hidden="true"></i>
-                      </li>
-                      <li>
-                        <Link to="">
+                        <Link to="https://www.tumblr.com/login" target="_blank">
                           <i className="fa fa-tumblr-square" aria-hidden="true"></i>
                         </Link>
                       </li>
@@ -232,7 +236,6 @@ class ViewJob extends Component {
                           <li>Compnay Name: {this.state.job.company_name}
                           </li>
                           <li>Address: {this.state.job.company_address}</li>
-                          <li>Compnay SIze: 2k Employee</li>
                           <li>Industry: {this.state.job.company_industry}
                           </li>
                           <li>Phone: {this.state.job.company_mobile}</li>
@@ -243,24 +246,24 @@ class ViewJob extends Component {
                         </ul>
                         <ul className="share-social">
                           <li>
-                            <a href={this.state.job.facebook}>
+                            <Link to={this.state.job.company_facebook} target="_blank">
                               <i className="fa fa-facebook-official" aria-hidden="true"></i>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href={this.state.job.twitter}>
+                            <Link to={this.state.job.company_twitter} target="_blank">
                               <i className="fa fa-twitter-square" aria-hidden="true"></i>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href={this.state.job.google}>
+                            <Link to={this.state.job.company_google} target="_blank">
                               <i className="fa fa-google-plus-square" aria-hidden="true"></i>
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href={this.state.job.linkedin}>
+                            <Link to={this.state.job.company_linkedin} target="_blank">
                               <i className="fa fa-linkedin-square" aria-hidden="true"></i>
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>

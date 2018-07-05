@@ -14,12 +14,6 @@ class Price extends Component {
     super(props);
     this.state = {
       toJobList : false,
-      jobLocationOptions : [
-       'Location 1',
-       'Location 2',
-       'Location 3'],
-      selectedJobLocation : "Job Location",
-      keyword : "",
       selectedJobQuantity : 1,
       selectedJobQuantityText: "1 Job for 30 Days - $150 USD",
       jobQuantityOptions : [
@@ -48,15 +42,6 @@ class Price extends Component {
     this.setState({selectedJobQuantity:this.state.jobQuantityOptions[0]});
   }
 
-  _onSelectJobLocation = (selectedJobLocation) => {
-    this.setState({selectedJobLocation : selectedJobLocation.value === "none"?"Job Location":selectedJobLocation.value});
-  }
-  _onKeyword = (event) => {
-    this.setState({keyword:event.target.value});
-  }
-  _onSearch = (event) => {
-    this.setState({toJobList:true});
-  }
 
   _onSelectJobQuantity = (selectedJobQuantity) => {
     let index = selectedJobQuantity.value - 1;
@@ -130,53 +115,6 @@ class Price extends Component {
           </StripeProvider>
         </Modal.Body>
       </Modal>
-			<div className="banner-job">
-        <div className="banner-overlay"></div>
-        <div className="container text-center">
-          <h1 className="title">The Easiest Way to Find your Masjid</h1>
-          <h3>We offer 12000 jobs vacation right now</h3>
-          <div className="banner-form">
-            <input type="text" className="form-control" onChange={this._onKeyword} value={this.state.keyword} placeholder="Type your key word" />
-            <div className='mydropdown-div'>
-              <Dropdown
-                options={this.state.jobLocationOptions}
-                onChange={this._onSelectJobLocation}
-                value={this.state.selectedJobLocation}
-                className='mydropdown'
-                controlClassName='mydropdown-control'
-                placeholderClassName='mydropdown-placeholder'
-                menuClassName='mydropdown-menu'
-                arrowClassName='mydropdown-arrow'
-              />
-            </div>
-            <button type="submit" className="btn btn-primary" onClick={this._onSearch} value="Search">Search</button>
-
-          </div>
-
-          <ul className="banner-socail list-inline">
-            <li>
-              <a href="" title="Facebook">
-                <i className="fa fa-facebook"></i>
-              </a>
-            </li>
-            <li>
-              <a href="" title="Twitter">
-                <i className="fa fa-twitter"></i>
-              </a>
-            </li>
-            <li>
-              <a href="" title="Google Plus">
-                <i className="fa fa-google-plus"></i>
-              </a>
-            </li>
-            <li>
-              <a href="" title="Youtube">
-                <i className="fa fa-youtube"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
     	<div className="page">
         <div className="container">
           <div className="page">
@@ -186,7 +124,6 @@ class Price extends Component {
                   <div className="col-sm-12">
                     <div className="single-cta">
                       <h3>Post Jobs</h3>
-                      <p align="center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500's, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960's with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
             					<div className="price-box">
               					<h4>Buy Job Postings Online</h4>
               					<p>Job Postings go live for one calendar month and are available for use within 12 months of purchase.</p>

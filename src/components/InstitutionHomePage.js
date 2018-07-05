@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
-import FileBase64 from 'react-file-base64';
+import {FormControl} from 'react-bootstrap';
 
 import '../css/PostAJob.css';
 
@@ -10,7 +9,8 @@ class UserHomePage extends Component {
     super(props);
 
     this.state = {
-      logo: '',
+      logo: null,
+      logoId: '',
       name: '',
       email: '',
       phoneNumber: '',
@@ -35,7 +35,7 @@ class UserHomePage extends Component {
 
     axios.get('http://localhost:5000/api/institution/' + this.id).then(res => {
       const institution = res.data.institution;
-      this.setState({ logo: institution.logo, name: institution.name, email: institution.email, phoneNumber: institution.phoneNumber, facebook: institution.facebook, twitter: institution.twitter, google: institution.google, linkedin: institution.linkedin });
+      this.setState({ logoId: institution.logoId, name: institution.name, email: institution.email, phoneNumber: institution.phoneNumber, facebook: institution.facebook, twitter: institution.twitter, google: institution.google, linkedin: institution.linkedin });
 
       if (!institution.address) {
         this.setState({ address: '' });
@@ -58,11 +58,12 @@ class UserHomePage extends Component {
     });
   }
 
-  getFile = (file) => {
-    if (file.base64) {
-      this.setState({ logo: file.base64 });
-      this.setState({ logoChanged: true });
+  getFile = (e) => {
+    this.setState({logo: e.target.files[0]});
+    if (e.target.files.length) {
+      this.logoChanged = true;
     }
+    this.forceUpdate();
   }
 
   componentWillMount() {
@@ -180,14 +181,27 @@ class UserHomePage extends Component {
         }
       }
     } else {
-      axios.put('http://localhost:5000/api/institution/' + self.id, self.state).then(function (response) {
+      const data = new FormData();
+      data.append('logo', this.state.logo);
+      data.append('name', this.state.name);
+      data.append('email', this.state.email);
+      data.append('phoneNumber', this.state.phoneNumber);
+      data.append('address', this.state.address);
+      data.append('facebook', this.state.facebook);
+      data.append('twitter', this.state.twitter);
+      data.append('google', this.state.google);
+      data.append('linkedin', this.state.linkedin);
+      data.append('oldPassword', this.state.oldPassword);
+      data.append('newPassword', this.state.newPassword);
+      axios.put('http://localhost:5000/api/institution/' + self.id, data).then((response) => {
+        console.log(response);
         if (!response.data.error) {
           self.setState({ notificationMsg: 'Updated Successfully.', updateProfileValid: true });
-          setTimeout(function () {
+          setTimeout(() => {
             window.location.reload(true);
           }, 300);
         }
-      }, function (error) {
+      }, (error) => {
         console.log(error);
       });
     }
@@ -226,25 +240,32 @@ class UserHomePage extends Component {
         <div className={`notification ${!this.state.updateProfileValid ? 'error' : 'success'}`}>{this.state.notificationMsg}
         </div>
       </div>) : (<div></div>);
+      console.log(this.state);
     return (
       <div>
         <div className="breadcrumb-section">
           <div className="profile job-profile">
             <div className="user-pro-section">
+              <form>
               <div className="profile-details section">
                 <h2>Profile Details</h2>
 
                 {notification}
 
-                <form action="#">
+
                   <div className="form-group">
                     <label className="upload-image caption">Max 20MB</label>
                     <label className="upload-image">
-                      <FileBase64 onDone={this.getFile} />
+                      <FormControl
+                        type="file"
+                        name='logo'
+                        className="applyInfo"
+                        onChange={this.getFile}
+                      />
                       Upload Photo
                     </label>
-                    {this.state.logo ? (
-                      <img className="company-logo" alt="profileImg"src={this.state.logo} />
+                    {this.state.logoId !== '' ? (
+                      <img className="company-logo" alt="profileImg" src={'http://localhost:5000/api/institution/logo/' + this.state.logoId} />
                     ) : (
                         <div></div>
                       )}
@@ -269,7 +290,7 @@ class UserHomePage extends Component {
                     <input type="text" className="form-control" placeholder="8003 River Field ct" value={this.state.address} onChange={addressChange} />
                   </div>
 
-                </form>
+
               </div>
               <div className="change-social section">
                 <h2>Social</h2>
@@ -329,9 +350,10 @@ class UserHomePage extends Component {
               </div>
               <div className="preferences-settings section">
                 <div className="buttons">
-                  <a href="" className="btn" onClick={updateProfile} disabled={!this.nameChanged && !this.emailChanged && !this.mobileChanged && !this.addressChanged && !this.facebookChanged && !this.twitterChanged && !this.googleChanged&& !this.linkedinChanged }>Update Profile</a>
+                  <button onClick={updateProfile} disabled={!this.nameChanged && !this.emailChanged && !this.mobileChanged && !this.addressChanged && !this.facebookChanged && !this.twitterChanged && !this.googleChanged && !this.linkedinChanged && !this.logoChanged  }>Update Profile</button>
                 </div>
               </div>
+              </form>
             </div>
           </div>
         </div>
